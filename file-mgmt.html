@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IGCSE ICT 0417 — Chapter 11: File Management (Prepared by Ravi Raju)</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#071021 0%, #071826 60%);}
+    header{padding:28px 32px;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;gap:20px}
+    h1{margin:0;font-size:20px;letter-spacing:.2px}
+    .byline{font-size:13px;color:var(--muted)}
+    .container{display:grid;grid-template-columns:320px 1fr;gap:24px;padding:24px}
+    nav{background:var(--card);border-radius:12px;padding:16px;height:calc(100vh - 130px);overflow:auto}
+    main{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:18px;height:calc(100vh - 130px);overflow:auto}
+    .search{display:flex;gap:8px;margin-bottom:12px}
+    input[type=text]{flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
+    button.btn{background:var(--accent);color:#042027;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .toc h3{margin:6px 0 12px 0;color:var(--muted);font-size:13px}
+    .toc ul{list-style:none;padding:0;margin:0}
+    .toc li{margin:6px 0}
+    a.tlink{color:#c9f7ff;text-decoration:none;font-size:15px}
+    .card{background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.02)}
+    .collapsible{border-radius:8px;overflow:hidden}
+    .collapsible summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+    .collapsible summary::-webkit-details-marker{display:none}
+    .content{padding:12px 14px;border-top:1px dashed rgba(255,255,255,0.03);font-size:14px;color:var(--muted)}
+    pre{background:#02101a;padding:12px;border-radius:8px;overflow:auto;color:#d2f7ff}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .example{background:linear-gradient(90deg, rgba(6,182,212,0.06), rgba(6,182,212,0.02));padding:10px;border-radius:8px;margin:10px 0}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px;font-size:12px}
+    .file-tree{font-family:monospace;background:#02101a;padding:12px;border-radius:8px;color:#cfeef8}
+    .exam{background:linear-gradient(90deg,#041728,#00121a);padding:12px;border-radius:8px;margin-top:12px}
+    footer{padding:16px;color:var(--muted);font-size:13px}
+    @media (max-width:900px){.container{grid-template-columns:1fr;}.toc{display:flex;overflow:auto}}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;flex-direction:column">
+      <h1>IGCSE ICT 0417 — Chapter 11: File Management</h1>
+      <div class="byline">Prepared by Ravi Raju</div>
+    </div>
+    <div style="margin-left:auto;color:var(--muted);font-size:13px">Exam-ready • Practical-focused • Plenty of worked examples</div>
+  </header>
+
+  <div class="container">
+    <nav>
+      <div class="search">
+        <input id="quickSearch" type="text" placeholder="Search the page (e.g., .csv, backup, compress)" />
+        <button class="btn" onclick="doSearch()">Find</button>
+      </div>
+      <div class="toc card">
+        <h3>Contents</h3>
+        <ul>
+          <li><a class="tlink" href="#manage">11.1 Manage files effectively</a></li>
+          <li><a class="tlink" href="#formats">File formats (characteristics & uses)</a></li>
+          <li><a class="tlink" href="#export">Saving & Exporting (step-by-step)</a></li>
+          <li><a class="tlink" href="#compression">11.2 Reduce file sizes (Compression)</a></li>
+          <li><a class="tlink" href="#practice">Practice tasks & Exam-style questions</a></li>
+          <li><a class="tlink" href="#cheatsheet">Quick reference cheat-sheet</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px 0">Interactive Tools</h3>
+        <div class="actions">
+          <button class="btn" onclick="expandAll(true)">Expand all</button>
+          <button class="btn" onclick="expandAll(false)">Collapse all</button>
+          <button class="btn" onclick="copyCheatsheet()">Copy cheat-sheet</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px 0">Quick tags</h3>
+        <div class="tag">Naming rules</div>
+        <div class="tag">File paths</div>
+        <div class="tag">Export formats</div>
+        <div class="tag">Compression</div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin:0 0 8px 0">Skills checklist (exam)</h3>
+        <ul style="color:var(--muted);font-size:14px">
+          <li>Create folders & subfolders</li>
+          <li>Locate & open different file types</li>
+          <li>Save/export in app & generic formats</li>
+          <li>Compress and decompress files</li>
+          <li>Use meaningful file names and versioning</li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <section id="manage" class="card">
+        <h2>11.1 Manage files effectively</h2>
+        <div class="content">
+          <p>This section teaches the practical skills required by the syllabus: <strong>locate, open, import, save, export, and print</strong> files of different types, and to plan a hierarchical folder structure with appropriate file names. Below you'll find detailed step-by-step guides, exam-focused tips and many worked examples.</p>
+
+          <details class="collapsible" open>
+            <summary>Locate and open files (Windows / macOS / common tips)</summary>
+            <div class="content">
+              <p><strong>Windows:</strong> Use File Explorer (Win + E). Search using the search box and filters (date modified, file type). Use Quick Access and Libraries for frequently used folders.</p>
+              <p><strong>macOS:</strong> Use Finder. Use Spotlight (Cmd + Space) to search by name or content. Use Tags for quick grouping.</p>
+              <p><strong>Common exam tips:</strong> The task may require locating a file by name or extension, or opening it with a specified application. Always show the full file path if asked — e.g., <code>C:\Users\Ravi\Documents\ICT\Report.docx</code>.</p>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Importing files of different types</summary>
+            <div class="content">
+              <p>Importing means bringing outside data into an application. Common imports:</p>
+              <ul>
+                <li>Insert an image into a document (.jpg, .png)</li>
+                <li>Import a CSV into a spreadsheet</li>
+                <li>Open an HTML file in a browser (View in browser / View source)</li>
+                <li>Attach or embed a database report</li>
+              </ul>
+              <p><strong>Example (Spreadsheet):</strong> Data &gt; Get External Data &gt; From Text/CSV &gt; choose delimiter &gt; finish. Save as .xlsx when completed.</p>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Planning a hierarchical directory / folder structure</summary>
+            <div class="content">
+              <p>Good folder structures balance simplicity and specificity. Use a top-level project folder, then subfolders by document type, date, or student.</p>
+              <div class="file-tree">
+<pre>
+ICT_Coursework_2025/
+├─ 01_Topics/
+│  ├─ Unit1_Types.docx
+│  └─ Unit2_Notes.pdf
+├─ Assignments/
+│  ├─ Assignment1/
+│  │   ├─ Draft_Report_v1.docx
+│  │   └─ Final_Report_v2.docx
+│  └─ Assignment2/
+└─ Resources/
+   ├─ Images/
+   └─ Data/
+</pre>
+              </div>
+              <p><strong>Exam tip:</strong> If asked to create folders in a specific way, follow the instruction exactly — spellings, underscores, and capitals matter in auto-marked tasks.</p>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Saving files with appropriate names</summary>
+            <div class="content">
+              <p>Use descriptive names and versioning. A good pattern: <code>Topic_StudentName_Date_Version.ext</code></p>
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li><code>MarketResearch_Ravi_20250917_v1.docx</code></li>
+                <li><code>Sales_Q1_2025_v3.xlsx</code></li>
+                <li><code>Website_homepage_2025-09-17.html</code></li>
+              </ul>
+              <p>Avoid spaces if the exam environment is strict; use underscores or hyphens. Do not use illegal characters like <code>/ \ : * ? " &lt; &gt; |</code>.</p>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Printing and screenshots</summary>
+            <div class="content">
+              <p>Printing tasks may require you to print documents, graphs or reports. Screenshots are often required as evidence. Typical steps:</p>
+              <ol>
+                <li>Arrange content to fit a page (margins, page orientation)</li>
+                <li>File &gt; Print &gt; choose printer or 'Save as PDF'</li>
+                <li>Take screenshots: Windows (PrtScr / Snipping Tool), macOS (Cmd+Shift+4)</li>
+              </ol>
+              <p><strong>Exam tip:</strong> Save screenshots in a separate evidence folder named clearly (e.g., <code>ExamEvidence_Shots</code>) and include the time stamp if required.</p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <section id="formats" class="card">
+        <h2>File formats — characteristics and uses</h2>
+        <div class="content">
+          <p>This section covers both application-specific formats (e.g., <code>.docx</code>, <code>.xlsx</code>, <code>.accdb</code>) and generic formats (<code>.csv</code>, <code>.txt</code>, <code>.pdf</code>, <code>.jpg/.png</code>, <code>.html</code>). Understanding when to use each format and the consequences (size, editability, compatibility) is essential for exams.</p>
+
+          <table>
+            <thead>
+              <tr><th>Extension</th><th>Type / Use</th><th>Characteristics</th><th>When to use (exam examples)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>.docx</td><td>Word document</td><td>Editable, supports images, styles, large file size</td><td>Submit coursework drafts; keep editable copies</td></tr>
+              <tr><td>.doc</td><td>Legacy Word</td><td>Compatible with old systems, fewer features</td><td>When asked for .doc specifically</td></tr>
+              <tr><td>.xlsx</td><td>Spreadsheet</td><td>Editable, formulas, charts</td><td>Data analysis tasks</td></tr>
+              <tr><td>.xls</td><td>Legacy spreadsheet</td><td>Older format, compatibility</td><td>When required by exam environment</td></tr>
+              <tr><td>.pptx / .ppt</td><td>Presentation</td><td>Slides with multimedia; editable</td><td>Presentations, slide export</td></tr>
+              <tr><td>.accdb / .sdb / .sdc / .odb</td><td>Database files</td><td>Holds structured tables, queries and reports</td><td>Database exercises and report export</td></tr>
+              <tr><td>.rtf</td><td>Rich Text Format</td><td>Basic formatting, widely compatible</td><td>When asked to provide a cross-platform editable file</td></tr>
+              <tr><td>.pdf</td><td>Portable Document Format</td><td>Fixed layout, not easily editable, smaller or larger depending on content</td><td>Final submission, preserving layout</td></tr>
+              <tr><td>.csv</td><td>Comma-separated values</td><td>Plain text table, editable in spreadsheets, small file size</td><td>Exporting data for import into different apps</td></tr>
+              <tr><td>.txt</td><td>Plain text</td><td>No formatting, smallest size</td><td>Logs, simple data exchange</td></tr>
+              <tr><td>.html / .htm</td><td>Web page</td><td>Text with markup; viewable in browser or code editor</td><td>Website authoring tasks; show in browser view and HTML view</td></tr>
+              <tr><td>.css</td><td>Stylesheet</td><td>Formatting rules for HTML; plain text</td><td>Website styling; must be exported with HTML</td></tr>
+              <tr><td>.jpg / .jpeg</td><td>Image (lossy)</td><td>Smaller file size, reduced quality on compression</td><td>Photographs on web pages and documents to save space</td></tr>
+              <tr><td>.png</td><td>Image (lossless)</td><td>Supports transparency, larger than JPG for photos</td><td>Logos and images needing clear edges</td></tr>
+              <tr><td>.gif</td><td>Animated image / simple graphics</td><td>Limited colours, small animations supported</td><td>Simple icons or tiny animations (rare in exam tasks)</td></tr>
+              <tr><td>.zip / .rar</td><td>Compressed archive</td><td>Contains multiple files; smaller overall size</td><td>Submit multiple files in a single package</td></tr>
+            </tbody>
+          </table>
+
+          <div class="example">
+            <strong>Why use .csv?</strong> Because .csv is a generic text format for tabular data. If you must transfer raw data between two different software packages (e.g., from a database to a spreadsheet), export as .csv so that the receiving application can import reliably.
+          </div>
+
+        </div>
+      </section>
+
+      <section id="export" class="card">
+        <h2>Saving &amp; Exporting — practical step-by-step</h2>
+        <div class="content">
+          <p>Many exam tasks ask you to save or export in a specific format. Follow these sample procedures exactly (exam environments often check file names and locations).</p>
+
+          <details class="collapsible">
+            <summary>Save a document in different formats (.docx, .rtf, .pdf)</summary>
+            <div class="content">
+              <ol>
+                <li>File &gt; Save As &gt; choose folder &gt; enter file name (follow naming rules).</li>
+                <li>Choose the required format from the dropdown (e.g., Word Document (.docx)).</li>
+                <li>To create a PDF: File &gt; Export &gt; Create PDF/XPS &gt; Save (or Print &gt; Save as PDF).</li>
+                <li>Double-check by opening the saved file: open the .pdf in a PDF viewer to confirm layout.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Export spreadsheet as .csv</summary>
+            <div class="content">
+              <ol>
+                <li>Open the spreadsheet, ensure the sheet you want is active.</li>
+                <li>File &gt; Save As &gt; choose <code>CSV (Comma delimited) (*.csv)</code>.</li>
+                <li>Note: Only the active sheet will be saved in CSV. Formulas are converted to values.</li>
+                <li>Open the CSV in a text editor to confirm comma separation.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Save a web page in browser &amp; HTML view</summary>
+            <div class="content">
+              <ol>
+                <li>Browser view: File &gt; Save Page As &gt; Webpage, Complete &gt; This creates an HTML file plus a resource folder.</li>
+                <li>HTML view: Right-click &gt; View Page Source (or use a code editor). Save the HTML file if required with extension <code>.htm</code> or <code>.html</code>.</li>
+                <li>To submit source code, the examiner may ask for the HTML file — ensure the file shows the correct extension.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Exporting database reports</summary>
+            <div class="content">
+              <p>Database packages often allow report export to PDF, RTF or CSV. Steps (example): Reports &gt; Select report &gt; Export &gt; Choose format (PDF/RTF/CSV) &gt; Save.</p>
+              <p>Check exported report for layout and field truncation. If a report is too wide, change orientation to landscape before exporting.</p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <section id="compression" class="card">
+        <h2>11.2 Reduce file sizes for storage or transmission (Compression)</h2>
+        <div class="content">
+          <p>Compression reduces file sizes so files are easier to store or send. There are two types of compression:</p>
+          <ul>
+            <li><strong>Lossy compression</strong> — reduces size by discarding some data (e.g., JPG for photos, MP3 for audio).</li>
+            <li><strong>Lossless compression</strong> — reduces size without losing data (e.g., ZIP, PNG for images).</li>
+          </ul>
+
+          <details class="collapsible">
+            <summary>How to compress files (.zip / .rar)</summary>
+            <div class="content">
+              <ol>
+                <li>Select files/folders &gt; Right-click &gt; Send to &gt; Compressed (zipped) folder (Windows) or Compress "Folder" (macOS).</li>
+                <li>Use archive utilities (7-Zip, WinRAR) if available to choose compression level and format (.zip or .rar).</li>
+                <li>To open: double-click or use Extract &gt; choose destination.</li>
+              </ol>
+              <p><strong>Exam tip:</strong> If asked to create a .zip containing specific files, include only the requested files and name the archive exactly as instructed (e.g., <code>Submission_Ravi.zip</code>).</p>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>Why compress? (practical reasons)</summary>
+            <div class="content">
+              <ul>
+                <li>Smaller files are faster to upload and download.</li>
+                <li>Some email systems limit attachment size; compression helps to stay within limits.</li>
+                <li>Packaging multiple files into a single archive simplifies submission.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="collapsible">
+            <summary>When compression is NOT appropriate</summary>
+            <div class="content">
+              <ul>
+                <li>Already-compressed formats (e.g., JPEG) may not shrink much further.</li>
+                <li>When the receiving system cannot extract archives — always check exam instructions.</li>
+                <li>For final publishing, PDFs and images may be better left unzipped.</li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <section id="practice" class="card">
+        <h2>Practice Tasks &amp; Exam-style Questions</h2>
+        <div class="content">
+          <p>Below are many practice tasks that mirror the types of activities you will be asked to perform in the IGCSE ICT practical exam.</p>
+
+          <div class="exam">
+            <h3 style="margin:0 0 8px 0">Task A — Folder structure &amp; file naming (5–8 marks)</h3>
+            <ol>
+              <li>Create a folder called <code>IGCSE_ICT_2025</code> and inside it create subfolders <code>Notes</code>, <code>Assignments</code> and <code>Evidence</code>.</li>
+              <li>Save a Word document named <code>Notes_Ravi_20250917.docx</code> into <code>Notes</code>.</li>
+              <li>Export the Word document to PDF and save it in <code>Evidence</code> with the name <code>Notes_Ravi_20250917.pdf</code>.</li>
+            </ol>
+            <p><strong>Mark scheme hints:</strong> Folder names must match exactly, files must be placed in correct subfolders and the exported PDF must open and show the same content.</p>
+          </div>
+
+          <div class="exam" style="margin-top:12px">
+            <h3 style="margin:0 0 8px 0">Task B — Export &amp; CSV (6–10 marks)</h3>
+            <ol>
+              <li>Open the provided spreadsheet and export the active worksheet as <code>students_data.csv</code>.</li>
+              <li>Open <code>students_data.csv</code> in a text editor and copy the first 10 lines into a new text file called <code>sample.txt</code>.</li>
+            </ol>
+            <p><strong>Hints:</strong> Ensure the CSV uses commas as separators. If the spreadsheet contains commas inside cells, export using quotation marks around text fields.</p>
+          </div>
+
+          <div class="exam" style="margin-top:12px">
+            <h3 style="margin:0 0 8px 0">Task C — Compression &amp; naming (4–7 marks)</h3>
+            <ol>
+              <li>Compress the folder <code>Assignment2</code> into <code>Assignment2_Ravi.zip</code>.</li>
+              <li>Open the archive and confirm that <code>FinalReport_v1.docx</code> is present.</li>
+            </ol>
+            <p><strong>Hints:</strong> The zip should contain the folder structure — not separate files flattened unless specified.</p>
+          </div>
+
+          <details class="collapsible" style="margin-top:12px">
+            <summary>Worked example — Exporting a database report to PDF</summary>
+            <div class="content">
+              <p>Steps (example using Access): Open the report &gt; File &gt; Save as &gt; PDF or XPS &gt; Choose file name &gt; Save. Verify the PDF by opening it and checking column headings and page breaks.</p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <section id="cheatsheet" class="card">
+        <h2>Quick Reference Cheat-sheet</h2>
+        <div class="content">
+          <ul>
+            <li><strong>Naming:</strong> <code>Topic_Name_YYYYMMDD_v1.ext</code></li>
+            <li><strong>Common formats:</strong> .docx, .xlsx, .pptx, .pdf, .csv, .jpg, .png, .html, .zip</li>
+            <li><strong>Compress:</strong> Right-click &gt; Send to &gt; Compressed (zipped) folder</li>
+            <li><strong>Save as PDF:</strong> File &gt; Export &gt; Create PDF/XPS</li>
+            <li><strong>CSV notes:</strong> Only active sheet saved; formulas become values</li>
+            <li><strong>HTML submission:</strong> save .html and include any local resource files in same folder</li>
+          </ul>
+
+          <h3>Common file extensions quick table</h3>
+          <table>
+            <thead><tr><th>Ext</th><th>Type</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td>.docx</td><td>Word</td><td>Editable reports</td></tr>
+              <tr><td>.pdf</td><td>Document</td><td>Final submission</td></tr>
+              <tr><td>.csv</td><td>Text table</td><td>Data transfer</td></tr>
+              <tr><td>.zip</td><td>Archive</td><td>Submit multiple files</td></tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top:10px;font-size:13px;color:var(--muted)">Keep this cheat-sheet open during practice. Examiners often award marks for the correct file name and location as much as for content.</div>
+        </div>
+      </section>
+
+      <footer>
+        No footnotes — content built for exam-ready practical preparation.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    function doSearch(){
+      const q = document.getElementById('quickSearch').value.toLowerCase();
+      if(!q) return alert('Type a search term');
+      const items = document.querySelectorAll('main .card, main details');
+      let found=false;
+      items.forEach(it=>{
+        const text = it.innerText.toLowerCase();
+        if(text.includes(q)){
+          it.style.border = '1px solid rgba(6,182,212,0.15)';
+          it.scrollIntoView({behavior:'smooth',block:'center'});
+          found=true;
+        } else {
+          it.style.border='1px solid rgba(255,255,255,0.02)';
+        }
+      });
+      if(!found) alert('No matches found on this page.');
+    }
+    function expandAll(open){
+      const details = document.querySelectorAll('details.collapsible');
+      details.forEach(d=>{ d.open = open; });
+    }
+    function copyCheatsheet(){
+      const cheats = document.querySelector('#cheatsheet .content').innerText;
+      navigator.clipboard.writeText(cheats).then(()=>alert('Cheat-sheet copied to clipboard'))
+      .catch(()=>alert('Clipboard not available'));
+    }
+  </script>
+<div class="nav-back">
+  <a href="index.html">⬅ Back to Index</a>
+</div>
+
+<style>
+  .nav-back {
+    margin: 20px;
+  }
+  .nav-back a {
+    text-decoration: none;
+    background: #2c3e50;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .nav-back a:hover {
+    background: #34495e;
+  }
+</style>
+
+</body>
+</html>
