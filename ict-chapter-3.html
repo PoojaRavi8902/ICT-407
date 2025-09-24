@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IGCSE ICT - Chapter 3 Storage Devices and Media</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafc;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: #004080;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    header h3 {
+      margin: 5px 0 0 0;
+      font-weight: normal;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+    h2, h3, h4 {
+      color: #004080;
+    }
+    details {
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+      transition: 0.3s;
+    }
+    details summary {
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+    }
+    details[open] {
+      border-color: #004080;
+      box-shadow: 0 0 10px rgba(0,64,128,0.2);
+    }
+    ul {
+      margin: 5px 0 10px 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: #fff;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    table th {
+      background: #004080;
+      color: white;
+    }
+    .tip-box {
+      border: 2px dashed #004080;
+      background: #eef5ff;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    .highlight {
+      background: #ffff99;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chapter 3 – Storage Devices and Media</h1>
+    <h3>Prepared by Ravi Raju</h3>
+  </header>
+
+  <div class="container">
+
+    <h2>3.1 Storage Devices vs Storage Media</h2>
+    <p><b>Storage device</b> → The physical hardware used to read from and write to storage media.<br>
+    Example: CD/DVD drive, hard disk drive (HDD), SSD.</p>
+    <p><b>Storage media</b> → The material or medium where data is stored.<br>
+    Example: CD, DVD, Blu-ray disc, magnetic tape, flash memory card.</p>
+    <p>👉 A storage device often requires storage media to function. For example, a DVD drive (device) reads and writes to a DVD disc (media).<br>
+    👉 Some devices are self-contained with built-in media, like an SSD or HDD.</p>
+
+    <h2>3.2 Categories of Storage Technology</h2>
+    <p>There are three main storage technologies:</p>
+
+    <details>
+      <summary>A. Magnetic Storage</summary>
+      <p><b>Examples:</b> Hard disk drives (fixed & portable), magnetic tape.</p>
+      <p><b>How it works:</b> Data is stored by magnetising tiny spots on a metal or glass disk surface. A read/write head hovers above the spinning disk to read or change these spots.</p>
+
+      <h3>Magnetic Hard Disk Drives (HDDs)</h3>
+      <ul>
+        <li><b>Fixed HDDs:</b> Built inside desktop/laptop</li>
+        <li><b>Portable HDDs:</b> External drives, connected via USB/Thunderbolt</li>
+      </ul>
+      <h4>Characteristics:</h4>
+      <ul>
+        <li>Large storage capacity (terabytes common).</li>
+        <li>Cheaper per gigabyte compared to SSD.</li>
+        <li>Slower than SSDs (mechanical moving parts).</li>
+        <li>Prone to damage if dropped (fragile).</li>
+      </ul>
+      <h4>Uses:</h4>
+      <ul>
+        <li>Storing operating systems, applications, personal files.</li>
+        <li>Backups (external HDDs).</li>
+        <li>Cloud servers (bulk data).</li>
+      </ul>
+      <h4>Advantages:</h4>
+      <ul>
+        <li>Very high capacity.</li>
+        <li>Cost-effective for large storage.</li>
+        <li>Can be used many times (re-writable).</li>
+      </ul>
+      <h4>Disadvantages:</h4>
+      <ul>
+        <li>Slower access speed compared to SSD.</li>
+        <li>Mechanical parts → wear & tear, risk of damage.</li>
+        <li>Heavier and less portable than SSDs.</li>
+      </ul>
+
+      <h3>Magnetic Tape</h3>
+      <p>Stored on reels or cartridges.<br>
+      Sequential access (must go through tape in order).</p>
+      <h4>Characteristics:</h4>
+      <ul>
+        <li>Very high capacity (used in terabytes).</li>
+        <li>Very slow access time (not random access).</li>
+        <li>Long-lasting, reliable if stored correctly.</li>
+      </ul>
+      <h4>Uses:</h4>
+      <ul>
+        <li>Backup and archiving (banks, governments, large companies).</li>
+        <li>Not for everyday use by individuals.</li>
+      </ul>
+      <h4>Advantages:</h4>
+      <ul>
+        <li>Cheapest per gigabyte (for bulk storage).</li>
+        <li>Durable and long-lasting.</li>
+        <li>Good for archiving rarely accessed data.</li>
+      </ul>
+      <h4>Disadvantages:</h4>
+      <ul>
+        <li>Very slow to access.</li>
+        <li>Requires tape drive (expensive).</li>
+        <li>Not practical for small-scale storage.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>B. Optical Storage</summary>
+      <p><b>Examples:</b> CD, DVD, Blu-ray.</p>
+      <p><b>How it works:</b> Uses lasers to read/write pits and lands on the surface of a disc.</p>
+
+      <h3>CD (Compact Disc)</h3>
+      <ul>
+        <li><b>Capacity:</b> ~700 MB.</li>
+        <li><b>Types:</b> CD-ROM (read-only), CD-R (recordable once), CD-RW (rewritable).</li>
+      </ul>
+      <p><b>Uses:</b> Music, software distribution, small data storage.</p>
+
+      <h3>DVD (Digital Versatile Disc)</h3>
+      <ul>
+        <li><b>Capacity:</b> 4.7 GB (single-layer), 8.5 GB (dual-layer).</li>
+        <li><b>Types:</b> DVD-ROM, DVD-R, DVD-RW.</li>
+      </ul>
+      <p><b>Uses:</b> Movies, games, software, data backup.</p>
+
+      <h3>Blu-ray Disc</h3>
+      <ul>
+        <li><b>Capacity:</b> 25 GB (single-layer), 50 GB (dual-layer).</li>
+        <li>Uses a <b>blue laser</b> (shorter wavelength → more data storage).</li>
+      </ul>
+      <p><b>Uses:</b> High-definition movies, large games, data storage.</p>
+
+      <h4>Characteristics (all optical):</h4>
+      <ul>
+        <li>Portable, lightweight.</li>
+        <li>Susceptible to scratches/damage.</li>
+        <li>Slower access compared to HDD/SSD.</li>
+      </ul>
+      <h4>Advantages:</h4>
+      <ul>
+        <li>Cheap, portable.</li>
+        <li>Easy to distribute media (music, films, software).</li>
+        <li>Some are rewritable.</li>
+      </ul>
+      <h4>Disadvantages:</h4>
+      <ul>
+        <li>Lower capacity compared to modern HDD/SSD.</li>
+        <li>Requires optical drive.</li>
+        <li>Becoming obsolete (USB & online distribution replacing them).</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>C. Solid-State Storage</summary>
+      <p><b>Examples:</b> SSD, pen drives, flash drives, memory cards.</p>
+      <p><b>How it works:</b> Uses flash memory chips (no moving parts). Data stored as electrical charges in transistors.</p>
+
+      <h3>Solid-State Drives (SSD)</h3>
+      <ul>
+        <li><b>Fixed SSD:</b> Built into laptops and desktops.</li>
+        <li><b>Portable SSD:</b> External drives connected via USB.</li>
+      </ul>
+      <h4>Characteristics:</h4>
+      <ul>
+        <li>Very fast access speeds (boots OS in seconds).</li>
+        <li>More expensive per GB than HDDs.</li>
+        <li>Lightweight, durable (no moving parts).</li>
+      </ul>
+      <h4>Uses:</h4>
+      <ul>
+        <li>Operating systems.</li>
+        <li>Gaming laptops and ultrabooks.</li>
+        <li>Portable high-speed storage.</li>
+      </ul>
+      <h4>Advantages:</h4>
+      <ul>
+        <li>Very fast read/write.</li>
+        <li>Silent, shock-resistant.</li>
+        <li>Lightweight and compact.</li>
+      </ul>
+      <h4>Disadvantages:</h4>
+      <ul>
+        <li>More expensive.</li>
+        <li>Lower maximum storage compared to HDDs.</li>
+      </ul>
+
+      <h3>Flash Drives / Pen Drives</h3>
+      <ul>
+        <li>Portable USB sticks.</li>
+        <li><b>Capacity:</b> 2 GB – 1 TB.</li>
+      </ul>
+      <p><b>Uses:</b> File transfer, backup, carrying work.</p>
+
+      <h3>Memory Cards</h3>
+      <ul>
+        <li><b>Types:</b> SD card, microSD, xD, CFast.</li>
+        <li><b>Capacity:</b> Ranges from MB to hundreds of GB.</li>
+      </ul>
+      <p><b>Uses:</b> Digital cameras, smartphones, tablets, drones, games consoles.</p>
+
+      <h4>Advantages (all solid-state media):</h4>
+      <ul>
+        <li>Highly portable.</li>
+        <li>Fast access.</li>
+        <li>Durable.</li>
+      </ul>
+      <h4>Disadvantages:</h4>
+      <ul>
+        <li>Higher cost per GB.</li>
+        <li>Smaller (easier to lose).</li>
+        <li>Limited read/write cycles (eventually wear out).</li>
+      </ul>
+    </details>
+
+    <h2>3.3 Summary Table – Storage Types</h2>
+    <table>
+      <tr>
+        <th>Storage Type</th>
+        <th>Examples</th>
+        <th>Capacity</th>
+        <th>Access</th>
+        <th>Advantages</th>
+        <th>Disadvantages</th>
+        <th>Typical Uses</th>
+      </tr>
+      <tr>
+        <td>Magnetic</td>
+        <td>HDD, Tape</td>
+        <td>TBs</td>
+        <td>Direct (HDD) / Sequential (Tape)</td>
+        <td>Cheap per GB, high capacity</td>
+        <td>Fragile, slower, heavy</td>
+        <td>Backups, servers</td>
+      </tr>
+      <tr>
+        <td>Optical</td>
+        <td>CD, DVD, Blu-ray</td>
+        <td>MB–GBs</td>
+        <td>Direct</td>
+        <td>Cheap, portable</td>
+        <td>Low capacity, easily damaged, becoming obsolete</td>
+        <td>Media distribution</td>
+      </tr>
+      <tr>
+        <td>Solid-State</td>
+        <td>SSD, Flash drive, Memory cards</td>
+        <td>GB–TBs</td>
+        <td>Direct</td>
+        <td>Very fast, durable, portable</td>
+        <td>Expensive per GB, smaller storage than HDD</td>
+        <td>Laptops, smartphones, file transfer</td>
+      </tr>
+    </table>
+
+    <h2>3.4 Exam Tips</h2>
+    <div class="tip-box">
+      <p>Be ready to <b>compare storage types</b> in terms of speed, cost, durability, portability, and capacity.</p>
+      <p><b>Expect questions like:</b></p>
+      <ul>
+        <li>“State two advantages of SSDs over HDDs.”</li>
+        <li>“Explain why magnetic tape is not suitable for everyday file access.”</li>
+        <li>“Give one advantage and one disadvantage of optical discs.”</li>
+      </ul>
+      <p>Always <b>link uses to characteristics</b> in answers. Example:<br>
+      <span class="highlight">“Magnetic tape is suitable for archiving because it has a very high capacity and is cheap, even though it is slow.”</span></p>
+    </div>
+
+  </div>
+<footer style="margin-top:40px; text-align:center; font-style:italic; color:gray;">
+    Prepared by Ravi Raju
+  </footer>
+
+</body>
+</html>
