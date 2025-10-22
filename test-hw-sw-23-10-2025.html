@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test on Hardware and Software | IGCSE ICT</title>
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    background: #f7fafc;
+    color: #222;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  h1 {
+    text-align: center;
+    color: #0056b3;
+  }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+  }
+  button {
+    background: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  textarea {
+    height: 80px;
+  }
+  .hidden { display: none; }
+  .question { margin-bottom: 20px; }
+  .score {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    color: green;
+  }
+  hr { border: 0; border-top: 1px solid #ddd; margin: 25px 0; }
+</style>
+</head>
+<body>
+
+<h1>Test on Hardware and Software</h1>
+
+<div class="card" id="nameCard">
+  <label><strong>Enter your full name to begin the test:</strong></label><br>
+  <input type="text" id="studentName" placeholder="e.g., John Smith">
+  <br><br>
+  <button id="startBtn" onclick="startTest()">Start Test</button>
+</div>
+
+<form id="testForm" class="card hidden">
+  <h2 id="studentHeader"></h2>
+  <hr>
+
+  <h3>Section A — Multiple Choice (1 mark each)</h3>
+  <div id="mcqSection"></div>
+
+  <h3>Section B — Short Answer (2 marks each)</h3>
+  <div id="shortSection"></div>
+
+  <h3>Section C — Long Answer (5 marks each)</h3>
+  <div id="longSection"></div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <button id="submitBtn" type="button" onclick="submitTest()" disabled>SUBMIT</button>
+  </div>
+
+  <div id="result" class="score"></div>
+</form>
+
+<script>
+const mcqs = [
+  {q:"Which device is used to enter text into a computer?", options:["Keyboard","Monitor","Printer","Speaker"], answer:"Keyboard"},
+  {q:"Which device controls the pointer on screen?", options:["Mouse","Microphone","Scanner","Speaker"], answer:"Mouse"},
+  {q:"Which input device reads marks on exam sheets?", options:["OMR","OCR","RFID","Touchscreen"], answer:"OMR"},
+  {q:"Which input device converts printed text into editable text?", options:["OMR","OCR","Barcode Reader","Smart Card Reader"], answer:"OCR"},
+  {q:"Which technology helps to identify products in supermarkets?", options:["Barcode","Keyboard","Joystick","Scanner"], answer:"Barcode"},
+  {q:"Which device uses radio waves to identify items?", options:["Barcode Reader","RFID","Scanner","Keyboard"], answer:"RFID"},
+  {q:"Which computer is used by banks for large data processing?", options:["Mainframe","Laptop","Tablet","Smartphone"], answer:"Mainframe"},
+  {q:"Which device allows you to draw using a stylus?", options:["Graphics Tablet","Mouse","Scanner","Touchpad"], answer:"Graphics Tablet"},
+  {q:"Which technology helps people see in the dark?", options:["Night Vision","CAT","Holography","Virtual Reality"], answer:"Night Vision"},
+  {q:"Which device both displays and accepts touch input?", options:["Touch Screen","Monitor","Keyboard","Printer"], answer:"Touch Screen"},
+  
+  // Software basics
+  {q:"Which software controls and manages computer hardware?", options:["System Software","Application Software","Utility Software","Game Software"], answer:"System Software"},
+  {q:"Which software allows users to perform specific tasks?", options:["Application Software","System Software","Utility Software","Compiler"], answer:"Application Software"},
+  {q:"Which program helps to write and test code?", options:["IDE","Word Processor","Spreadsheet","Browser"], answer:"IDE"},
+  {q:"Which software removes unwanted files from the computer?", options:["Disk Cleanup","Compiler","Spreadsheet","Operating System"], answer:"Disk Cleanup"},
+  {q:"Which software detects and removes viruses?", options:["Antivirus","Compiler","Spreadsheet","Browser"], answer:"Antivirus"},
+  {q:"Which part of the OS provides interaction with users?", options:["User Interface","Compiler","Utility","Database"], answer:"User Interface"},
+  {q:"Which software translates high-level code to machine code?", options:["Compiler","Text Editor","Utility","Browser"], answer:"Compiler"},
+  {q:"Which software compresses large files?", options:["Zip Utility","Browser","Operating System","Spreadsheet"], answer:"Zip Utility"},
+  {q:"Which example belongs to system software?", options:["Device Driver","Spreadsheet","Word Processor","Browser"], answer:"Device Driver"},
+  {q:"Which example is a utility software?", options:["Antivirus","MS Word","MS Excel","PowerPoint"], answer:"Antivirus"},
+  
+  // Mix questions
+  {q:"AI Biometrics mainly improves:", options:["Face and fingerprint recognition","3D printing","Sound quality","Storage capacity"], answer:"Face and fingerprint recognition"},
+  {q:"Robotics is commonly used in:", options:["Manufacturing","Typing","Emailing","Browsing"], answer:"Manufacturing"},
+  {q:"Quantum cryptography is used to:", options:["Secure data","Print data","Compress files","Translate text"], answer:"Secure data"},
+  {q:"CAT software is used for:", options:["Language translation","Drawing","Printing","Video editing"], answer:"Language translation"},
+  {q:"Virtual Reality is mainly used in:", options:["Training and Games","Spreadsheets","Printing","File management"], answer:"Training and Games"},
+  {q:"Which device uses light reflection to detect answers?", options:["OMR","OCR","Scanner","RFID"], answer:"OMR"},
+  {q:"Which software type ensures smooth running of hardware?", options:["System Software","Application Software","Utility","Compiler"], answer:"System Software"},
+  {q:"Which technology helps translate documents more accurately?", options:["CAT","VR","AI","OCR"], answer:"CAT"},
+  {q:"Which software allows program testing with a debugger?", options:["IDE","Word Processor","Spreadsheet","OS"], answer:"IDE"},
+  {q:"Which device stores data on a magnetic stripe?", options:["Bank Card","Barcode","Scanner","Mouse"], answer:"Bank Card"}
+];
+
+const shortQs = [
+  {q:"State one example of a manual input device and one direct data entry device.", keys:["keyboard","omr","ocr","barcode"]},
+  {q:"State two uses of Virtual Reality.", keys:["training","gaming","education","simulation"]},
+  {q:"What is the function of system software?", keys:["manage","hardware","resources","interface"]},
+  {q:"Give two examples of utility software.", keys:["antivirus","disk","cleanup","zip","compression"]},
+  {q:"What is an IDE used for?", keys:["write","test","debug","program"]},
+];
+
+const longQs = [
+  {q:"Explain how RFID works and describe two uses of RFID in daily life.", keys:["radio","waves","tags","identify","tracking","inventory","contactless"]},
+  {q:"Describe the difference between application and system software with one example of each.", keys:["application","task","system","hardware","example","os","word","excel"]},
+];
+
+// ========== START TEST ==========
+function startTest() {
+  const name = document.getElementById("studentName").value.trim();
+  if (!name) { alert("Please enter your name."); return; }
+  document.getElementById("nameCard").classList.add("hidden");
+  document.getElementById("testForm").classList.remove("hidden");
+  document.getElementById("studentHeader").innerHTML = `<strong>Student Name:</strong> ${name}`;
+  loadQuestions();
+}
+
+// ========== LOAD QUESTIONS ==========
+function loadQuestions() {
+  const mcqSection = document.getElementById("mcqSection");
+  mcqs.forEach((item,i)=>{
+    const div = document.createElement("div");
+    div.classList.add("question");
+    div.innerHTML = `<b>Q${i+1}.</b> ${item.q}<br>` +
+      item.options.map(opt=>`<label><input type="radio" name="mcq${i}" value="${opt}" onchange="checkCompletion()"> ${opt}</label><br>`).join("");
+    mcqSection.appendChild(div);
+  });
+  const shortSection = document.getElementById("shortSection");
+  shortQs.forEach((item,i)=>{
+    shortSection.innerHTML += `<div class="question"><b>Q${i+1}.</b> ${item.q}<br><textarea name="short${i}" oninput="checkCompletion()"></textarea></div>`;
+  });
+  const longSection = document.getElementById("longSection");
+  longQs.forEach((item,i)=>{
+    longSection.innerHTML += `<div class="question"><b>Q${i+1}.</b> ${item.q}<br><textarea name="long${i}" oninput="checkCompletion()"></textarea></div>`;
+  });
+}
+
+// ========== CHECK COMPLETION ==========
+function checkCompletion() {
+  const totalMcq = mcqs.length;
+  let allMcq = true;
+  for (let i=0;i<totalMcq;i++) {
+    if (!document.querySelector(`input[name='mcq${i}']:checked`)) { allMcq=false; break; }
+  }
+  const allText = [...document.querySelectorAll("textarea")].every(t=>t.value.trim()!=="");
+  document.getElementById("submitBtn").disabled = !(allMcq && allText);
+}
+
+// ========== SUBMIT TEST ==========
+function submitTest() {
+  let score = 0;
+  // MCQ check
+  mcqs.forEach((item,i)=>{
+    const selected = document.querySelector(`input[name='mcq${i}']:checked`);
+    if (selected && selected.value === item.answer) score++;
+  });
+  // Short answers keyword check
+  shortQs.forEach((item,i)=>{
+    const ans = document.querySelector(`textarea[name='short${i}']`).value.toLowerCase();
+    let keyCount = item.keys.filter(k=>ans.includes(k)).length;
+    if (keyCount>=2) score+=2;
+    else if (keyCount===1) score+=1;
+  });
+  // Long answers keyword check
+  longQs.forEach((item,i)=>{
+    const ans = document.querySelector(`textarea[name='long${i}']`).value.toLowerCase();
+    let keyCount = item.keys.filter(k=>ans.includes(k)).length;
+    if (keyCount>=5) score+=5;
+    else if (keyCount>=3) score+=3;
+    else if (keyCount>=1) score+=1;
+  });
+
+  const totalMarks = 30 + (shortQs.length*2) + (longQs.length*5);
+  document.getElementById("result").innerHTML = `Total Score: ${score} / ${totalMarks}`;
+  window.print(); // convert to PDF
+}
+</script>
+</body>
+</html>
