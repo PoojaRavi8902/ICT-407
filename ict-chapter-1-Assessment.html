@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Assessment — Chapter 11: File Management</title>
+  <style>
+    :root{--bg:#0b1220;--card:#071026;--muted:#9aa8bf;--accent:#60a5fa;--accent2:#7c3aed;--text:#e6eef8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#04102a);color:var(--text);padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021022}
+    h1{margin:0;font-size:20px}
+    .meta{color:var(--muted);font-size:13px}
+    .controls{margin-left:auto;display:flex;gap:8px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;margin-top:18px;box-shadow:0 10px 40px rgba(2,6,23,0.6)}
+    h2{margin:0 0 8px 0}
+    .section-head{display:flex;align-items:center;gap:12px}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    .panel{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px}
+    .question{margin-bottom:12px;padding:10px;border-radius:8px;background:rgba(255,255,255,0.01)}
+    .options{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+    label.option{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    label.option.correct{border-color:rgba(52,211,153,0.2);background:rgba(52,211,153,0.06)}
+    label.option.wrong{border-color:rgba(251,113,133,0.12);background:rgba(251,113,133,0.03)}
+    input[type="text"], textarea{width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+    textarea{min-height:100px}
+    .result{margin-top:10px;padding:10px;border-radius:8px}
+    .green{background:rgba(52,211,153,0.08);border-left:4px solid #34d399;color:#bfffe9}
+    .red{background:rgba(251,113,133,0.06);border-left:4px solid #fb7185;color:#ffdbe0}
+    .small{font-size:13px;color:var(--muted)}
+    .muted{color:var(--muted)}
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02)}
+    .answer-block{margin-top:8px;padding:10px;border-radius:8px;background:rgba(0,0,0,0.2);display:none}
+    .reveal{display:block}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.controls{display:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">FM</div>
+      <div>
+        <h1>Assessment — Chapter 11: File Management</h1>
+        <div class="meta">Prepared by Ravi Raju • Interactive assessment (randomized)</div>
+      </div>
+      <div class="controls">
+        <button id="reshuffleAll">Reshuffle (new random)</button>
+        <button id="printPage">Print</button>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="grid">
+        <div>
+          <!-- MCQs Section -->
+          <section id="mcqSection" class="panel">
+            <div class="section-head"><h2>Multiple Choice Questions (15)</h2><div class="badge small">Auto-grade on submit</div></div>
+            <div id="mcqContainer"></div>
+            <div class="actions">
+              <button id="submitMcq">Submit MCQs</button>
+              <button id="resetMcq">Reset MCQs</button>
+              <div id="mcqScore" class="muted" style="align-self:center"></div>
+            </div>
+          </section>
+
+          <!-- Short Answer Section -->
+          <section id="shortSection" class="panel" style="margin-top:14px">
+            <div class="section-head"><h2>Short Answer Questions (15)</h2><div class="badge small">Reveal model answers on submit</div></div>
+            <div id="shortContainer"></div>
+            <div class="actions">
+              <button id="submitShort">Submit Short Answers</button>
+              <button id="resetShort">Reset Short Answers</button>
+            </div>
+          </section>
+
+          <!-- Exam Style Section -->
+          <section id="examSection" class="panel" style="margin-top:14px">
+            <div class="section-head"><h2>Exam-style Questions (10)</h2><div class="badge small">Show marking points on submit</div></div>
+            <div id="examContainer"></div>
+            <div class="actions">
+              <button id="submitExam">Submit Exam Questions</button>
+              <button id="resetExam">Reset Exam Answers</button>
+            </div>
+          </section>
+        </div>
+
+        <aside>
+          <div class="panel">
+            <h3>Instructions</h3>
+            <ol class="small">
+              <li>Questions are randomized on page load. Click <strong>Reshuffle</strong> to get a new set.</li>
+              <li>Answer all questions in each section then click its <strong>Submit</strong> button to reveal answers.</li>
+              <li>MCQs will be auto-graded and highlighted green/red.</li>
+              <li>Short and Exam sections will reveal suggested answers and marking points—use these to self-mark.</li>
+            </ol>
+            <div style="margin-top:12px">
+              <button id="showKey" title="Reveal all answers (teacher)" style="width:100%">Reveal All Answers</button>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:12px">
+            <h3>Quick tips</h3>
+            <ul class="small">
+              <li>Save your work before submitting (copy text if needed).</li>
+              <li>For Short/Exam answers — type clear bullet points to match marking points.</li>
+              <li>Use the <em>Reset</em> buttons to try again with the same questions.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer></footer>
+  </div>
+
+  <script>
+    // Utility: shuffle array (Fisher-Yates)
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+
+    /************* Question Pools (based on Chapter 11 content) *************/
+    const mcqPool = [
+      {q: 'Which file extension is most appropriate for a spreadsheet?', opts:['.docx','.xlsx','.jpg','.html'], a:1, exp:'Excel files commonly use .xlsx (or .xls).'},
+      {q: 'Which format is best for preserving document layout when sharing?', opts:['.txt','.pdf','.csv','.rtf'], a:1, exp:'.pdf preserves layout across platforms.'},
+      {q: 'Which of these is a lossless image format?', opts:['.jpg','.png','.mp3','.mp4'], a:1, exp:'.png is lossless and supports transparency.'},
+      {q: 'What does .csv stand for?', opts:['Comma Separated Values','Computer Saved Values','Common Spreadsheet Version','Compressed Save File'], a:0, exp:'CSV = Comma Separated Values, plain text tables.'},
+      {q: 'Which archive format usually provides the best native compatibility on Windows?', opts:['.zip','.rar','.7z','.tar'], a:0, exp:'.zip is natively supported on Windows.'},
+      {q: 'Which is a generic file format used for plain text?', opts:['.docx','.xlsx','.txt','.sdb'], a:2, exp:'.txt is plain text with no formatting.'},
+      {q: 'Which format is best for editable word processing on different suites?', opts:['.docx','.pdf','.jpg','.png'], a:0, exp:'.docx is standard for Word; .odt is for LibreOffice.'},
+      {q: 'Which compression type is lossy?', opts:['ZIP of text files','JPG for images','PNG image compression','ZIP of documents'], a:1, exp:'.jpg is lossy image compression.'},
+      {q: 'Why use generic formats like .csv or .pdf?', opts:['To lock files','To ensure compatibility across systems','To add DRM','To reduce content'], a:1, exp:'Generic formats increase compatibility and prevent vendor lock-in.'},
+      {q: 'Which file extension is for web stylesheets?', opts:['.css','.js','.html','.php'], a:0, exp:'.css contains stylesheet rules for webpages.'},
+      {q: 'Which is appropriate when exporting a database report to share with non-database users?', opts:['.accdb','.odb','.pdf','.sdc'], a:2, exp:'.pdf is ideal for sharing reports as read-only documents.'},
+      {q: 'A good filename for student John Doe’s assignment should include?', opts:['Random numbers','FirstnameLastname','Meaning, version or date, and name','Special characters like / and ?'], a:2, exp:'Use descriptive names with version or date.'},
+      {q: 'Which of these cannot be opened by a web browser directly?', opts:['.html','.htm','.jpg','.sdb'], a:3, exp:'.sdb is a database file not for direct browser view.'},
+      {q: 'What is the main benefit of compressing files?', opts:['Increase file quality','Reduce storage/transmission size','Change file format','Encrypt data'], a:1, exp:'Compression reduces size for storage and transfer.'},
+      {q: 'Which file format should be used for transparent logos?', opts:['.jpg','.png','.txt','.rtf'], a:1, exp:'.png supports transparency.'},
+      {q: 'If a teacher wants students to submit editable work, which format should they request?', opts:['.pdf','.jpg','.docx','.png'], a:2, exp:'.docx allows editing; .pdf is read-only typically.'},
+      {q: 'What does lossless compression guarantee?', opts:['Some data loss','No data loss','Better image quality than original','Encrypted archive'], a:1, exp:'Lossless compression preserves the original data exactly.'},
+      {q: 'Which format is text with simple formatting and high compatibility?', opts:['.docx','.rtf','.xlsx','.png'], a:1, exp:'.rtf is rich text format supported broadly.'},
+      {q: 'Which of the following is a recommended place to store working files?', opts:['Downloads folder','Desktop root','Documents or cloud storage','System32'], a:2, exp:'Documents or cloud ensures safety and backup.'},
+      {q: 'What is a hierarchical directory?', opts:['A single folder','A flat list','A tree-like folder structure with subfolders','A compressed archive'], a:2, exp:'Hierarchy organizes folders and subfolders in tree form.'},
+      {q: 'Which file extension indicates a Microsoft Access database?', opts:['.accdb','.odb','.sql','.dbx'], a:0, exp:'.accdb is Access; .odb is OpenOffice Base.'},
+      {q: 'When exporting a spreadsheet for data exchange, use:', opts:['.docx','.csv','.jpg','.pdf'], a:1, exp:'.csv is best for exchanging raw data tables.'}
+    ];
+
+    const shortPool = [
+      {q:'Explain why you should include version numbers or dates in filenames.', a:'So you can track revisions, avoid confusion, and restore previous versions if needed. Eg: Assignment_v2_2025-09-22.docx.'},
+      {q:'Give two reasons to export a document as PDF before distribution.', a:'Preserves layout/formatting across platforms; prevents accidental editing.'},
+      {q:'Describe when you would use .csv instead of .xlsx.', a:'.csv for exchanging raw data across systems and tools without formulas; .xlsx when you need formulas/formatting.'},
+      {q:'State two advantages of using a hierarchical folder structure.', a:'Easier navigation/searching and reduced duplication; logical grouping of related files.'},
+      {q:'What is the difference between opening a file and importing a file?', a:'Opening means loading the file for viewing/editing; importing brings data into another application or project (e.g., CSV imported into Excel).'},
+      {q:'List three generic file formats useful for sharing.', a:'.pdf, .csv, .txt (also .jpg/.png for images).'},
+      {q:'Why might a teacher ask for supporting data in .csv format?', a:'Because .csv is plain text and easily opened/imported into spreadsheets and databases for marking or analysis.'},
+      {q:'Explain why .zip is commonly used to send multiple files.', a:'It bundles many files into one and applies lossless compression to reduce size, simplifying transfer and download.'},
+      {q:'How do .jpg and .png differ in common use?', a:'.jpg is lossy and good for photos; .png is lossless and supports transparency (better for logos/diagrams).'},
+      {q:'What precautions should you take when naming files for an exam submission?', a:'Avoid special characters, include name and version/date, follow teacher’s naming convention to avoid confusion.'},
+      {q:'Explain why vendor-specific formats can be a problem in the long term.', a:'They may cause vendor lock-in where future software cannot open files; generic formats improve longevity.'},
+      {q:'Give an example of importing a file into a different application.', a:'Import data.csv into Excel using Data → From Text/CSV, then choose delimiter and load.'},
+      {q:'What are two reasons to keep backups in cloud storage?', a:'Protects against local hardware failure and enables access from multiple devices.'},
+      {q:'Explain the term "lossless compression" with an example.', a:'Compression that preserves original data exactly, e.g., zipping a text file or PNG images.'},
+      {q:'Name a file format you would use to publish a webpage and one for stylesheet.', a:'Webpage: .html/.htm; Stylesheet: .css'}
+    ];
+
+    const examPool = [
+      {q:'Discuss the benefits and drawbacks of saving coursework in .docx vs .pdf. (6 marks)', pts:['Editable (docx) – allows teacher comments; PDF preserves layout','Docx may change on different software versions','PDF is read-only but ensures consistent formatting','Docx keeps track changes/metadata; PDFs reduce accidental edits','Recommend using docx for drafts and PDF for final submission','Mention compatibility and include example workflows']},
+      {q:'A student needs to submit 120 high-resolution photographs. Explain a workflow to prepare and send these efficiently. (8 marks)', pts:['Resize images to web-resolution to reduce size','Convert to .jpg with medium quality for photos','Organize into folders with clear names','Compress into a single .zip archive','Upload to cloud and share link or send zip by other means','Explain trade-off between quality and size','Discuss alternative: share via cloud album or transfer service','Mention backing up originals before resizing']},
+      {q:'Compare .csv and .xlsx for storing tabular data. Which would you choose for long-term archival and why? (6 marks)', pts:['CSV is plain text and more future-proof','XLSX stores formulas/formatting – good for active work','For archival, CSV is preferable due to portability','XLSX better when spreadsheet features must be preserved','Give example: dataset export for research','Mention that CSV lacks metadata like encoding concerns']},
+      {q:'Explain how you would teach students to create a clear folder hierarchy for a school year. Include an example and marking criteria. (8 marks)', pts:['Describe top-level folder (School_Work)','Subfolders by subject and year','Naming conventions and limits on nesting','Include examples with assignments and versions','Mark for clarity, consistency, and ease of navigation','Assess whether student includes backup and sync instructions','Consider rules for submission folders']},
+      {q:'A teacher complains that students submit files with names like "doc1_final(1).docx". Draft a short guide (bullet points) to students explaining good naming practices. (6 marks)', pts:['Use descriptive title, include name and version/date','Avoid special characters and spaces','Use underscores/hyphens','Keep names concise but informative','Include example good and bad filenames','Explain why this matters for marking and record-keeping']},
+      {q:'Describe the steps to export a database report to a format teachers can distribute to parents. (6 marks)', pts:['Open database application; go to Reports','Choose Export → select format (PDF recommended)','Configure page/layout settings','Export and verify PDF layout','Save copy in folder structure and upload/send to recipients','Test opening on another device']},
+      {q:'Explain compression methods and when to use ZIP vs JPG compression. (6 marks)', pts:['ZIP is lossless and for bundling files','JPG is lossy for photos reducing visual quality','Use ZIP for documents and mixed files','Use JPG compression to reduce photo sizes for web/email','Discuss pros/cons and examples of when each is appropriate','Mention tools like 7-Zip, WinRAR']},
+      {q:'Design a short in-class exercise to teach students about file formats and exporting (include expected outcomes). (6 marks)', pts:['Activity: Convert a .docx to .pdf, export table to .csv and image to .png','Expected outcomes: students demonstrate export steps','Assessment: check files and naming conventions','Time estimate, resources needed','Marking: give points for correct steps and file integrity','Include notes for differentiation']},
+      {q:'A student wants to ensure their project can be opened in both LibreOffice and MS Office. What steps and formats would you recommend? (6 marks)', pts:['Save working copy in .docx/.xlsx for MS Office','Also save/export to .odt/.ods for LibreOffice or to .pdf for distribution','Avoid features exclusive to one suite or provide compatibility notes','Test files in both applications before submission','Include suggestions for macros (avoid them) and fonts']},
+      {q:'Explain the importance of backups and list three backup strategies suitable for students. (6 marks)', pts:['Importance: protect against data loss, corruption, theft','Strategies: Local external drive backups, Cloud backup (Google Drive/OneDrive), Version control or periodic zip archives','Discuss frequency and retention','Include example workflow and pros/cons for each']},
+      {q:'Describe how to optimise images for a school website without losing clarity. (6 marks)', pts:['Resize to required dimensions','Use PNG for diagrams and JPG for photos with reasonable quality','Compress images using tools but keep originals','Use sprites or lazy loading on the site','Test on mobile and desktop','Discuss balance between clarity and load time']},
+      {q:'Explain what vendor lock-in is and how generic formats reduce this risk. (6 marks)', pts:['Vendor lock-in: dependence on proprietary formats/software','Generic formats (PDF, CSV, TXT) can be opened in many apps','Explain long-term access and migration ease','Provide examples where vendor lock-in caused issues','Recommend strategies to avoid lock-in']},
+      {q:'A student accidentally uploaded sensitive data. Describe immediate steps the teacher and student should take. (6 marks)', pts:['Remove access and links immediately','Inform relevant authorities (school IT/admin)','Change passwords if necessary','Restore from backup if needed and assess impact','Educate about data handling and redaction before sharing','Document the incident and update procedures']},
+      {q:'Explain how to use archive (zip) passwords and their limitations in protecting data. (6 marks)', pts:['Password protects archive via encryption in some tools','Not all zip password methods are strong; some are vulnerable','Recommend using full-disk or cloud encryption for sensitive data','Always keep a secure password and key management','Mention that password-protection may not be allowed in some LMS workflows']},
+      {q:'Discuss how a teacher can distribute large resources to students (e.g., video files) and justify the chosen method. (8 marks)', pts:['Methods: Cloud storage with shared links, LMS upload, physical USB drives, streaming platforms','Discuss bandwidth, student access, and security','Recommend cloud links with access control or streaming','Explain trade-offs and cost considerations','Provide steps to prepare files and fallback options']}
+    ];
+
+    /************* Select randomized subsets *************/
+    function pickRandom(pool, count){ const copy = pool.slice(); shuffle(copy); return copy.slice(0,count); }
+
+    let mcqs = pickRandom(mcqPool,15);
+    let shorts = pickRandom(shortPool,15);
+    let exams = pickRandom(examPool,10);
+
+    // Rendering functions
+    function renderMCQs(){
+      const container = document.getElementById('mcqContainer'); container.innerHTML='';
+      mcqs.forEach((m,idx)=>{
+        const qDiv = document.createElement('div'); qDiv.className='question';
+        qDiv.innerHTML = `<div><strong>Q${idx+1}.</strong> ${m.q}</div>`;
+        const opts = document.createElement('div'); opts.className='options';
+        m.opts.forEach((opt,i)=>{
+          const id = `mcq_${idx}_${i}`;
+          const label = document.createElement('label'); label.className='option';
+          label.htmlFor = id;
+          label.innerHTML = `<input type="radio" name="mcq_${idx}" id="${id}" value="${i}" /> <span>${String.fromCharCode(65+i)}. ${opt}</span>`;
+          opts.appendChild(label);
+        });
+        qDiv.appendChild(opts);
+        // answer explanation block
+        const ans = document.createElement('div'); ans.className='answer-block'; ans.id = `mcq_answer_${idx}`;
+        ans.innerHTML = `<div class="small"><strong>Answer:</strong> ${String.fromCharCode(65 + m.a)}. ${m.opts[m.a]}</div><div class="small" style="margin-top:6px">Explanation: ${m.exp}</div>`;
+        qDiv.appendChild(ans);
+        container.appendChild(qDiv);
+      });
+    }
+
+    function renderShorts(){
+      const container = document.getElementById('shortContainer'); container.innerHTML='';
+      shorts.forEach((s,idx)=>{
+        const qDiv = document.createElement('div'); qDiv.className='question';
+        qDiv.innerHTML = `<div><strong>Q${idx+1}.</strong> ${s.q}</div>`;
+        const ta = document.createElement('textarea'); ta.id = `short_${idx}`; ta.placeholder = 'Type your brief answer here...';
+        qDiv.appendChild(ta);
+        const ans = document.createElement('div'); ans.className='answer-block'; ans.id = `short_answer_${idx}`; ans.innerHTML = `<div class="small"><strong>Suggested answer:</strong> ${s.a}</div>`;
+        qDiv.appendChild(ans);
+        container.appendChild(qDiv);
+      });
+    }
+
+    function renderExams(){
+      const container = document.getElementById('examContainer'); container.innerHTML='';
+      exams.forEach((e,idx)=>{
+        const qDiv = document.createElement('div'); qDiv.className='question';
+        qDiv.innerHTML = `<div><strong>Q${idx+1}.</strong> ${e.q}</div>`;
+        const ta = document.createElement('textarea'); ta.id = `exam_${idx}`; ta.placeholder = 'Write your structured answer here (bullet points recommended)...';
+        qDiv.appendChild(ta);
+        const ans = document.createElement('div'); ans.className='answer-block'; ans.id = `exam_answer_${idx}`;
+        // build marking points
+        const ptsHtml = e.pts.map((p,i)=>`<li><strong>${i+1}.</strong> ${p}</li>`).join('');
+        ans.innerHTML = `<div class="small"><strong>Marking points / model answers:</strong><ol style="margin:8px 0;padding-left:18px">${ptsHtml}</ol></div>`;
+        qDiv.appendChild(ans);
+        container.appendChild(qDiv);
+      });
+    }
+
+    // Initial render
+    renderMCQs(); renderShorts(); renderExams();
+
+    // Submit handlers
+    document.getElementById('submitMcq').addEventListener('click',()=>{
+      let correct=0; mcqs.forEach((m,idx)=>{
+        const selected = document.querySelector(`input[name=mcq_${idx}]:checked`);
+        const block = document.getElementById(`mcq_answer_${idx}`);
+        // reveal answer
+        block.classList.add('reveal');
+        // highlight options
+        const labels = document.querySelectorAll(`#mcqContainer .question:nth-child(${idx+1}) label.option`);
+        labels.forEach((lab,i)=>{
+          lab.classList.remove('correct','wrong');
+          if(i===m.a) lab.classList.add('correct');
+        });
+        if(selected){ const val = Number(selected.value); if(val===m.a){ correct++; } else { // mark selected wrong
+            const selLabel = document.querySelector(`#mcq_${idx}_${selected.value}`)?.parentElement; if(selLabel) selLabel.classList.add('wrong');
+          }
+        } else { /* unanswered */ }
+      });
+      const scoreEl = document.getElementById('mcqScore'); scoreEl.innerText = `Score: ${correct} / ${mcqs.length}`;
+    });
+
+    document.getElementById('resetMcq').addEventListener('click',()=>{
+      document.querySelectorAll('#mcqContainer input[type=radio]').forEach(i=>i.checked=false);
+      document.querySelectorAll('#mcqContainer .answer-block').forEach(b=>b.classList.remove('reveal'));
+      document.querySelectorAll('#mcqContainer label.option').forEach(l=>l.classList.remove('correct','wrong'));
+      document.getElementById('mcqScore').innerText='';
+    });
+
+    document.getElementById('submitShort').addEventListener('click',()=>{
+      shorts.forEach((s,idx)=>{ document.getElementById(`short_answer_${idx}`).classList.add('reveal'); });
+    });
+    document.getElementById('resetShort').addEventListener('click',()=>{ shorts.forEach((s,idx)=>{ document.getElementById(`short_${idx}`).value=''; document.getElementById(`short_answer_${idx}`).classList.remove('reveal'); }); });
+
+    document.getElementById('submitExam').addEventListener('click',()=>{
+      exams.forEach((e,idx)=>{ document.getElementById(`exam_answer_${idx}`).classList.add('reveal'); });
+    });
+    document.getElementById('resetExam').addEventListener('click',()=>{ exams.forEach((e,idx)=>{ document.getElementById(`exam_${idx}`).value=''; document.getElementById(`exam_answer_${idx}`).classList.remove('reveal'); }); });
+
+    document.getElementById('reshuffleAll').addEventListener('click',()=>{
+      // pick fresh randoms from original pools
+      mcqs = pickRandom(mcqPool,15); shorts = pickRandom(shortPool,15); exams = pickRandom(examPool,10);
+      renderMCQs(); renderShorts(); renderExams();
+      document.getElementById('mcqScore').innerText='';
+    });
+
+    document.getElementById('showKey').addEventListener('click',()=>{
+      // reveal all answers
+      document.querySelectorAll('.answer-block').forEach(b=>b.classList.add('reveal'));
+      // highlight MCQs
+      mcqs.forEach((m,idx)=>{
+        document.querySelectorAll(`#mcqContainer .question:nth-child(${idx+1}) label.option`).forEach((lab,i)=>{ lab.classList.remove('wrong'); if(i===m.a) lab.classList.add('correct'); });
+      });
+    });
+
+    document.getElementById('printPage').addEventListener('click',()=>window.print());
+
+    // Prevent accidental form submission when pressing Enter in textareas
+    document.addEventListener('keydown', function(e){ if(e.key==='Enter' && (e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA') && e.target.type!=='submit'){ if(e.target.tagName==='INPUT') e.preventDefault(); } });
+
+  </script>
+</body>
+</html>

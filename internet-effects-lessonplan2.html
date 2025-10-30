@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson — 4.1.4 to 4.1.6: Setting Up Networks, Intranet/Extranet, LAN/WAN/WLAN (5-phase)</title>
+  <style>
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;line-height:1.5;margin:0;padding:18px;background:#f7fafc;color:#0f172a}
+    .wrap{max-width:980px;margin:12px auto;padding:18px;background:#fff;border-radius:10px;box-shadow:0 8px 30px rgba(8,12,20,0.06)}
+    h1,h2,h3{margin:.3rem 0}
+    .notes{padding:12px;border-radius:8px;background:#f1f5f9;border:1px solid #e6eef9}
+    .phase{border-left:6px solid #0369a1;padding:14px;margin:16px 0;border-radius:6px;background:#fbfdff}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    button{background:#0369a1;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+    button[disabled]{opacity:.45;cursor:not-allowed}
+    .quiz{margin-top:12px}
+    .q{padding:10px;border-radius:6px;margin-bottom:8px;background:#fff;border:1px solid #e6eef9}
+    label{display:block;cursor:pointer}
+    textarea{width:100%;min-height:56px;padding:8px;border-radius:6px;border:1px solid #d1d5db}
+    .answers{margin-top:8px;padding:10px;background:#f8fafc;border-radius:6px;border:1px dashed #cbd5e1}
+    .hidden{display:none}
+    .note{font-size:.94rem;color:#475569}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .timebox{font-weight:600}
+    .section-lecture{background:linear-gradient(90deg,#ffffff,#fbfdff);padding:12px;border-radius:8px;border:1px solid #eef6ff}
+    .mc-options{margin-left:12px}
+    footer{font-size:.85rem;color:#64748b;margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <h1>Lesson — 4.1.4 to 4.1.6<br><small>How to set up a small network • Internet/Intranet/Extranet • LAN, WAN, WLAN (5-phase)</small></h1>
+      <div class="timebox">Single lesson — 60–75 minutes</div>
+    </div>
+
+    <div class="notes">
+      <h2>Detailed notes (kept at top for reference)</h2>
+      <h3>4.1.4 How to Set Up and Configure a Small Network</h3>
+      <p><strong>Definition / Purpose</strong><br>This section explores the practical steps, hardware, and software considerations to build a small network (for example, a school lab of 10 computers) and ensure it works smoothly.</p>
+      <p><strong>Detailed Explanation</strong><br>To set up a small network, you must consider:</p>
+      <ol>
+        <li><strong>Hardware Requirements</strong>
+          <ul>
+            <li>A modem (if connecting to the internet).</li>
+            <li>A router (to route traffic between the LAN and Internet).</li>
+            <li>Switches/hubs to connect all devices within the LAN.</li>
+            <li>Network Interface Cards (NICs) in each device (if not built-in).</li>
+            <li>Cables (Ethernet, fibre, etc.) if wiring the network.</li>
+            <li>Wireless components (WAPs) if Wi‑Fi is needed.</li>
+            <li>Firewall (hardware or software) for security.</li>
+          </ul>
+        </li>
+        <li><strong>Software Requirements / Configuration</strong>
+          <ul>
+            <li>Network drivers for NICs.</li>
+            <li>IP address assignments (static or via DHCP).</li>
+            <li>Network operating system or server software (for file sharing, authentication).</li>
+            <li>Security setup (firewall, access privileges).</li>
+            <li>Wireless network configuration (SSID, passwords, encryption).</li>
+          </ul>
+        </li>
+        <li><strong>Steps to Configure</strong>
+          <ol type="a">
+            <li>Physically connect devices via cables or Wi‑Fi.</li>
+            <li>Connect your router to the modem (for internet).</li>
+            <li>Connect switches/hubs to the router and devices to the switches.</li>
+            <li>Assign IP addresses (or enable DHCP).</li>
+            <li>Configure firewall rules.</li>
+            <li>Set up shared file servers, printers, etc.</li>
+            <li>Define user accounts and permissions (who can access what).</li>
+            <li>Test connectivity (ping devices, test internet, file sharing).</li>
+          </ol>
+        </li>
+        <li><strong>Additional Considerations</strong>
+          <ul>
+            <li>Network licences: ensure legal license for networked software use.</li>
+            <li>Privileges / security: limit user access appropriately.</li>
+            <li>Wireless coverage: ensure enough WAPs to avoid dead zones.</li>
+            <li>Backup & maintenance: regularly backup and monitor network health.</li>
+          </ul>
+        </li>
+      </ol>
+      <p><strong>Example Scenario</strong><br>You have 10 computers in a lab needing internet and file sharing: purchase a router, 16‑port switch, Ethernet cables and a Wi‑Fi AP; connect modem→router→switch→PCs; enable DHCP; install file server; set accounts; test connectivity.</p>
+
+      <h3>4.1.5 Internet, Intranets and Extranets</h3>
+      <p><strong>Definitions</strong></p>
+      <ul>
+        <li><strong>Internet:</strong> global public network using TCP/IP.</li>
+        <li><strong>Intranet:</strong> private network within an organization using internet technologies for internal access only.</li>
+        <li><strong>Extranet:</strong> extension of an intranet allowing limited external access (partners) via secure connections.</li>
+      </ul>
+      <p>Intranets are closed; extranets give controlled external access (e.g., supplier portals via VPN).</p>
+
+      <h3>4.1.6 LAN, WAN and WLAN</h3>
+      <p><strong>Definitions</strong></p>
+      <ul>
+        <li><strong>LAN:</strong> Local Area Network — small geographic area (building/campus).</li>
+        <li><strong>WAN:</strong> Wide Area Network — large geographic area (cities, countries).</li>
+        <li><strong>WLAN:</strong> Wireless LAN — uses radio / Wi‑Fi instead of cables.</li>
+      </ul>
+      <p><strong>Comparisons & Examples</strong> — LAN: lab network; WAN: internet or inter-branch communication; WLAN: same lab with Wi‑Fi APs. Consider security, cost and speed differences.</p>
+
+      <div class="note"><strong>Revision questions (use during class):</strong>
+        <ol>
+          <li>Why is a firewall important in a network setup?</li>
+          <li>What is DHCP used for?</li>
+          <li>Explain one way to ensure wireless coverage across a large room.</li>
+          <li>What is the key difference between an intranet and the internet?</li>
+          <li>What does LAN stand for?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PHASE 1: STARTER -->
+    <div class="phase" id="phase1">
+      <h2>Phase 1 — Starter (15 MCQs + 3 short answers)</h2>
+      <p class="note">Give students 8–10 minutes. Click <strong>Submit Starter Answers</strong> to reveal the key.</p>
+
+      <div class="quiz" id="starter-quiz">
+        <div style="font-weight:600;margin-bottom:6px">MCQs (1–15)</div>
+
+        <!-- MCQs list -->
+        <div class="q"><div><strong>1.</strong> Which device assigns IP addresses automatically when enabled?</div>
+          <div class="mc-options">
+            <label><input type="radio" name="st_q1" value="A"> Switch</label>
+            <label><input type="radio" name="st_q1" value="B"> DHCP Server/Router</label>
+            <label><input type="radio" name="st_q1" value="C"> NIC</label>
+            <label><input type="radio" name="st_q1" value="D"> Firewall</label>
+          </div></div>
+
+        <div class="q"><div><strong>2.</strong> Which of these is NOT a hardware requirement for a wired small network?</div>
+          <label><input type="radio" name="st_q2" value="A"> Switch</label>
+          <label><input type="radio" name="st_q2" value="B"> Router</label>
+          <label><input type="radio" name="st_q2" value="C"> Spreadsheet software</label>
+          <label><input type="radio" name="st_q2" value="D"> Ethernet cables</label>
+        </div>
+
+        <div class="q"><div><strong>3.</strong> What does NIC stand for?</div>
+          <label><input type="radio" name="st_q3" value="A"> Network Interface Card</label>
+          <label><input type="radio" name="st_q3" value="B"> Network Internal Channel</label>
+          <label><input type="radio" name="st_q3" value="C"> Node Internet Connector</label>
+          <label><input type="radio" name="st_q3" value="D"> Network Input Controller</label>
+        </div>
+
+        <div class="q"><div><strong>4.</strong> Which connection is best for high bandwidth over long distances?</div>
+          <label><input type="radio" name="st_q4" value="A"> Copper Ethernet</label>
+          <label><input type="radio" name="st_q4" value="B"> Fibre optic</label>
+          <label><input type="radio" name="st_q4" value="C"> Dial-up</label>
+          <label><input type="radio" name="st_q4" value="D"> Bluetooth</label>
+        </div>
+
+        <div class="q"><div><strong>5.</strong> Which is a main purpose of a firewall?</div>
+          <label><input type="radio" name="st_q5" value="A"> Assign IP addresses</label>
+          <label><input type="radio" name="st_q5" value="B"> Filter network traffic for security</label>
+          <label><input type="radio" name="st_q5" value="C"> Provide Wi‑Fi access</label>
+          <label><input type="radio" name="st_q5" value="D"> Store files</label>
+        </div>
+
+        <div class="q"><div><strong>6.</strong> What is an intranet?</div>
+          <label><input type="radio" name="st_q6" value="A"> Public global network</label>
+          <label><input type="radio" name="st_q6" value="B"> Private internal network of an organization</label>
+          <label><input type="radio" name="st_q6" value="C"> Wireless personal network</label>
+          <label><input type="radio" name="st_q6" value="D"> External supplier portal</label>
+        </div>
+
+        <div class="q"><div><strong>7.</strong> An extranet is best described as:</div>
+          <label><input type="radio" name="st_q7" value="A"> A network for gaming only</label>
+          <label><input type="radio" name="st_q7" value="B"> Part of an intranet made accessible to selected external users</label>
+          <label><input type="radio" name="st_q7" value="C"> A home Wi‑Fi network</label>
+          <label><input type="radio" name="st_q7" value="D"> A router configuration page</label>
+        </div>
+
+        <div class="q"><div><strong>8.</strong> Which network type covers a whole campus?</div>
+          <label><input type="radio" name="st_q8" value="A"> LAN</label>
+          <label><input type="radio" name="st_q8" value="B"> WAN</label>
+          <label><input type="radio" name="st_q8" value="C"> PAN</label>
+          <label><input type="radio" name="st_q8" value="D"> Bluetooth network</label>
+        </div>
+
+        <div class="q"><div><strong>9.</strong> Which statement about WLAN is true?</div>
+          <label><input type="radio" name="st_q9" value="A"> Uses radio waves and allows mobility</label>
+          <label><input type="radio" name="st_q9" value="B"> Always faster than wired LAN</label>
+          <label><input type="radio" name="st_q9" value="C"> Requires fiber optic only</label>
+          <label><input type="radio" name="st_q9" value="D"> Cannot connect to the Internet</label>
+        </div>
+
+        <div class="q"><div><strong>10.</strong> What is DHCP used for?</div>
+          <label><input type="radio" name="st_q10" value="A"> Assigning dynamic IP addresses</label>
+          <label><input type="radio" name="st_q10" value="B"> Encrypting network traffic</label>
+          <label><input type="radio" name="st_q10" value="C"> Filtering websites</label>
+          <label><input type="radio" name="st_q10" value="D"> Scanning for viruses</label>
+        </div>
+
+        <div class="q"><div><strong>11.</strong> Which device connects multiple devices within a LAN?</div>
+          <label><input type="radio" name="st_q11" value="A"> Router</label>
+          <label><input type="radio" name="st_q11" value="B"> Switch</label>
+          <label><input type="radio" name="st_q11" value="C"> Modem</label>
+          <label><input type="radio" name="st_q11" value="D"> ISP</label>
+        </div>
+
+        <div class="q"><div><strong>12.</strong> Which of the following improves wireless coverage?</div>
+          <label><input type="radio" name="st_q12" value="A"> Adding more WAPs</label>
+          <label><input type="radio" name="st_q12" value="B"> Removing switches</label>
+          <label><input type="radio" name="st_q12" value="C"> Using dial‑up modems</label>
+          <label><input type="radio" name="st_q12" value="D"> Burning the MAC address</label>
+        </div>
+
+        <div class="q"><div><strong>13.</strong> Why purchase a network license for software?</div>
+          <label><input type="radio" name="st_q13" value="A"> To ensure legal use across multiple machines</label>
+          <label><input type="radio" name="st_q13" value="B"> To slow down the network</label>
+          <label><input type="radio" name="st_q13" value="C"> To change IP addresses</label>
+          <label><input type="radio" name="st_q13" value="D"> To disable DHCP</label>
+        </div>
+
+        <div class="q"><div><strong>14.</strong> What should you test after setting up a network?</div>
+          <label><input type="radio" name="st_q14" value="A"> Ping devices and test file sharing</label>
+          <label><input type="radio" name="st_q14" value="B"> Delete user accounts</label>
+          <label><input type="radio" name="st_q14" value="C"> Remove firewall rules</label>
+          <label><input type="radio" name="st_q14" value="D"> Unplug the router</label>
+        </div>
+
+        <div class="q"><div><strong>15.</strong> Which is an advantage of LANs?</div>
+          <label><input type="radio" name="st_q15" value="A"> Resource sharing</label>
+          <label><input type="radio" name="st_q15" value="B"> Extremely high costs per user</label>
+          <label><input type="radio" name="st_q15" value="C"> Impossible to manage centrally</label>
+          <label><input type="radio" name="st_q15" value="D"> Always wireless</label>
+        </div>
+
+        <div style="font-weight:600;margin-top:8px">Short answers (16–18)</div>
+        <div class="q"><div><strong>16.</strong> Why is a firewall important in a network setup?</div><textarea id="st_a16"></textarea></div>
+        <div class="q"><div><strong>17.</strong> What is DHCP used for?</div><textarea id="st_a17"></textarea></div>
+        <div class="q"><div><strong>18.</strong> Explain one way to ensure wireless coverage across a large room.</div><textarea id="st_a18"></textarea></div>
+
+        <div class="controls"><button id="starter-submit">Submit Starter Answers</button><button id="starter-reset" type="button">Reset Starter</button></div>
+        <div id="starter-answers" class="answers hidden"></div>
+      </div>
+    </div>
+
+    <!-- PHASE 2: 10-minute Lecture -->
+    <div class="phase" id="phase2">
+      <h2>Phase 2 — Short Lecture (10 minutes)</h2>
+      <div class="section-lecture">
+        <h3>Teaching notes (10 minutes)</h3>
+        <ol>
+          <li>Introduce hardware & software needed for a small network — modem, router, switch, NIC, cables, WAPs, firewall.</li>
+          <li>Demonstrate physical layout: modem → router → switch → PCs / WAPs.</li>
+          <li>Explain DHCP vs static IPs and why DHCP simplifies lab setup.</li>
+          <li>Discuss intranet vs internet vs extranet with school examples.</li>
+          <li>Summarise LAN/WAN/WLAN differences and practical uses.</li>
+        </ol>
+        <p class="note">Tip: draw the simple network on the board and show a router admin page if available.</p>
+      </div>
+    </div>
+
+    <!-- PHASE 3: Self Assessment (10 MCQs + 5 short answers) -->
+    <div class="phase" id="phase3">
+      <h2>Phase 3 — Self Assessment (10 MCQs + 5 short answers)</h2>
+      <p class="note">Students must complete all questions. The <strong>Submit Self Assessment</strong> button will become enabled only after every question is answered.</p>
+
+      <div class="quiz" id="self-quiz">
+        <div style="font-weight:600;margin-bottom:6px">MCQs (1–10)</div>
+        <div class="q"><div><strong>1.</strong> Which device connects your LAN to the Internet?</div>
+          <label><input type="radio" name="sa_q1" value="A"> Switch</label>
+          <label><input type="radio" name="sa_q1" value="B"> Router</label>
+          <label><input type="radio" name="sa_q1" value="C"> NIC</label>
+          <label><input type="radio" name="sa_q1" value="D"> Printer</label>
+        </div>
+        <div class="q"><div><strong>2.</strong> Which is an advantage of using DHCP in a lab?</div>
+          <label><input type="radio" name="sa_q2" value="A"> Easy automatic IP assignment</label>
+          <label><input type="radio" name="sa_q2" value="B"> Ensures static IPs only</label>
+          <label><input type="radio" name="sa_q2" value="C"> Encrypts traffic</label>
+          <label><input type="radio" name="sa_q2" value="D"> Replaces switches</label>
+        </div>
+        <div class="q"><div><strong>3.</strong> Which provides controlled external access to parts of an intranet?</div>
+          <label><input type="radio" name="sa_q3" value="A"> Internet</label>
+          <label><input type="radio" name="sa_q3" value="B"> Extranet</label>
+          <label><input type="radio" name="sa_q3" value="C"> WLAN</label>
+          <label><input type="radio" name="sa_q3" value="D"> PAN</label>
+        </div>
+        <div class="q"><div><strong>4.</strong> If the central server fails in a LAN, what may occur?</div>
+          <label><input type="radio" name="sa_q4" value="A"> Network collapses or services unavailable</label>
+          <label><input type="radio" name="sa_q4" value="B"> WAN becomes faster</label>
+          <label><input type="radio" name="sa_q4" value="C"> DHCP is disabled permanently</label>
+          <label><input type="radio" name="sa_q4" value="D"> Wireless range increases</label>
+        </div>
+        <div class="q"><div><strong>5.</strong> Which is a disadvantage of WLAN?</div>
+          <label><input type="radio" name="sa_q5" value="A"> No need for cables</label>
+          <label><input type="radio" name="sa_q5" value="B"> Security and interference issues</label>
+          <label><input type="radio" name="sa_q5" value="C"> Easier to add devices</label>
+          <label><input type="radio" name="sa_q5" value="D"> Users can roam</label>
+        </div>
+        <div class="q"><div><strong>6.</strong> What is a common use of an intranet?</div>
+          <label><input type="radio" name="sa_q6" value="A"> Host public websites</label>
+          <label><input type="radio" name="sa_q6" value="B"> Share internal documentation and timetables</label>
+          <label><input type="radio" name="sa_q6" value="C"> Replace ISP services</label>
+          <label><input type="radio" name="sa_q6" value="D"> Provide mobile data</label>
+        </div>
+        <div class="q"><div><strong>7.</strong> Which hardware provides wired connectivity for many devices?</div>
+          <label><input type="radio" name="sa_q7" value="A"> Switch</label>
+          <label><input type="radio" name="sa_q7" value="B"> Printer</label>
+          <label><input type="radio" name="sa_q7" value="C"> SSD</label>
+          <label><input type="radio" name="sa_q7" value="D"> Keyboard</label>
+        </div>
+        <div class="q"><div><strong>8.</strong> Which is an example of a WAN?</div>
+          <label><input type="radio" name="sa_q8" value="A"> School lab network</label>
+          <label><input type="radio" name="sa_q8" value="B"> Internet connecting two cities</label>
+          <label><input type="radio" name="sa_q8" value="C"> Bluetooth headset network</label>
+          <label><input type="radio" name="sa_q8" value="D"> LAN party</label>
+        </div>
+        <div class="q"><div><strong>9.</strong> Which action is part of testing a network after setup?</div>
+          <label><input type="radio" name="sa_q9" value="A"> Ping devices</label>
+          <label><input type="radio" name="sa_q9" value="B"> Remove user accounts</label>
+          <label><input type="radio" name="sa_q9" value="C"> Disable DHCP forever</label>
+          <label><input type="radio" name="sa_q9" value="D"> Disconnect the modem</label>
+        </div>
+        <div class="q"><div><strong>10.</strong> Why might fibre be preferred in backbone links?</div>
+          <label><input type="radio" name="sa_q10" value="A"> More secure and higher bandwidth</label>
+          <label><input type="radio" name="sa_q10" value="B"> Cheaper than copper for short distances</label>
+          <label><input type="radio" name="sa_q10" value="C"> Uses wireless signals</label>
+          <label><input type="radio" name="sa_q10" value="D"> Requires NICs on each device</label>
+        </div>
+
+        <div style="font-weight:600;margin-top:8px">Short answers (11–15)</div>
+        <div class="q"><div><strong>11.</strong> Give one reason an organization might use an intranet.</div><textarea id="sa_a11"></textarea></div>
+        <div class="q"><div><strong>12.</strong> Name one software configuration task when building a small network.</div><textarea id="sa_a12"></textarea></div>
+        <div class="q"><div><strong>13.</strong> State one disadvantage of WANs compared to LANs.</div><textarea id="sa_a13"></textarea></div>
+        <div class="q"><div><strong>14.</strong> How would you ensure backups for a small network's critical data?</div><textarea id="sa_a14"></textarea></div>
+        <div class="q"><div><strong>15.</strong> Describe one scenario where an extranet is useful.</div><textarea id="sa_a15"></textarea></div>
+
+        <div class="controls"><button id="self-submit" disabled>Submit Self Assessment</button><button id="self-reset" type="button">Reset Self Assessment</button></div>
+        <div id="self-answers" class="answers hidden"></div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: Another 10-minute Lecture -->
+    <div class="phase" id="phase4">
+      <h2>Phase 4 — Second Lecture (10 minutes)</h2>
+      <div class="section-lecture">
+        <h3>Teaching notes (10 minutes)</h3>
+        <ol>
+          <li>Walk through step-by-step configuration: physical connections, router→switch→PCs, enabling DHCP, setting firewall rules.</li>
+          <li>Discuss policies: user accounts, permissions, and network licensing requirements.</li>
+          <li>Ask students to design a simple layout for a 10-PC lab (draw and label devices).</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PHASE 5: Final Task (10 MCQs + 5 short answers) -->
+    <div class="phase" id="phase5">
+      <h2>Phase 5 — Final Task (10 MCQs + 5 short answers)</h2>
+      <p class="note">Students should attempt independently. Submit will enable only when all answers are completed.</p>
+      <div class="quiz" id="final-quiz">
+        <div style="font-weight:600;margin-bottom:6px">MCQs (1–10)</div>
+        <div class="q"><div><strong>1.</strong> Which device translates between your LAN and the ISP network?</div>
+          <label><input type="radio" name="f_q1" value="A"> Switch</label>
+          <label><input type="radio" name="f_q1" value="B"> Router</label>
+          <label><input type="radio" name="f_q1" value="C"> WAP</label>
+          <label><input type="radio" name="f_q1" value="D"> NIC</label>
+        </div>
+        <div class="q"><div><strong>2.</strong> Which is NOT a step in configuring a small network?</div>
+          <label><input type="radio" name="f_q2" value="A"> Connect devices physically</label>
+          <label><input type="radio" name="f_q2" value="B"> Assign IP addresses or enable DHCP</label>
+          <label><input type="radio" name="f_q2" value="C"> Reformat all hard drives randomly</label>
+          <label><input type="radio" name="f_q2" value="D"> Configure firewall rules</label>
+        </div>
+        <div class="q"><div><strong>3.</strong> Which of these is a benefit of using an intranet?</div>
+          <label><input type="radio" name="f_q3" value="A"> Public access to confidential docs</label>
+          <label><input type="radio" name="f_q3" value="B"> Secure internal sharing of resources</label>
+          <label><input type="radio" name="f_q3" value="C"> Makes internet slower</label>
+          <label><input type="radio" name="f_q3" value="D"> Replaces firewalls</label>
+        </div>
+        <div class="q"><div><strong>4.</strong> What does WLAN stand for?</div>
+          <label><input type="radio" name="f_q4" value="A"> Wide Local Network</label>
+          <label><input type="radio" name="f_q4" value="B"> Wireless Local Area Network</label>
+          <label><input type="radio" name="f_q4" value="C"> Wired LAN</label>
+          <label><input type="radio" name="f_q4" value="D"> Web LAN</label>
+        </div>
+        <div class="q"><div><strong>5.</strong> If many users slow the internet in a LAN, what could be used to improve performance?</div>
+          <label><input type="radio" name="f_q5" value="A"> Add more switches and increase bandwidth</label>
+          <label><input type="radio" name="f_q5" value="B"> Remove firewall</label>
+          <label><input type="radio" name="f_q5" value="C"> Use dial‑up modems</label>
+          <label><input type="radio" name="f_q5" value="D"> Disable DHCP</label>
+        </div>
+        <div class="q"><div><strong>6.</strong> Which is true of WANs?</div>
+          <label><input type="radio" name="f_q6" value="A"> Always confined to one building</label>
+          <label><input type="radio" name="f_q6" value="B"> Connects remote LANs, often at higher cost and latency</label>
+          <label><input type="radio" name="f_q6" value="C"> Uses only Wi‑Fi</label>
+          <label><input type="radio" name="f_q6" value="D"> Is the same as PAN</label>
+        </div>
+        <div class="q"><div><strong>7.</strong> Which component stores MAC addresses for forwarding decisions?</div>
+          <label><input type="radio" name="f_q7" value="A"> Switch</label>
+          <label><input type="radio" name="f_q7" value="B"> Router</label>
+          <label><input type="radio" name="f_q7" value="C"> Modem</label>
+          <label><input type="radio" name="f_q7" value="D"> Server</label>
+        </div>
+        <div class="q"><div><strong>8.</strong> Example of testing whether network is functioning:</div>
+          <label><input type="radio" name="f_q8" value="A"> Ping another device</label>
+          <label><input type="radio" name="f_q8" value="B"> Install more software without license</label>
+          <label><input type="radio" name="f_q8" value="C"> Remove all switches</label>
+          <label><input type="radio" name="f_q8" value="D"> Turn off DHCP permanently</label>
+        </div>
+        <div class="q"><div><strong>9.</strong> What is a common reason to use fibre optic cables in networks?</div>
+          <label><input type="radio" name="f_q9" value="A"> High bandwidth and low attenuation</label>
+          <label><input type="radio" name="f_q9" value="B"> Easy wireless connectivity</label>
+          <label><input type="radio" name="f_q9" value="C"> To increase IP leases</label>
+          <label><input type="radio" name="f_q9" value="D"> To bypass routers</label>
+        </div>
+        <div class="q"><div><strong>10.</strong> Which is an advantage of WLAN over wired LAN?</div>
+          <label><input type="radio" name="f_q10" value="A"> No mobility</label>
+          <label><input type="radio" name="f_q10" value="B"> Flexibility and easier device addition</label>
+          <label><input type="radio" name="f_q10" value="C"> Always more secure</label>
+          <label><input type="radio" name="f_q10" value="D"> Requires more cables</label>
+        </div>
+
+        <div style="font-weight:600;margin-top:8px">Short answers (11–15)</div>
+        <div class="q"><div><strong>11.</strong> Give two checks you would perform to test a newly set up lab network.</div><textarea id="f_a11"></textarea></div>
+        <div class="q"><div><strong>12.</strong> Why is it important to configure user permissions on a file server?</div><textarea id="f_a12"></textarea></div>
+        <div class="q"><div><strong>13.</strong> Suggest one method to maintain wireless coverage while reducing interference.</div><textarea id="f_a13"></textarea></div>
+        <div class="q"><div><strong>14.</strong> State one reason why WAN connections tend to cost more than LANs.</div><textarea id="f_a14"></textarea></div>
+        <div class="q"><div><strong>15.</strong> Describe a real-world example of a WLAN in a school.</div><textarea id="f_a15"></textarea></div>
+
+        <div class="controls"><button id="final-submit" disabled>Submit Final Answers</button><button id="final-reset" type="button">Reset Final Task</button></div>
+        <div id="final-answers" class="answers hidden"></div>
+      </div>
+    </div>
+
+    <footer>Save this page locally (File → Save as...) and open in a browser. All checks run locally; no data leaves your computer.</footer>
+  </div>
+
+  <script>
+    // Starter answers
+    const starterKey = {
+      st_q1:'B',st_q2:'C',st_q3:'A',st_q4:'B',st_q5:'B',st_q6:'B',st_q7:'B',st_q8:'A',st_q9:'A',st_q10:'A',st_q11:'B',st_q12:'A',st_q13:'A',st_q14:'A',st_q15:'A'
+    };
+    const starterShort = {
+      st_a16:'A firewall protects the network by filtering incoming/outgoing traffic and blocking unauthorised access.',
+      st_a17:'DHCP is used to automatically assign IP addresses to devices on a network.',
+      st_a18:'Add extra Wi‑Fi access points or reposition existing APs to central positions to reduce dead zones.'
+    };
+
+    document.getElementById('starter-submit').addEventListener('click', ()=>{
+      const container = document.getElementById('starter-answers');
+      let html = '<strong>Starter answers</strong><ol>';
+      for(let i=1;i<=15;i++) html += `<li>Q${i}: ${starterKey['st_q'+i]}</li>`;
+      html += `</ol><div><strong>Short answers</strong><ol><li>${starterShort.st_a16}</li><li>${starterShort.st_a17}</li><li>${starterShort.st_a18}</li></ol></div>`;
+      container.innerHTML = html; container.classList.remove('hidden'); container.scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('starter-reset').addEventListener('click', ()=>{
+      document.querySelectorAll('#starter-quiz input[type=radio]').forEach(r=>r.checked=false);
+      document.getElementById('st_a16').value='';document.getElementById('st_a17').value='';document.getElementById('st_a18').value='';
+      document.getElementById('starter-answers').classList.add('hidden');
+    });
+
+    // Self-assessment gating
+    const selfSubmit = document.getElementById('self-submit');
+    function checkSelfComplete(){
+      for(let i=1;i<=10;i++) if(!document.querySelector(`input[name="sa_q${i}"]:checked`)) return false;
+      for(let i=11;i<=15;i++) if(!document.getElementById('sa_a'+i).value.trim()) return false;
+      return true;
+    }
+    document.getElementById('self-reset').addEventListener('click', ()=>{
+      document.querySelectorAll('#self-quiz input[type=radio]').forEach(r=>r.checked=false);
+      for(let i=11;i<=15;i++) document.getElementById('sa_a'+i).value='';
+      selfSubmit.disabled=true; document.getElementById('self-answers').classList.add('hidden');
+    });
+    document.querySelectorAll('#self-quiz input, #self-quiz textarea').forEach(el=>{
+      el.addEventListener('input', ()=>{ selfSubmit.disabled = !checkSelfComplete(); });
+      el.addEventListener('change', ()=>{ selfSubmit.disabled = !checkSelfComplete(); });
+    });
+
+    document.getElementById('self-submit').addEventListener('click', ()=>{
+      const key = {sa_q1:'B',sa_q2:'A',sa_q3:'B',sa_q4:'A',sa_q5:'B',sa_q6:'B',sa_q7:'A',sa_q8:'B',sa_q9:'A',sa_q10:'A'};
+      let html = '<strong>Self assessment answers</strong><ol>';
+      for(let i=1;i<=10;i++) html += `<li>Q${i}: ${key['sa_q'+i]}</li>`;
+      html += '</ol><div><strong>Suggested short answers</strong><ol>';
+      html += `<li>${document.getElementById('sa_a11').value.trim() || 'Suggested: To provide secure internal resources and central management.'}</li>`;
+      html += `<li>${document.getElementById('sa_a12').value.trim() || 'Suggested: Install network drivers or configure DHCP.'}</li>`;
+      html += `<li>${document.getElementById('sa_a13').value.trim() || 'Suggested: Higher latency and cost than LAN.'}</li>`;
+      html += `<li>${document.getElementById('sa_a14').value.trim() || 'Suggested: Regular backups to external storage or cloud.'}</li>`;
+      html += `<li>${document.getElementById('sa_a15').value.trim() || 'Suggested: Supplier portal allowing orders via secure login.'}</li>`;
+      html += '</ol></div>';
+      const container = document.getElementById('self-answers'); container.innerHTML = html; container.classList.remove('hidden'); container.scrollIntoView({behavior:'smooth'});
+    });
+
+    // Final gating
+    const finalSubmit = document.getElementById('final-submit');
+    function checkFinalComplete(){
+      for(let i=1;i<=10;i++) if(!document.querySelector(`input[name="f_q${i}"]:checked`)) return false;
+      for(let i=11;i<=15;i++) if(!document.getElementById('f_a'+i).value.trim()) return false;
+      return true;
+    }
+    document.getElementById('final-reset').addEventListener('click', ()=>{
+      document.querySelectorAll('#final-quiz input[type=radio]').forEach(r=>r.checked=false);
+      for(let i=11;i<=15;i++) document.getElementById('f_a'+i).value='';
+      finalSubmit.disabled=true; document.getElementById('final-answers').classList.add('hidden');
+    });
+    document.querySelectorAll('#final-quiz input, #final-quiz textarea').forEach(el=>{
+      el.addEventListener('input', ()=>{ finalSubmit.disabled = !checkFinalComplete(); });
+      el.addEventListener('change', ()=>{ finalSubmit.disabled = !checkFinalComplete(); });
+    });
+
+    document.getElementById('final-submit').addEventListener('click', ()=>{
+      const key = {f_q1:'B',f_q2:'C',f_q3:'B',f_q4:'B',f_q5:'A',f_q6:'B',f_q7:'A',f_q8:'A',f_q9:'A',f_q10:'B'};
+      let html = '<strong>Final answers (key)</strong><ol>';
+      for(let i=1;i<=10;i++) html += `<li>Q${i}: ${key['f_q'+i]}</li>`;
+      html += '</ol><div><strong>Suggested short answers</strong><ol>';
+      html += `<li>${document.getElementById('f_a11').value.trim() || 'Suggested: ping the server; test file share; browse internet.'}</li>`;
+      html += `<li>${document.getElementById('f_a12').value.trim() || 'Suggested: To control who can access sensitive files and prevent data breaches.'}</li>`;
+      html += `<li>${document.getElementById('f_a13').value.trim() || 'Suggested: Change channel selection on APs; add more APs; reposition.'}</li>`;
+      html += `<li>${document.getElementById('f_a14').value.trim() || 'Suggested: WAN uses long-distance leased lines or internet backbone which costs more.'}</li>`;
+      html += `<li>${document.getElementById('f_a15').value.trim() || 'Suggested: School Wi‑Fi covering classrooms where students connect laptops.'}</li>`;
+      html += '</ol></div>';
+      const container = document.getElementById('final-answers'); container.innerHTML = html; container.classList.remove('hidden'); container.scrollIntoView({behavior:'smooth'});
+    });
+
+    // Prevent Enter submitting forms
+    document.querySelectorAll('textarea').forEach(t=>t.addEventListener('keydown', e=>{ if(e.key==='Enter' && e.ctrlKey){ e.preventDefault(); t.value += '\n'; }}));
+  </script>
+</body>
+</html>

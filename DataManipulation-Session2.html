@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGCSE ICT 0983 - Chapter 18: Data Manipulation (Session 2)</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 28px; background-color: #f9fafb; color: #222; }
+  h1, h2, h3 { color: #0056b3; }
+  details { background: #eef3fc; border-radius: 10px; margin: 10px 0; padding: 10px; }
+  summary { font-weight: bold; cursor: pointer; }
+  .quiz-section { background: #fff; padding: 18px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  button { background-color: #0056b3; color: white; border: none; padding: 9px 12px; border-radius: 8px; cursor: pointer; }
+  .footer { margin-top: 30px; font-size: 0.95em; text-align: center; color: #666; }
+  input[type=text], textarea, select { width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 5px; }
+  .question { margin-bottom: 12px; }
+  .small { font-size:0.9em;color:#444 }
+</style>
+</head>
+<body>
+
+<h1>Chapter 18: Data Manipulation — Session 2</h1>
+<h2>Topic: Data Types, Keys, Relationships, and Referential Integrity</h2>
+<p class="small"><strong>Lesson Duration:</strong> 60 minutes</p>
+<hr>
+
+<!-- Phase 1 -->
+<section class="quiz-section">
+  <h2>Phase 1 — Starter (10–15 mins)</h2>
+  <p class="small">Complete the objective questions below. Click <strong>Submit</strong> to auto-mark MCQs and Fill-in-the-blanks. Short and long answers are self-marked (inputs will appear after submit).</p>
+  <form id="starterForm">
+    <h3>10 MCQs</h3>
+    <!-- MCQs 1-10 -->
+    <div class="question"><strong>1.</strong> A database stores data in:<br>
+      <label><input type="radio" name="s_mcq1" value="A"> Pages</label><br>
+      <label><input type="radio" name="s_mcq1" value="B"> Tables</label><br>
+      <label><input type="radio" name="s_mcq1" value="C"> Forms</label>
+    </div>
+    <div class="question"><strong>2.</strong> The unique identifier for a record is:<br>
+      <label><input type="radio" name="s_mcq2" value="A"> Foreign Key</label><br>
+      <label><input type="radio" name="s_mcq2" value="B"> Primary Key</label><br>
+      <label><input type="radio" name="s_mcq2" value="C"> Composite Key</label>
+    </div>
+    <div class="question"><strong>3.</strong> A record corresponds to:<br>
+      <label><input type="radio" name="s_mcq3" value="A"> A row</label><br>
+      <label><input type="radio" name="s_mcq3" value="B"> A column</label><br>
+      <label><input type="radio" name="s_mcq3" value="C"> A form</label>
+    </div>
+    <div class="question"><strong>4.</strong> Common flat-file format:<br>
+      <label><input type="radio" name="s_mcq4" value="A"> PDF</label><br>
+      <label><input type="radio" name="s_mcq4" value="B"> CSV</label><br>
+      <label><input type="radio" name="s_mcq4" value="C"> DOCX</label>
+    </div>
+    <div class="question"><strong>5.</strong> Example data type:<br>
+      <label><input type="radio" name="s_mcq5" value="A"> Integer</label><br>
+      <label><input type="radio" name="s_mcq5" value="B"> Window</label><br>
+      <label><input type="radio" name="s_mcq5" value="C"> Folder</label>
+    </div>
+    <div class="question"><strong>6.</strong> Referential integrity prevents:<br>
+      <label><input type="radio" name="s_mcq6" value="A"> Orphan records</label><br>
+      <label><input type="radio" name="s_mcq6" value="B"> Indexing</label><br>
+      <label><input type="radio" name="s_mcq6" value="C"> Encryption</label>
+    </div>
+    <div class="question"><strong>7.</strong> Composite key means:<br>
+      <label><input type="radio" name="s_mcq7" value="A"> Single field key</label><br>
+      <label><input type="radio" name="s_mcq7" value="B"> Combination of fields</label><br>
+      <label><input type="radio" name="s_mcq7" value="C"> A report type</label>
+    </div>
+    <div class="question"><strong>8.</strong> Boolean example:<br>
+      <label><input type="radio" name="s_mcq8" value="A"> TRUE</label><br>
+      <label><input type="radio" name="s_mcq8" value="B"> 10.5</label><br>
+      <label><input type="radio" name="s_mcq8" value="C"> John</label>
+    </div>
+    <div class="question"><strong>9.</strong> Foreign key is stored in the:<br>
+      <label><input type="radio" name="s_mcq9" value="A"> Child table</label><br>
+      <label><input type="radio" name="s_mcq9" value="B"> Parent table</label><br>
+      <label><input type="radio" name="s_mcq9" value="C"> Report</label>
+    </div>
+    <div class="question"><strong>10.</strong> Which reduces duplication?<br>
+      <label><input type="radio" name="s_mcq10" value="A"> Flat-file</label><br>
+      <label><input type="radio" name="s_mcq10" value="B"> Relational database</label><br>
+      <label><input type="radio" name="s_mcq10" value="C"> Word processor</label>
+    </div>
+
+    <h3>10 Fill in the Blanks</h3>
+    <div class="question"><label>1. A ________ is a single data item within a record.<br><input type="text" name="s_fb1"></label></div>
+    <div class="question"><label>2. ________ databases use multiple related tables.<br><input type="text" name="s_fb2"></label></div>
+    <div class="question"><label>3. A ________ uniquely identifies each record.<br><input type="text" name="s_fb3"></label></div>
+    <div class="question"><label>4. ________ keys create links between tables.<br><input type="text" name="s_fb4"></label></div>
+    <div class="question"><label>5. ________ type stores dates and times.<br><input type="text" name="s_fb5"></label></div>
+    <div class="question"><label>6. ________ prevents orphan records in related tables.<br><input type="text" name="s_fb6"></label></div>
+    <div class="question"><label>7. ________ is a comma-separated values file format.<br><input type="text" name="s_fb7"></label></div>
+    <div class="question"><label>8. ________ fields can hold TRUE or FALSE.<br><input type="text" name="s_fb8"></label></div>
+    <div class="question"><label>9. A set of related fields describing one item is a ________.<br><input type="text" name="s_fb9"></label></div>
+    <div class="question"><label>10. Breaking data into multiple tables reduces ________.<br><input type="text" name="s_fb10"></label></div>
+
+    <h3>5 Short Answer Questions</h3>
+    <div class="question"><label>1. Explain the purpose of a primary key.<br><textarea name="s_sa1" rows="2"></textarea></label></div>
+    <div class="question"><label>2. Give two reasons for choosing correct data types.<br><textarea name="s_sa2" rows="2"></textarea></label></div>
+    <div class="question"><label>3. Define record.<br><textarea name="s_sa3" rows="2"></textarea></label></div>
+    <div class="question"><label>4. What is data redundancy?<br><textarea name="s_sa4" rows="2"></textarea></label></div>
+    <div class="question"><label>5. How does a foreign key work?<br><textarea name="s_sa5" rows="2"></textarea></label></div>
+
+    <h3>3 Long Answer Questions</h3>
+    <div class="question"><label>1. Describe differences between flat-file and relational databases.<br><textarea name="s_la1" rows="4"></textarea></label></div>
+    <div class="question"><label>2. Explain why referential integrity is important, including an example.<br><textarea name="s_la2" rows="4"></textarea></label></div>
+    <div class="question"><label>3. Discuss how primary and foreign keys enable accurate joins.<br><textarea name="s_la3" rows="4"></textarea></label></div>
+
+    <div style="margin-top:8px"><button type="button" onclick="evaluateStarter()">Submit</button></div>
+  </form>
+  <div id="starterResult"></div>
+</section>
+
+<!-- Phase 2 Lecture -->
+<details>
+  <summary>Phase 2 — Lecture (Data Types & Keys)</summary>
+  <p class="small"><strong>Data types:</strong> text, integer, decimal, date/time, boolean. Choosing correct types improves validation and storage efficiency.</p>
+  <p class="small"><strong>Keys:</strong> Primary keys uniquely identify records; foreign keys link tables; composite keys combine fields.</p>
+</details>
+
+<!-- Phase 3 -->
+<section class="quiz-section">
+  <h2>Phase 3 — Activity (10–15 mins)</h2>
+  <p class="small">Apply the concepts. Objective parts are auto-marked; written parts are self-marked.</p>
+  <form id="activityForm">
+    <h3>10 MCQs</h3>
+    <!-- MCQs -->
+    <div class="question"><strong>1.</strong> Which is a Boolean value?<br>
+      <label><input type="radio" name="a_mcq1" value="A"> TRUE</label><br>
+      <label><input type="radio" name="a_mcq1" value="B"> 3.14</label><br>
+      <label><input type="radio" name="a_mcq1" value="C"> John</label>
+    </div>
+    <div class="question"><strong>2.</strong> Which key links tables?<br>
+      <label><input type="radio" name="a_mcq2" value="A"> Primary Key</label><br>
+      <label><input type="radio" name="a_mcq2" value="B"> Foreign Key</label><br>
+      <label><input type="radio" name="a_mcq2" value="C"> Index</label>
+    </div>
+    <div class="question"><strong>3.</strong> Correct data types help to:<br>
+      <label><input type="radio" name="a_mcq3" value="A"> Speed up queries</label><br>
+      <label><input type="radio" name="a_mcq3" value="B"> Increase duplication</label><br>
+      <label><input type="radio" name="a_mcq3" value="C"> Remove keys</label>
+    </div>
+    <div class="question"><strong>4.</strong> Example of date type:<br>
+      <label><input type="radio" name="a_mcq4" value="A"> 2025-10-30</label><br>
+      <label><input type="radio" name="a_mcq4" value="B"> Hello</label><br>
+      <label><input type="radio" name="a_mcq4" value="C"> 123abc</label>
+    </div>
+    <div class="question"><strong>5.</strong> Composite key uses:<br>
+      <label><input type="radio" name="a_mcq5" value="A"> Single field</label><br>
+      <label><input type="radio" name="a_mcq5" value="B"> Multiple fields</label><br>
+      <label><input type="radio" name="a_mcq5" value="C"> Index only</label>
+    </div>
+    <div class="question"><strong>6.</strong> Which prevents orphan records?<br>
+      <label><input type="radio" name="a_mcq6" value="A"> Referential integrity</label><br>
+      <label><input type="radio" name="a_mcq6" value="B"> Sorting</label><br>
+      <label><input type="radio" name="a_mcq6" value="C"> Views</label>
+    </div>
+    <div class="question"><strong>7.</strong> CSV file type is a:<br>
+      <label><input type="radio" name="a_mcq7" value="A"> Flat-file</label><br>
+      <label><input type="radio" name="a_mcq7" value="B"> Relational DBMS</label><br>
+      <label><input type="radio" name="a_mcq7" value="C"> Report</label>
+    </div>
+    <div class="question"><strong>8.</strong> Monetary amounts use:<br>
+      <label><input type="radio" name="a_mcq8" value="A"> Integer</label><br>
+      <label><input type="radio" name="a_mcq8" value="B"> Decimal/Currency</label><br>
+      <label><input type="radio" name="a_mcq8" value="C"> Boolean</label>
+    </div>
+    <div class="question"><strong>9.</strong> Which is NOT a key purpose?<br>
+      <label><input type="radio" name="a_mcq9" value="A"> Identify records</label><br>
+      <label><input type="radio" name="a_mcq9" value="B"> Link tables</label><br>
+      <label><input type="radio" name="a_mcq9" value="C"> Format reports</label>
+    </div>
+    <div class="question"><strong>10.</strong> Which reduces redundancy?<br>
+      <label><input type="radio" name="a_mcq10" value="A"> Normalisation</label><br>
+      <label><input type="radio" name="a_mcq10" value="B"> Duplication</label><br>
+      <label><input type="radio" name="a_mcq10" value="C"> Manual editing</label>
+    </div>
+
+    <h3>10 Fill in the Blanks</h3>
+    <div class="question"><label>1. The ________ key uniquely identifies records.<br><input type="text" name="a_fb1"></label></div>
+    <div class="question"><label>2. ________ integrity maintains consistency between related tables.<br><input type="text" name="a_fb2"></label></div>
+    <div class="question"><label>3. ________ is used to store true/false values.<br><input type="text" name="a_fb3"></label></div>
+    <div class="question"><label>4. ________ type may store variable text.<br><input type="text" name="a_fb4"></label></div>
+    <div class="question"><label>5. A ________ key may combine StudentID and CourseID.<br><input type="text" name="a_fb5"></label></div>
+    <div class="question"><label>6. ________ removes duplication through design.<br><input type="text" name="a_fb6"></label></div>
+    <div class="question"><label>7. ________ files are comma-separated.<br><input type="text" name="a_fb7"></label></div>
+    <div class="question"><label>8. A money field often uses ________ datatype.<br><input type="text" name="a_fb8"></label></div>
+    <div class="question"><label>9. ________ link a child table to a parent table.<br><input type="text" name="a_fb9"></label></div>
+    <div class="question"><label>10. Proper data types avoid ________ errors.<br><input type="text" name="a_fb10"></label></div>
+
+    <h3>5 Short Answer Questions</h3>
+    <div class="question"><label>1. Example primary key in a school DB.<br><textarea name="a_sa1" rows="2"></textarea></label></div>
+    <div class="question"><label>2. Two benefits of composite keys.<br><textarea name="a_sa2" rows="2"></textarea></label></div>
+    <div class="question"><label>3. What is normalisation?<br><textarea name="a_sa3" rows="2"></textarea></label></div>
+    <div class="question"><label>4. How to store telephone numbers?<br><textarea name="a_sa4" rows="2"></textarea></label></div>
+    <div class="question"><label>5. Why use date type not text?<br><textarea name="a_sa5" rows="2"></textarea></label></div>
+
+    <h3>3 Long Answer Questions</h3>
+    <div class="question"><label>1. Enforce referential integrity when deleting records.<br><textarea name="a_la1" rows="4"></textarea></label></div>
+    <div class="question"><label>2. Role of data types in preventing invalid data entry.<br><textarea name="a_la2" rows="4"></textarea></label></div>
+    <div class="question"><label>3. Design a schema with composite key and explain.<br><textarea name="a_la3" rows="4"></textarea></label></div>
+
+    <div style="margin-top:8px"><button type="button" onclick="evaluateActivity()">Submit</button></div>
+  </form>
+  <div id="activityResult"></div>
+</section>
+
+<!-- Phase 4 Lecture -->
+<details>
+  <summary>Phase 4 — Lecture (Relationships & Referential Integrity)</summary>
+  <p class="small"><strong>Relationships:</strong> one-to-one, one-to-many, many-to-many. Use FK to relate tables.</p>
+  <p class="small"><strong>Referential integrity:</strong> prevents orphan child records; options: cascade, restrict, set null.</p>
+</details>
+
+<!-- Phase 5 -->
+<section class="quiz-section">
+  <h2>Phase 5 — Wrap-up (10 mins)</h2>
+  <p class="small">Final consolidation. Objective parts auto-mark; written parts self-mark.</p>
+  <form id="wrapForm">
+    <h3>10 MCQs</h3>
+    <div class="question"><strong>1.</strong> Which relationship allows multiple records in both tables?<br>
+      <label><input type="radio" name="w_mcq1" value="A"> One-to-One</label><br>
+      <label><input type="radio" name="w_mcq1" value="B"> One-to-Many</label><br>
+      <label><input type="radio" name="w_mcq1" value="C"> Many-to-Many</label>
+    </div>
+    <div class="question"><strong>2.</strong> Which ensures child records reference existing parent records?<br>
+      <label><input type="radio" name="w_mcq2" value="A"> Referential integrity</label><br>
+      <label><input type="radio" name="w_mcq2" value="B"> Sorting</label><br>
+      <label><input type="radio" name="w_mcq2" value="C"> Indexing</label>
+    </div>
+    <div class="question"><strong>3.</strong> Example one-to-many:<br>
+      <label><input type="radio" name="w_mcq3" value="A"> Student -> Multiple Enrolments</label><br>
+      <label><input type="radio" name="w_mcq3" value="B"> Student -> Single Name</label><br>
+      <label><input type="radio" name="w_mcq3" value="C"> Book -> Author</label>
+    </div>
+    <div class="question"><strong>4.</strong> Valid date format:<br>
+      <label><input type="radio" name="w_mcq4" value="A"> 30/10/2025</label><br>
+      <label><input type="radio" name="w_mcq4" value="B"> thirty oct 2025</label><br>
+      <label><input type="radio" name="w_mcq4" value="C"> 2025th Oct</label>
+    </div>
+    <div class="question"><strong>5.</strong> Which should not be a primary key?<br>
+      <label><input type="radio" name="w_mcq5" value="A"> Name</label><br>
+      <label><input type="radio" name="w_mcq5" value="B"> StudentID</label><br>
+      <label><input type="radio" name="w_mcq5" value="C"> AutoID</label>
+    </div>
+    <div class="question"><strong>6.</strong> Normalisation aims to:<br>
+      <label><input type="radio" name="w_mcq6" value="A"> Increase redundancy</label><br>
+      <label><input type="radio" name="w_mcq6" value="B"> Reduce duplication</label><br>
+      <label><input type="radio" name="w_mcq6" value="C"> Remove keys</label>
+    </div>
+    <div class="question"><strong>7.</strong> Which is NOT a data type?<br>
+      <label><input type="radio" name="w_mcq7" value="A"> Text</label><br>
+      <label><input type="radio" name="w_mcq7" value="B"> Integer</label><br>
+      <label><input type="radio" name="w_mcq7" value="C"> Table</label>
+    </div>
+    <div class="question"><strong>8.</strong> Which may break referential integrity?<br>
+      <label><input type="radio" name="w_mcq8" value="A"> Deleting parent without handling children</label><br>
+      <label><input type="radio" name="w_mcq8" value="B"> Updating data with valid keys</label><br>
+      <label><input type="radio" name="w_mcq8" value="C"> Creating index</label>
+    </div>
+    <div class="question"><strong>9.</strong> Which helps query performance?<br>
+      <label><input type="radio" name="w_mcq9" value="A"> Indexes</label><br>
+      <label><input type="radio" name="w_mcq9" value="B"> More joins</label><br>
+      <label><input type="radio" name="w_mcq9" value="C"> Larger text fields</label>
+    </div>
+    <div class="question"><strong>10.</strong> Foreign keys:<br>
+      <label><input type="radio" name="w_mcq10" value="A"> Must be unique</label><br>
+      <label><input type="radio" name="w_mcq10" value="B"> Reference primary keys</label><br>
+      <label><input type="radio" name="w_mcq10" value="C"> Store reports</label>
+    </div>
+
+    <h3>10 Fill in the Blanks</h3>
+    <div class="question"><label>1. ________ relationships allow a parent to have many children.<br><input type="text" name="w_fb1"></label></div>
+    <div class="question"><label>2. ________ keys are used in child tables.<br><input type="text" name="w_fb2"></label></div>
+    <div class="question"><label>3. ________ ensures linked records remain valid.<br><input type="text" name="w_fb3"></label></div>
+    <div class="question"><label>4. ________ is used to speed up searches.<br><input type="text" name="w_fb4"></label></div>
+    <div class="question"><label>5. Storing phone numbers is best with ________ datatype.<br><input type="text" name="w_fb5"></label></div>
+    <div class="question"><label>6. Removing duplicate data is called ________.<br><input type="text" name="w_fb6"></label></div>
+    <div class="question"><label>7. A field that holds money may use ________ datatype.<br><input type="text" name="w_fb7"></label></div>
+    <div class="question"><label>8. A ________ key can be used to link tables through two fields.<br><input type="text" name="w_fb8"></label></div>
+    <div class="question"><label>9. A set of fields about one item is called a ________.<br><input type="text" name="w_fb9"></label></div>
+    <div class="question"><label>10. A well-designed database reduces ________.<br><input type="text" name="w_fb10"></label></div>
+
+    <h3>5 Short Answer Questions</h3>
+    <div class="question"><label>1. Give an example where referential integrity prevents an error.<br><textarea name="w_sa1" rows="2"></textarea></label></div>
+    <div class="question"><label>2. Explain why indexes are useful.<br><textarea name="w_sa2" rows="2"></textarea></label></div>
+    <div class="question"><label>3. How would you prevent invalid date entry?<br><textarea name="w_sa3" rows="2"></textarea></label></div>
+    <div class="question"><label>4. What is an orphan record?<br><textarea name="w_sa4" rows="2"></textarea></label></div>
+    <div class="question"><label>5. Why avoid using names as primary keys?<br><textarea name="w_sa5" rows="2"></textarea></label></div>
+
+    <h3>3 Long Answer Questions</h3>
+    <div class="question"><label>1. Describe the advantages of using primary and foreign keys in a sales database.<br><textarea name="w_la1" rows="4"></textarea></label></div>
+    <div class="question"><label>2. Explain how normalisation helps when designing tables.<br><textarea name="w_la2" rows="4"></textarea></label></div>
+    <div class="question"><label>3. Discuss actions to take when a parent record must be deleted but child records exist.<br><textarea name="w_la3" rows="4"></textarea></label></div>
+
+    <div style="margin-top:8px"><button type="button" onclick="evaluateWrapup()">Submit</button></div>
+  </form>
+  <div id="wrapupResult"></div>
+</section>
+
+<div class="footer">
+  <p><strong>Designed for my (Ravi's) use — IGCSE ICT 0983 Chapter 18 (Session 2) Ravi Raju</strong></p>
+</div>
+
+<script>
+// Answer key objects
+const starterMCQAnswers = {s_mcq1:'B',s_mcq2:'B',s_mcq3:'A',s_mcq4:'B',s_mcq5:'A',s_mcq6:'A',s_mcq7:'B',s_mcq8:'A',s_mcq9:'A',s_mcq10:'B'};
+const starterFillAnswers = {s_fb1:'field',s_fb2:'relational',s_fb3:'primary',s_fb4:'foreign',s_fb5:'date',s_fb6:'referential',s_fb7:'csv',s_fb8:'boolean',s_fb9:'record',s_fb10:'redundancy'};
+const activityMCQAnswers = {a_mcq1:'A',a_mcq2:'B',a_mcq3:'A',a_mcq4:'A',a_mcq5:'B',a_mcq6:'A',a_mcq7:'A',a_mcq8:'B',a_mcq9:'C',a_mcq10:'A'};
+const activityFillAnswers = {a_fb1:'foreign',a_fb2:'referential',a_fb3:'boolean',a_fb4:'text',a_fb5:'composite',a_fb6:'normalisation',a_fb7:'csv',a_fb8:'decimal',a_fb9:'foreign',a_fb10:'format'};
+const wrapMCQAnswers = {w_mcq1:'C',w_mcq2:'A',w_mcq3:'A',w_mcq4:'A',w_mcq5:'A',w_mcq6:'B',w_mcq7:'C',w_mcq8:'A',w_mcq9:'A',w_mcq10:'B'};
+const wrapFillAnswers = {w_fb1:'one-to-many',w_fb2:'foreign',w_fb3:'referential',w_fb4:'index',w_fb5:'text',w_fb6:'normalisation',w_fb7:'decimal',w_fb8:'composite',w_fb9:'record',w_fb10:'redundancy'};
+
+function normalize(s){return String(s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[–—]/g,'-');}
+
+function gradeMCQAnswers(answers){let score=0;let total=Object.keys(answers).length;for(const k in answers){const sel=document.querySelector(`input[name="${k}"]:checked`); if(sel && sel.value===answers[k]) score++;}return {score,total};}
+function gradeFillAnswers(answers){let score=0;let total=Object.keys(answers).length;for(const k in answers){const val=document.querySelector(`[name="${k}"]`); if(val && normalize(val.value)===answers[k]) score++;}return {score,total};}
+
+function evaluateStarter(){const m=gradeMCQAnswers(starterMCQAnswers); const f=gradeFillAnswers(starterFillAnswers); const out=document.getElementById('starterResult'); out.innerHTML=`MCQs: ${m.score}/${m.total} — Fill: ${f.score}/${f.total}.<hr>`;
+  out.innerHTML+=`<div class='small'><strong>Model short answers:</strong><ol><li>Primary key uniquely identifies records.</li><li>Correct data types reduce errors and save space.</li><li>Record = row of related fields.</li><li>Data redundancy = duplicated data.</li><li>Foreign key holds reference to parent table record.</li></ol></div>`;
+  out.innerHTML+=`<div class='small'><strong>Model long answers (guidance):</strong><ol><li>Flat-file stores all data in one table -> duplication; relational splits into tables to reduce duplication.</li><li>Referential integrity prevents orphaned child records; e.g., don't allow order without customer.</li><li>Keys enable joins by matching PK and FK across tables.</li></ol></div>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Short answers: enter self-marks (5 × max 3): ${[1,2,3,4,5].map(i=>`<input id='s_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:60px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers: enter self-marks (3 × max 6): ${[1,2,3].map(i=>`<input id='s_la${i}_mark' type='number' min='0' max='6' value='0' style='width:60px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button onclick='finalizeStarter()' class='submit'>Finalize Starter Score</button></div>`;
+}
+function finalizeStarter(){const m=gradeMCQAnswers(starterMCQAnswers); const f=gradeFillAnswers(starterFillAnswers); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`s_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`s_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const maxTotal=objTotal + (5*3) + (3*6); document.getElementById('starterResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${maxTotal}`;}
+
+function evaluateActivity(){const m=gradeMCQAnswers(activityMCQAnswers); const f=gradeFillAnswers(activityFillAnswers); const out=document.getElementById('activityResult'); out.innerHTML=`MCQs: ${m.score}/${m.total} — Fill: ${f.score}/${f.total}.<hr>`;
+  out.innerHTML+=`<div class='small'><strong>Model short answers:</strong><ol><li>StudentID (or similar).</li><li>Composite keys allow uniqueness across combined fields.</li><li>Normalisation removes redundancy.</li><li>Telephone stored as text to keep leading zeros.</li><li>Date type enables date calculations and validation.</li></ol></div>`;
+  out.innerHTML+=`<div class='small'><strong>Model long answers:</strong><ol><li>Use restrict/cascade policies when deleting parent rows.</li><li>Data types enforce formats and prevent wrong input (e.g., text in numeric).</li><li>Composite key example: Enrollment(StudentID,CourseID).</li></ol></div>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Short answers: enter self-marks (5 × max 3): ${[1,2,3,4,5].map(i=>`<input id='a_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:60px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers: enter self-marks (3 × max 6): ${[1,2,3].map(i=>`<input id='a_la${i}_mark' type='number' min='0' max='6' value='0' style='width:60px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button onclick='finalizeActivity()' class='submit'>Finalize Activity Score</button></div>`;
+}
+function finalizeActivity(){const m=gradeMCQAnswers(activityMCQAnswers); const f=gradeFillAnswers(activityFillAnswers); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`a_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`a_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const maxTotal=objTotal + (5*3) + (3*6); document.getElementById('activityResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${maxTotal}`;}
+
+function evaluateWrapup(){const m=gradeMCQAnswers(wrapMCQAnswers); const f=gradeFillAnswers(wrapFillAnswers); const out=document.getElementById('wrapupResult'); out.innerHTML=`MCQs: ${m.score}/${m.total} — Fill: ${f.score}/${f.total}.<hr>`;
+  out.innerHTML+=`<div class='small'><strong>Model short answers:</strong><ol><li>Prevent deletion of parent if children exist (or cascade) — e.g., customer/orders.</li><li>Indexes speed searches by avoiding full table scans.</li><li>Use validation rules + date type for valid dates.</li><li>Orphan record = child without parent.</li><li>Names can change and are non-unique; IDs are stable.</li></ol></div>`;
+  out.innerHTML+=`<div class='small'><strong>Model long answers:</strong><ol><li>Primary & foreign keys link sales to customers and invoices for accurate reporting.</li><li>Normalisation reduces duplicated data and improves update performance.</li><li>Options: cascade delete, restrict, set null — choose by business rule.</li></ol></div>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Short answers: enter self-marks (5 × max 3): ${[1,2,3,4,5].map(i=>`<input id='w_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:60px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers: enter self-marks (3 × max 6): ${[1,2,3].map(i=>`<input id='w_la${i}_mark' type='number' min='0' max='6' value='0' style='width:60px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button onclick='finalizeWrapup()' class='submit'>Finalize Wrap-up Score</button></div>`;
+}
+function finalizeWrapup(){const m=gradeMCQAnswers(wrapMCQAnswers); const f=gradeFillAnswers(wrapFillAnswers); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`w_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`w_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const maxTotal=objTotal + (5*3) + (3*6); document.getElementById('wrapupResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${maxTotal}`;}
+
+</script>
+
+</body>
+</html>

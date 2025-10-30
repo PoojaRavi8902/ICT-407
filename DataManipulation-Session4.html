@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>IGCSE ICT 0983 — Chapter 18 Session 4: Queries, Sorting, Filtering & Calculations</title>
+<style>
+  :root{--blue:#0b63c6;--muted:#546;--card:#fff;--bg:#f6f8fb}
+  body{font-family:Inter,system-ui,Segoe UI,Arial;line-height:1.45;margin:12px;background:var(--bg);color:#102}
+  .wrap{max-width:980px;margin:12px auto;padding:10px}
+  header{background:#fff;border-left:6px solid var(--blue);padding:14px;border-radius:6px}
+  h1{margin:0;font-size:18px;color:var(--blue)}
+  .meta{color:var(--muted);font-size:13px;margin-top:6px}
+  .card{background:var(--card);border-radius:8px;padding:14px;margin:14px 0;box-shadow:0 6px 18px rgba(17,24,40,0.04)}
+  .collapsible{background:#fff;border:1px solid #e6eefc;padding:8px;border-radius:6px;cursor:pointer}
+  .content{padding:12px 10px;display:block}
+  .question{margin:10px 0;padding:8px;border-radius:6px;background:#fff;border:1px solid #eef2fb}
+  .submit-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+  button.submit{background:var(--blue);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  textarea,input[type=text]{width:100%;padding:8px;border-radius:6px;border:1px solid #dfe9fb}
+  .result{margin-top:12px;padding:10px;border-radius:6px;background:#e9f6ff;border:1px solid #cfe9ff}
+  .small{font-size:13px;color:var(--muted)}
+  svg.diagram{width:100%;height:auto;border:1px solid #e6eefc;border-radius:6px;background:#fff}
+  pre.sql{background:#f3f7ff;border:1px solid #d8e8ff;padding:10px;border-radius:6px;font-family:Menlo,Monaco,Consolas,'Courier New',monospace}
+  table.db{width:100%;border-collapse:collapse;margin-top:10px}
+  table.db th, table.db td{border:1px solid #e6eefc;padding:6px;text-align:left;font-size:13px}
+  footer{font-size:13px;color:#666;text-align:center;margin:18px 0}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>IGCSE ICT 0983 — Chapter 18: Data Manipulation — Session 4</h1>
+      <div class="meta">Topic: Queries, Sorting, Filtering & Calculations | Case study: Student Marks Database | Duration: 60 minutes</div>
+    </header>
+
+    <!-- Case-study dataset -->
+    <section class="card">
+      <h2>Case Study: <em>Students</em> table (Student Marks Database)</h2>
+      <p class="small">This table will be used for all SQL examples and query design exercises.</p>
+      <table class="db">
+        <thead><tr><th>Field Name</th><th>Data Type</th><th>Example Value</th></tr></thead>
+        <tbody>
+          <tr><td>[StudentID]</td><td>Text</td><td>S001</td></tr>
+          <tr><td>[FirstName]</td><td>Text</td><td>Amir</td></tr>
+          <tr><td>[LastName]</td><td>Text</td><td>Hassan</td></tr>
+          <tr><td>[Gender]</td><td>Text</td><td>M</td></tr>
+          <tr><td>[Class]</td><td>Text</td><td>10A</td></tr>
+          <tr><td>[Subject]</td><td>Text</td><td>Mathematics</td></tr>
+          <tr><td>[Mark]</td><td>Number</td><td>86</td></tr>
+          <tr><td>[Grade]</td><td>Text</td><td>A</td></tr>
+          <tr><td>[DateOfTest]</td><td>Date/Time</td><td>2025-10-15</td></tr>
+        </tbody>
+      </table>
+
+      <p class="small">Small sample rows (for reference):</p>
+      <table class="db">
+        <thead><tr><th>StudentID</th><th>FirstName</th><th>LastName</th><th>Subject</th><th>Mark</th><th>Grade</th></tr></thead>
+        <tbody>
+          <tr><td>S001</td><td>Amir</td><td>Hassan</td><td>Mathematics</td><td>86</td><td>A</td></tr>
+          <tr><td>S002</td><td>Sara</td><td>Ali</td><td>Mathematics</td><td>72</td><td>B</td></tr>
+          <tr><td>S003</td><td>Ravi</td><td>Kumar</td><td>Science</td><td>65</td><td>C</td></tr>
+          <tr><td>S004</td><td>Mai</td><td>Chen</td><td>Mathematics</td><td>91</td><td>A</td></tr>
+          <tr><td>S005</td><td>Omar</td><td>Saleh</td><td>Science</td><td>58</td><td>D</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Phase 1 Starter (revision of forms/session3) but exam-style on queries basics -->
+    <section class="card" id="phase1">
+      <h2>Phase 1 — Starter (10–15 min) — Quick revision & basics of queries</h2>
+      <p class="small">Exam-style starter: objective and written questions to warm up. Click <strong>Submit</strong> to auto-mark objective parts.</p>
+      <form id="starterForm">
+        <h3>10 MCQs</h3>
+        <div id="s_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="s_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="s_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="s_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeStarter()">Submit</button>
+          <div class="small">Model answers and self-mark inputs will appear after Submit.</div>
+        </div>
+        <div id="starterResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 2 Lecture: Query concepts + Access-style SQL examples + SVG design grid -->
+    <section class="card">
+      <h2>Phase 2 — Lecture (10–15 min): Queries & Sorting/Filtering</h2>
+      <div class="collapsible" onclick="toggle(this)">Show / Hide: Notes, SQL examples & design grid</div>
+      <div class="content">
+        <h3>Key points</h3>
+        <ul>
+          <li>Queries let you retrieve and analyse data: SELECT, WHERE, ORDER BY, DISTINCT.</li>
+          <li>Sort results with ORDER BY; filter using WHERE with AND/OR and comparison operators.</li>
+          <li>Use Query Design Grid (Access) for GUI-based query building — translate to SQL.</li>
+        </ul>
+
+        <h4>Access-style SQL examples (Cambridge/Access syntax)</h4>
+        <pre class="sql">-- 1. Select students who scored above 80 in Mathematics
+SELECT [StudentID], [FirstName], [LastName], [Mark]
+FROM [Students]
+WHERE [Subject] = 'Mathematics' AND [Mark] &gt; 80;
+
+-- 2. Select distinct subjects
+SELECT DISTINCT [Subject] FROM [Students];
+
+-- 3. Order students by mark descending
+SELECT [FirstName], [LastName], [Mark]
+FROM [Students]
+ORDER BY [Mark] DESC;
+
+-- 4. Calculated field: mark percentage with adjustment (example)
+SELECT [StudentID], [FirstName], [Mark], ([Mark]*1.05) AS [AdjMark]
+FROM [Students];
+</pre>
+
+        <h4>SVG — Access Query Design Grid (classic)</h4>
+        <svg class="diagram" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Access query design grid">
+          <rect x="8" y="8" width="884" height="244" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="16" fill="#0b63c6">Query Design Grid — Example: Students who scored &gt;80 in Mathematics</text>
+          <!-- Field row -->
+          <rect x="28" y="56" width="820" height="30" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="36" y="76" font-size="12">Field: [StudentID] | [FirstName] | [LastName] | [Mark]</text>
+          <!-- Table row -->
+          <rect x="28" y="98" width="820" height="30" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="36" y="118" font-size="12">Table: [Students]</text>
+          <!-- Sort row -->
+          <rect x="28" y="140" width="820" height="30" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="36" y="160" font-size="12">Sort: (blank) | (blank) | (blank) | Descending</text>
+          <!-- Show row -->
+          <rect x="28" y="182" width="820" height="30" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="36" y="202" font-size="12">Show: Yes | Yes | Yes | Yes</text>
+          <!-- Criteria row -->
+          <rect x="28" y="224" width="820" height="28" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="36" y="243" font-size="12">Criteria: [Subject]='Mathematics' |  |  | &gt;80</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Phase 3 Activity: practice queries, small SQL tasks (Exam-style) -->
+    <section class="card">
+      <h2>Phase 3 — Activity (20 min): Applied queries & calculations</h2>
+      <p class="small">Use the Student Marks Database for scenario-based questions. Objective parts auto-marked; teacher/self-mark for written.</p>
+      <form id="activityForm">
+        <h3>10 MCQs</h3>
+        <div id="a_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="a_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="a_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="a_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeActivity()">Submit</button>
+          <div class="small">Objective answers revealed; model answers and self-mark controls shown for written.</div>
+        </div>
+        <div id="activityResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 4 Lecture: Calculations & advanced queries -->
+    <section class="card">
+      <h2>Phase 4 — Lecture (10–12 min): Calculations, Aggregates & Parameters</h2>
+      <div class="collapsible" onclick="toggle(this)">Show / Hide: Examples & diagrams</div>
+      <div class="content">
+        <h3>Key points</h3>
+        <ul>
+          <li>Calculated fields: use expressions like ([Mark]*1.1) AS [NewMark].</li>
+          <li>Aggregate functions: SUM, AVG, COUNT, MAX, MIN grouped with GROUP BY.</li>
+          <li>Parameter queries ask the user for a value at runtime (Access: [Enter minimum mark]).</li>
+        </ul>
+
+        <h4>SQL examples (Access style)</h4>
+        <pre class="sql">-- 1. Average mark for Mathematics
+SELECT AVG([Mark]) AS [AvgMark]
+FROM [Students]
+WHERE [Subject] = 'Mathematics';
+
+-- 2. Count of students per grade
+SELECT [Grade], COUNT([StudentID]) AS [CountStudents]
+FROM [Students]
+GROUP BY [Grade];
+
+-- 3. Parameter query example (prompt user)
+SELECT [StudentID], [FirstName], [Mark]
+FROM [Students]
+WHERE [Mark] &gt; [Enter minimum mark];
+</pre>
+
+        <h4>SVG — Calculated field grid (classic)</h4>
+        <svg class="diagram" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Calculated field grid">
+          <rect x="8" y="8" width="884" height="184" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="16" fill="#0b63c6">Query: Calculate adjusted mark and show grade</text>
+          <text x="28" y="62" font-size="12">Field: [StudentID] | [FirstName] | ([Mark]*1.05) AS [AdjMark] | IIF([AdjMark]&gt;=90,'A','B') AS [AdjGrade]</text>
+          <text x="28" y="90" font-size="12">Table: [Students]</text>
+          <text x="28" y="118" font-size="12">Criteria: (blank)</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Phase 5 Wrap-up activity -->
+    <section class="card">
+      <h2>Phase 5 — Wrap-up (10–12 min)</h2>
+      <p class="small">Final exam-style consolidation: objective auto-marked; written parts self-mark with model answers.</p>
+      <form id="wrapForm">
+        <h3>10 MCQs</h3>
+        <div id="w_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="w_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="w_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="w_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeWrap()">Submit</button>
+        </div>
+
+        <div id="wrapResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <footer><strong>Designed for my (Ravi's) use — IGCSE ICT 0983 Chapter 18 (Session 4) Ravi Raju</strong></footer>
+  </div>
+
+<script>
+// Utility functions
+function toggle(el){const p=el.nextElementSibling; p.style.display=(p.style.display==='none'||p.style.display==='')?'block':'none';}
+
+// Builders
+function buildMCQ(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';let html=`<strong>${i+1}.</strong> ${it.q}<br>`;it.options.forEach((opt,j)=>{html+=`<label><input type=radio name="${prefix}_mcq${i+1}" value="${String.fromCharCode(65+j)}"> ${opt}</label><br>`});div.innerHTML=html;c.appendChild(div);});}
+function buildFill(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${it.q}<br><input type=text name="${prefix}_fb${i+1}"></label>`;c.appendChild(div);});}
+function buildShort(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${it.q}<br><textarea name="${prefix}_sa${i+1}" rows=2></textarea></label>`;c.appendChild(div);});}
+function buildLong(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${it.q}<br><textarea name="${prefix}_la${i+1}" rows=4></textarea></label>`;c.appendChild(div);});}
+
+// Starter question bank (exam-style)
+const s_mcqs=[
+  {q:'Which SQL clause filters rows based on a condition?', options:['ORDER BY','WHERE','SELECT']},
+  {q:'Which clause sorts results?', options:['WHERE','SORT BY','ORDER BY']},
+  {q:'To show only distinct subjects you use', options:['SELECT DISTINCT','SELECT ALL','SELECT UNIQUE']},
+  {q:'Access-style field name uses brackets like', options:['[StudentID]','(StudentID)','{StudentID}']},
+  {q:'Which returns highest value?', options:['AVG','MAX','MIN']},
+  {q:'To show students with Mark &gt; 80 use', options:['WHERE [Mark] &lt; 80','WHERE [Mark] &gt; 80','ORDER BY [Mark]']},
+  {q:'Which operator selects one of several values?', options:['AND','OR','NOT']},
+  {q:'SELECT [FirstName] FROM [Students]; returns', options:['Fields only','Rows only','Tables only']},
+  {q:'GROUP BY is used with', options:['Aggregate functions','Sorting only','Joins only']},
+  {q:'A calculated field in SELECT uses', options:['AS','JOIN','HAVING']}
+];
+const s_fills=[
+  {q:'The SQL clause to sort is ________.'},
+  {q:'To limit columns shown use ________.'},
+  {q:'In Access SQL field names are enclosed in ________.'},
+  {q:'To filter by subject use WHERE [Subject] = ________.'},
+  {q:'Operator for logical AND is ________.'},
+  {q:'Function to count rows is ________.'},
+  {q:'Use ________ to remove duplicate rows.'},
+  {q:'ORDER BY [Mark] DESC sorts marks from ________ to ________.'},
+  {q:'A prompt-based query uses a ________ in the WHERE clause.'},
+  {q:'SELECT [Mark], ([Mark]*1.05) AS [AdjMark] is a ________ field.'}
+];
+const s_shorts=[
+  {q:'Write an Access-style SQL to select FirstName and Mark from Students where Mark &gt; 75.'},
+  {q:'Explain briefly why ORDER BY DESC is used.'},
+  {q:'Give one reason to use DISTINCT.'},
+  {q:'State one difference between WHERE and HAVING.'},
+  {q:'Name an aggregate function and its purpose.'}
+];
+const s_longs=[
+  {q:'Explain how you would use a query to find students who need improvement (Mark &lt; 60) and how you might present the result to a teacher.'},
+  {q:'Describe the relationship between the query design grid and SQL commands (6–8 lines).'},
+  {q:'Discuss how sorting and filtering together help teachers identify top and low performers (6–8 lines).'}
+];
+
+// Activity bank (queries & calculations)
+const a_mcqs=[
+  {q:'Which SQL selects adjusted mark as a new column?', options:['SELECT [Mark]*1.05 [Adj]','SELECT [Mark]*1.05 AS [AdjMark]','SELECT [AdjMark]']},
+  {q:'To retrieve students in Mathematics use WHERE [Subject] = ?', options:['"Mathematics"','[Mathematics]','{Mathematics}']},
+  {q:'Which SQL finds average mark?', options:['SELECT AVG([Mark])','SELECT MEAN([Mark])','SELECT TOTAL([Mark])']},
+  {q:'COUNT([StudentID]) returns', options:['Number of records','Sum of marks','Average mark']},
+  {q:'GROUP BY [Grade] is used to', options:['Group rows by grade','Order rows','Filter rows']},
+  {q:'HAVING is used with', options:['WHERE','GROUP BY','ORDER BY']},
+  {q:'To prompt user for minimum mark use', options:['[Enter min]','[Enter minimum mark]','[MinMark]']},
+  {q:'Which sorts from lowest to highest?', options:['ORDER BY [Mark] ASC','ORDER BY [Mark] DESC','SORT [Mark]']},
+  {q:'To show students with Grade A use', options:['WHERE [Grade] = "A"','HAVING [Grade] = "A"','GROUP BY [Grade] = "A"']},
+  {q:'Calculated fields can be used in', options:['SELECT clause','FROM clause','WHERE clause']}
+];
+const a_fills=[
+  {q:'Aggregate function to find average is ________.'},
+  {q:'To count students use ________.'},
+  {q:'Use ________ to group results by Grade.'},
+  {q:'To filter grouped results use ________.'},
+  {q:'To get top scores order by [Mark] ________.'},
+  {q:'A parameter prompt appears as [________].'},
+  {q:'Use ________ to calculate percentage from Mark.'},
+  {q:'A JOIN is used to combine data from ________.'},
+  {q:'Use ________ to show unique subjects.'},
+  {q:'Function to find highest mark is ________.'}
+];
+const a_shorts=[
+  {q:'Write an Access SQL to find average mark for Science.'},
+  {q:'How would you write a parameter query to ask for a minimum mark? (brief)'} ,
+  {q:'List two uses of calculated fields in reports.'},
+  {q:'Explain HAVING with an example sentence.'},
+  {q:'Give a short SQL to order students by LastName ASC.'}
+];
+const a_longs=[
+  {q:'Design a query to show each student\'s adjusted mark (Mark + 5%) and explain how you would display students with AdjMark &gt; 90.'},
+  {q:'Explain step-by-step how to build a parameter query in Access to find students above a user-entered mark (6–8 lines).'},
+  {q:'Discuss the importance of GROUP BY in summarising class performance and provide an example SQL.'}
+];
+
+// Wrap-up bank
+const w_mcqs=[
+  {q:'Which SQL returns number of students per subject?', options:['SELECT [Subject], COUNT([StudentID]) FROM [Students] GROUP BY [Subject];','SELECT COUNT([Subject]) FROM [Students];','SELECT [Subject] FROM [Students];']},
+  {q:'To remove duplicates use', options:['GROUP BY','DISTINCT','HAVING']},
+  {q:'To show only students with Mark &gt; 70 use', options:['WHERE [Mark] &gt; 70','HAVING [Mark] &gt; 70','ORDER BY [Mark]']},
+  {q:'Which is an aggregate?', options:['SUM','WHERE','ORDER']},
+  {q:'Parameter queries prompt the', options:['Database','User','Server']},
+  {q:'To find maximum mark use', options:['MAX([Mark])','TOP([Mark])','BEST([Mark])']},
+  {q:'Which sorts descending?', options:['ORDER BY [Mark] DESC','ORDER [Mark] DOWN','SORT [Mark]']},
+  {q:'HAVING filters after', options:['JOINs','GROUP BY','SELECT']},
+  {q:'Calculated fields use expressions in', options:['FROM','SELECT','WHERE']},
+  {q:'Which helps present summary statistics?', options:['Aggregate functions','Subqueries','Indexes']}
+];
+const w_fills=[
+  {q:'Use ________ to combine tables.'},
+  {q:'DISTINCT removes ________.'},
+  {q:'GROUP BY often pairs with ________ functions.'},
+  {q:'ORDER BY [Mark] ASC sorts from ________ to ________.'},
+  {q:'A parameter prompt is placed in the ________ clause.'},
+  {q:'Use SUM to get the ________ of marks.'},
+  {q:'HAVING applies to grouped ________.'},
+  {q:'Use TOP 5 to show the ________ five records.'},
+  {q:'AVG returns the ________ mark.'},
+  {q:'A calculated field expression can use arithmetic like ________.'}
+];
+const w_shorts=[
+  {q:'Write a short SQL to count students in Mathematics.'},
+  {q:'How does GROUP BY help when making reports? (brief)'},
+  {q:'Why use parameter queries with caution? (short)'},
+  {q:'Give a quick example of a calculated field.'},
+  {q:'What is the difference between DISTINCT and GROUP BY?'}
+];
+const w_longs=[
+  {q:'Prepare a 6-point checklist for writing a correct SQL query (syntax, fields, criteria, testing, performance, output).' },
+  {q:'Explain how you would present class averages per subject to a senior leader, including SQL and a sample output (6–8 lines).'},
+  {q:'Discuss risks of incorrect calculations in school reports and how to mitigate them (8–10 lines).'}
+];
+
+// Build all sections
+buildMCQ('s_mcqs',s_mcqs,'s'); buildFill('s_fills',s_fills,'s'); buildShort('s_shorts',s_shorts,'s'); buildLong('s_longs',s_longs,'s');
+buildMCQ('a_mcqs',a_mcqs,'a'); buildFill('a_fills',a_fills,'a'); buildShort('a_shorts',a_shorts,'a'); buildLong('a_longs',a_longs,'a');
+buildMCQ('w_mcqs',w_mcqs,'w'); buildFill('w_fills',w_fills,'w'); buildShort('w_shorts',w_shorts,'w'); buildLong('w_longs',w_longs,'w');
+
+// Keys for objective marking
+const starterMCQKey={s_mcq1:'B',s_mcq2:'C',s_mcq3:'A',s_mcq4:'A',s_mcq5:'B',s_mcq6:'B',s_mcq7:'B',s_mcq8:'A',s_mcq9:'A',s_mcq10:'A'};
+const starterFillKey={s_fb1:'order by',s_fb2:'select',s_fb3:'brackets',s_fb4:'Mathematics',s_fb5:'and',s_fb6:'count',s_fb7:'distinct',s_fb8:'highest to lowest',s_fb9:'parameter',s_fb10:'calculated'};
+const activityMCQKey={a_mcq1:'B',a_mcq2:'A',a_mcq3:'A',a_mcq4:'A',a_mcq5:'A',a_mcq6:'B',a_mcq7:'B',a_mcq8:'A',a_mcq9:'A',a_mcq10:'A'};
+const activityFillKey={a_fb1:'avg',a_fb2:'count',a_fb3:'group by',a_fb4:'having',a_fb5:'desc',a_fb6:'parameter',a_fb7:'([mark]*1.05)',a_fb8:'tables',a_fb9:'distinct',a_fb10:'max'};
+const wrapMCQKey={w_mcq1:'A',w_mcq2:'B',w_mcq3:'A',w_mcq4:'A',w_mcq5:'B',w_mcq6:'A',w_mcq7:'A',w_mcq8:'B',w_mcq9:'B',w_mcq10:'A'};
+const wrapFillKey={w_fb1:'join',w_fb2:'duplicates',w_fb3:'aggregate',w_fb4:'lowest',w_fb5:'where',w_fb6:'total',w_fb7:'rows',w_fb8:'top',w_fb9:'average',w_fb10:'[mark]*1.05'};
+
+function normalize(s){return String(s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[–—]/g,'-');}
+function gradeMCQ(key){let score=0;let total=Object.keys(key).length;for(const k in key){const el=document.querySelector(`input[name="${k}"]:checked`); if(el && el.value===key[k]) score++;}return {score,total};}
+function gradeFill(key){let score=0;let total=Object.keys(key).length;for(const k in key){const el=document.querySelector(`[name="${k}"]`); if(el && normalize(el.value)===key[k]) score++;}return {score,total};}
+
+// Grading and revealing model answers
+function gradeStarter(){const m=gradeMCQ(starterMCQKey); const f=gradeFill(starterFillKey); const out=document.getElementById('starterResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>Refer to students with FK/PK — ensure join integrity.</li><li>Use ORDER BY [Mark] DESC to list top performers first.</li><li>Use DISTINCT to list unique subjects to avoid duplicates.</li><li>HAVING filters groups after aggregation, WHERE filters rows before grouping.</li><li>AVG returns the average value of a numeric field.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers (guidance)</strong><ol><li>Create query WHERE [Mark] &lt; 60; present results in a report with student details and suggested actions.</li><li>Design grid visually builds SQL: fields -> tables -> criteria; SQL is the textual representation.</li><li>Sorting allows teachers to see extremes; filtering focuses attention on particular cohorts; together supports targeted interventions.</li></ol>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='s_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='s_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeStarter()'>Finalize Starter Score</button></div>`;
+}
+function finalizeStarter(){const m=gradeMCQ(starterMCQKey); const f=gradeFill(starterFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`s_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`s_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('starterResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+function gradeActivity(){const m=gradeMCQ(activityMCQKey); const f=gradeFill(activityFillKey); const out=document.getElementById('activityResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>SELECT AVG([Mark]) FROM [Students] WHERE [Subject]='Science';</li><li>Use [Enter minimum mark] in the WHERE clause as a parameter prompt.</li><li>Calculated fields useful for adjusted marks, percentage; used in reports for sorting and thresholds.</li><li>HAVING filters grouped rows after GROUP BY; example: HAVING COUNT([StudentID])&gt;5.</li><li>SELECT [StudentID], [LastName] FROM [Students] ORDER BY [LastName] ASC;</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Design query: SELECT [StudentID],[FirstName],[Mark],([Mark]*1.05) AS [AdjMark] FROM [Students]; then add WHERE [AdjMark]&gt;90 to show top students.</li><li>Parameter query steps: open query designer, add fields, in Criteria enter [Enter minimum mark], run and enter value when prompted.</li><li>GROUP BY example: SELECT [Grade], AVG([Mark]) AS [AvgMark] FROM [Students] GROUP BY [Grade]; this summarises class performance.</li></ol>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='a_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='a_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeActivity()'>Finalize Activity Score</button></div>`;
+}
+function finalizeActivity(){const m=gradeMCQ(activityMCQKey); const f=gradeFill(activityFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`a_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`a_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('activityResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+function gradeWrap(){const m=gradeMCQ(wrapMCQKey); const f=gradeFill(wrapFillKey); const out=document.getElementById('wrapResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>SELECT [Subject], COUNT([StudentID]) AS [CountStudents] FROM [Students] GROUP BY [Subject];</li><li>GROUP BY summarises rows so reports can show totals per group.</li><li>Parameter queries rely on user input; can be misused if not validated.</li><li>Example calculated field: ([Mark]/100)*100 AS [Percentage].</li><li>DISTINCT removes duplicate values; GROUP BY groups rows—both can reduce duplicates but used differently.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Checklist: 1) Confirm table & fields, 2) Check SQL syntax, 3) Set criteria, 4) Test with sample values, 5) Review performance, 6) Verify output formatting.</li><li>To present averages: use SELECT [Subject], AVG([Mark]) AS [AvgMark] FROM [Students] GROUP BY [Subject]; format in report with headings and charts.</li><li>Incorrect calculations can mislead leaders; mitigate by validating formulas, peer review, and testing on sample data.</li></ol>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='w_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='w_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeWrap()'>Finalize Wrap Score</button></div>`;
+}
+function finalizeWrap(){const m=gradeMCQ(wrapMCQKey); const f=gradeFill(wrapFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`w_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`w_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('wrapResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+</script>
+<!-- BEGIN: Worked examples (copy-paste above </body>) -->
+<section class="card" id="worked-examples" style="margin-top:20px;">
+  <h2>Worked examples — step-by-step (SQL → Design grid → Result)</h2>
+  <p class="small">Three separate worked questions using the <strong>[Students]</strong> table.</p>
+
+  <!-- Example 1 -->
+  <article class="card" style="padding:12px;">
+    <h3>Example 1 — Students in Mathematics with Mark &gt; 80</h3>
+
+    <h4>Access-style SQL</h4>
+    <pre class="sql">SELECT [StudentID], [FirstName], [LastName], [Mark]
+FROM [Students]
+WHERE [Subject] = 'Mathematics' AND [Mark] &gt; 80
+ORDER BY [Mark] DESC;</pre>
+
+    <h4>Query Design Grid (classic)</h4>
+    <svg class="diagram" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Design grid example 1" style="margin-bottom:8px;">
+      <rect x="8" y="8" width="884" height="204" rx="6" fill="#fff" stroke="#e6eefc"/>
+      <text x="28" y="36" font-size="14" fill="#0b63c6">Design grid — Fields &amp; criteria</text>
+      <text x="28" y="64" font-size="12" fill="#102">Field: [StudentID] | [FirstName] | [LastName] | [Mark]</text>
+      <text x="28" y="92" font-size="12" fill="#102">Table: [Students] | [Students] | [Students] | [Students]</text>
+      <text x="28" y="120" font-size="12" fill="#102">Sort: (blank) | (blank) | (blank) | Descending</text>
+      <text x="28" y="148" font-size="12" fill="#102">Show: Yes | Yes | Yes | Yes</text>
+      <text x="28" y="176" font-size="12" fill="#102">Criteria: [Subject] = 'Mathematics' |  |  | &gt;80</text>
+    </svg>
+
+    <h4>Example result (sample)</h4>
+    <table class="db" style="width:100%;margin-bottom:6px;">
+      <thead><tr><th>StudentID</th><th>FirstName</th><th>LastName</th><th>Mark</th></tr></thead>
+      <tbody>
+        <tr><td>S004</td><td>Mai</td><td>Chen</td><td>91</td></tr>
+        <tr><td>S001</td><td>Amir</td><td>Hassan</td><td>86</td></tr>
+      </tbody>
+    </table>
+
+    <p class="small"><strong>Notes:</strong> The Query Design Grid maps each column to a field. Criteria appear under the corresponding field. ORDER BY is set by the Sort row (Desc for highest first).</p>
+  </article>
+
+  <!-- Example 2 -->
+  <article class="card" style="padding:12px;">
+    <h3>Example 2 — Average mark per subject (GROUP BY)</h3>
+
+    <h4>Access-style SQL</h4>
+    <pre class="sql">SELECT [Subject], AVG([Mark]) AS [AvgMark]
+FROM [Students]
+GROUP BY [Subject];</pre>
+
+    <h4>Query Design Grid (classic)</h4>
+    <svg class="diagram" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Design grid example 2" style="margin-bottom:8px;">
+      <rect x="8" y="8" width="884" height="184" rx="6" fill="#fff" stroke="#e6eefc"/>
+      <text x="28" y="36" font-size="14" fill="#0b63c6">Design grid — Aggregation</text>
+      <text x="28" y="64" font-size="12" fill="#102">Field: [Subject] | AVG([Mark])</text>
+      <text x="28" y="92" font-size="12" fill="#102">Table: [Students] | [Students]</text>
+      <text x="28" y="120" font-size="12" fill="#102">Total: Group By | Avg</text>
+      <text x="28" y="148" font-size="12" fill="#102">Show: Yes | Yes</text>
+      <text x="28" y="176" font-size="12" fill="#102">Criteria: (blank) | (blank)</text>
+    </svg>
+
+    <h4>Example result (sample)</h4>
+    <table class="db" style="width:100%;margin-bottom:6px;">
+      <thead><tr><th>Subject</th><th>AvgMark</th></tr></thead>
+      <tbody>
+        <tr><td>Mathematics</td><td>83.0</td></tr>
+        <tr><td>Science</td><td>61.5</td></tr>
+      </tbody>
+    </table>
+
+    <p class="small"><strong>Notes:</strong> Use the 'Total' row in the design grid to set 'Group By' for the grouping field and 'Avg' for the aggregate field. GROUP BY in SQL corresponds to Group By in the grid.</p>
+  </article>
+
+  <!-- Example 3 -->
+  <article class="card" style="padding:12px;">
+    <h3>Example 3 — Parameter query: students above a user-entered minimum mark, ordered</h3>
+
+    <h4>Access-style SQL</h4>
+    <pre class="sql">SELECT [StudentID], [FirstName], [LastName], [Mark]
+FROM [Students]
+WHERE [Mark] &gt; [Enter minimum mark]
+ORDER BY [Mark] DESC;</pre>
+
+    <h4>Query Design Grid (classic)</h4>
+    <svg class="diagram" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Design grid example 3" style="margin-bottom:8px;">
+      <rect x="8" y="8" width="884" height="204" rx="6" fill="#fff" stroke="#e6eefc"/>
+      <text x="28" y="36" font-size="14" fill="#0b63c6">Design grid — Parameter prompt</text>
+      <text x="28" y="64" font-size="12" fill="#102">Field: [StudentID] | [FirstName] | [LastName] | [Mark]</text>
+      <text x="28" y="92" font-size="12" fill="#102">Table: [Students] | [Students] | [Students] | [Students]</text>
+      <text x="28" y="120" font-size="12" fill="#102">Sort: (blank) | (blank) | (blank) | Descending</text>
+      <text x="28" y="148" font-size="12" fill="#102">Show: Yes | Yes | Yes | Yes</text>
+      <text x="28" y="176" font-size="12" fill="#102">Criteria: (blank) | (blank) | (blank) | &gt; [Enter minimum mark]</text>
+    </svg>
+
+    <h4>Example result (if user enters 70)</h4>
+    <table class="db" style="width:100%;margin-bottom:6px;">
+      <thead><tr><th>StudentID</th><th>FirstName</th><th>LastName</th><th>Mark</th></tr></thead>
+      <tbody>
+        <tr><td>S004</td><td>Mai</td><td>Chen</td><td>91</td></tr>
+        <tr><td>S001</td><td>Amir</td><td>Hassan</td><td>86</td></tr>
+        <tr><td>S002</td><td>Sara</td><td>Ali</td><td>72</td></tr>
+      </tbody>
+    </table>
+
+    <p class="small"><strong>Notes:</strong> The parameter appears in the Criteria cell. At runtime Access will prompt the user with the exact text in square brackets. Remember to validate parameter input to avoid unexpected results.</p>
+  </article>
+</section>
+<!-- END: Worked examples -->
+
+</body>
+</html>

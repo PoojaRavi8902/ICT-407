@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lesson: Networks — ICT</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root{
+      --bg:#f5f8fb; --card:#ffffff; --accent:#1e88e5; --accent-2:#00bfa5;
+      --muted:#556; --success:#2e7d32; --danger:#c62828;
+      --glass: rgba(255,255,255,0.6);
+      --radius:12px;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:linear-gradient(180deg,#e8f1fb,#f5f8fb);
+      color:var(--muted); padding:28px;
+    }
+    header{
+      display:flex; gap:16px; align-items:center; justify-content:space-between;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#fff; padding:18px 22px; border-radius:14px;
+      box-shadow:0 6px 18px rgba(30,136,229,0.18);
+    }
+    header h1{margin:0;font-size:1.15rem}
+    .meta{font-size:0.9rem; opacity:0.95}
+    .container{max-width:1100px;margin:22px auto; display:grid; grid-template-columns: 320px 1fr; gap:18px;}
+    .sidebar{
+      background:var(--card); padding:14px; border-radius:var(--radius);
+      box-shadow:0 6px 18px rgba(20,30,60,0.06); height:fit-content;
+      position:sticky; top:28px;
+    }
+    .progress{
+      margin-top:6px; height:12px; background:#eef5ff; border-radius:999px; overflow:hidden;
+    }
+    .progress > i{display:block; height:100%; background:linear-gradient(90deg,#1e88e5,#00bfa5); width:0%}
+    .start-btn, .phase-btn {
+      display:inline-block; background:var(--accent); color:white; padding:10px 12px;
+      border-radius:10px; text-decoration:none; cursor:pointer; border:none; font-weight:600;
+      box-shadow: 0 6px 12px rgba(30,136,229,0.12);
+    }
+    .phase-btn { background: transparent; color:var(--accent); border:1px solid #dfeeff; padding:8px; font-weight:700; }
+    .card{background:var(--card); padding:16px; border-radius:12px; box-shadow:0 10px 30px rgba(25,40,80,0.05)}
+    .phase{margin-bottom:16px}
+    .phase h2{margin:0 0 8px 0; font-size:1.05rem; color:#133e6b}
+    .muted{color:#778; font-size:0.95rem}
+    .note{background:#f1fbf6; border-left:4px solid var(--accent-2); padding:10px; border-radius:8px; margin:10px 0}
+    .quiz qlist{display:block}
+    /* Accordion */
+    .accordion .acc-header{display:flex; justify-content:space-between; align-items:center; padding:10px; background:#f7fbff; border-radius:8px; cursor:pointer; margin-bottom:8px; border:1px solid #eef6ff}
+    .accordion .acc-body{display:none; padding:10px 6px}
+    .acc-body.open{display:block}
+    .question{padding:10px; border-radius:8px; margin:8px 0; background:#fbfdff; border:1px solid #eef6ff}
+    .options {display:flex; flex-direction:column; gap:6px; margin-top:8px}
+    label.option{display:flex; gap:8px; align-items:center; padding:8px; border-radius:8px; cursor:pointer}
+    label.option input[type="radio"]{accent-color:var(--accent)}
+    .small{font-size:0.9rem}
+    .controls{display:flex; gap:8px; margin-top:12px; align-items:center}
+    .disabled{opacity:0.55; pointer-events:none}
+    .answer{margin-top:8px; padding:10px; border-radius:8px}
+    .answer.correct{background:#f1fff3; border-left:4px solid var(--success)}
+    .answer.wrong{background:#fff4f4; border-left:4px solid var(--danger)}
+    .timer{font-weight:700; color:var(--accent)}
+    /* Match the following */
+    .match-row{display:flex; gap:12px; align-items:center; margin-bottom:8px}
+    select{padding:8px;border-radius:8px;border:1px solid #d8e9ff; min-width:220px}
+    /* responsive */
+    @media (max-width:980px){
+      .container{grid-template-columns:1fr; padding:0 6px}
+      .sidebar{position:relative; top:0}
+    }
+    /* small helpers */
+    .kbd{background:#f0f6ff;border-radius:6px;padding:6px 8px;font-weight:700;color:var(--accent); display:inline-block}
+    .img-preview{width:100%; border-radius:10px; margin-top:8px}
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Lesson — Networks (IGCSE ICT)</h1>
+    <div class="meta">5 phases • Collapsible lectures • Interactive quizzes • Auto-reveal answers</div>
+  </div>
+  <div style="text-align:right">
+    <div class="meta">Progress <span id="progPct">0%</span></div>
+    <div class="progress" title="Lesson progress" style="width:240px"><i id="progBar"></i></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar card">
+    <div style="display:flex;gap:12px;align-items:center">
+      <img src="/mnt/data/7173c328-5b66-41e2-8035-7f1a3b31024a.png" alt="lesson image" style="width:74px;border-radius:8px;object-fit:cover">
+      <div>
+        <div style="font-weight:800;color:#1b3f66">Networks — Overview</div>
+        <div class="muted small">Teacher: Ravi Raju • Duration: 60–75 min</div>
+      </div>
+    </div>
+
+    <hr style="margin:12px 0">
+
+    <div>
+      <div style="font-weight:700;margin-bottom:6px">Phases</div>
+      <ol style="padding-left:18px; margin:0 0 10px 0">
+        <li>Starter — 15 MCQs (diagnostic)</li>
+        <li>Lecture 1 — 10–12 min (collapsible)</li>
+        <li>Activity — 10 MCQs + 5 short answers</li>
+        <li>Lecture 2 — 10–12 min (collapsible)</li>
+        <li>Match — 10 descriptions</li>
+      </ol>
+    </div>
+
+    <div style="margin-top:8px">
+      <button class="start-btn" id="startLessonBtn">Start Lesson</button>
+    </div>
+
+    <div style="margin-top:12px">
+      <div style="font-weight:700;margin-bottom:6px">Quick controls</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="phase-btn" data-target="phase1">Go to Starter</button>
+        <button class="phase-btn" data-target="phase2">Go to Lecture 1</button>
+        <button class="phase-btn" data-target="phase3">Go to Activity</button>
+        <button class="phase-btn" data-target="phase4">Go to Lecture 2</button>
+        <button class="phase-btn" data-target="phase5">Go to Match</button>
+      </div>
+    </div>
+
+    <hr style="margin:12px 0">
+
+    <div>
+      <div style="font-weight:700">Timing & tips</div>
+      <ul style="margin:8px 0 0 18px">
+        <li class="small">Use the starter to check prior knowledge (10–12 min)</li>
+        <li class="small">Encourage students to justify answers in short questions</li>
+        <li class="small">Use match activity as exit ticket (5–8 min)</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- PHASE 1: STARTER 15 MCQs -->
+    <section id="phase1" class="phase card">
+      <h2>Phase 1 — Starter: 15 MCQs (diagnostic)</h2>
+      <p class="muted">Short quiz to check current understanding about networks. Answers & score reveal when you click <span class="kbd">SUBMIT</span>. The SUBMIT button is enabled only after you answer all questions.</p>
+
+      <div id="starterQuiz">
+        <!-- questions generated below -->
+      </div>
+
+      <div class="controls">
+        <button id="starterSubmit" class="start-btn disabled" disabled>SUBMIT</button>
+        <button id="starterReset" class="phase-btn">Reset</button>
+        <div style="margin-left:auto" id="starterResult"></div>
+      </div>
+    </section>
+
+    <!-- PHASE 2: LECTURE 1 COLLAPSIBLE -->
+    <section id="phase2" class="phase card">
+      <h2>Phase 2 — Short Lecture (10–12 min)</h2>
+      <p class="muted">Click each sub-topic to expand details. This lecture covers the fundamentals: devices, modems, hubs/switches, routers, data packets, IP vs MAC.</p>
+
+      <div class="accordion">
+        <div class="acc-header" data-acc="acc1">Network devices — modems, routers, NICs <span>▶</span></div>
+        <div class="acc-body" id="acc1">
+          <p><strong>Modem</strong> — modulates digital signals to analogue to use telephone lines and demodulates back to digital. Dial-up is ~60 kb/s; modern ADSL/fibre is many Mbps and can remain permanently connected. ADSL is asymmetric (download > upload).</p>
+          <p><strong>Router</strong> — routes data packets between networks (e.g., LAN to WAN). Often sits behind a firewall protecting the LAN.</p>
+          <p><strong>Gateway & NIC</strong> — a gateway lets traffic leave the network; NIC is the hardware interface (contains the MAC address).</p>
+        </div>
+
+        <div class="acc-header" data-acc="acc2">Hubs vs Switches vs Bridges <span>▶</span></div>
+        <div class="acc-body" id="acc2">
+          <p><strong>Hub</strong> — broadcasts incoming packets to every port (simple, insecure, inefficient).</p>
+          <p><strong>Switch</strong> — examines destination MAC address and sends packet only to intended device(s) (efficient, more secure).</p>
+          <p><strong>Bridge</strong> — connects two LAN segments using the same protocol to behave as one LAN; avoids flooding.</p>
+        </div>
+
+        <div class="acc-header" data-acc="acc3">Data packets, IP and MAC addresses <span>▶</span></div>
+        <div class="acc-body" id="acc3">
+          <p>Packets contain header, sender IP, receiver IP, message fragment counts and sequence numbers. <strong>IP address</strong> locates a device on the network (like a house address); <strong>MAC address</strong> uniquely identifies the physical device (like a person living in the house).</p>
+          <p>Routers use routing tables to forward packets between networks; switches use MACs to deliver within a LAN.</p>
+        </div>
+
+        <div class="acc-header" data-acc="acc4">Wireless: Wi-Fi vs Bluetooth <span>▶</span></div>
+        <div class="acc-body" id="acc4">
+          <p><strong>Wi-Fi</strong> — designed for network access, wider range (~100m), faster data rates, supports many devices, uses WEP/WPA security (WPA2/WPA3 preferred today).</p>
+          <p><strong>Bluetooth</strong> — short-range (≤30m), low-power, channel-hopping frequency spread, good for low-bandwidth device-to-device transfers and secure personal area networks (WPAN).</p>
+          <table style="width:100%; margin-top:8px; border-collapse:collapse">
+            <tr><td class="small" style="padding:6px; border-bottom:1px dashed #eef">Max range</td><td style="padding:6px; border-bottom:1px dashed #eef">Bluetooth ~30m • Wi-Fi ~100m</td></tr>
+            <tr><td class="small" style="padding:6px">Speed</td><td style="padding:6px">Bluetooth lower • Wi-Fi higher</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; display:flex; gap:8px; align-items:center">
+        <button class="phase-btn" id="collapseAll">Collapse All</button>
+        <button class="phase-btn" id="expandAll">Expand All</button>
+        <div style="margin-left:auto"><small class="muted">Lecture timer: <span id="lecture1Timer">00:00</span></small></div>
+      </div>
+    </section>
+
+    <!-- PHASE 3: ACTIVITY — 10 MCQs + 5 One-mark short answers -->
+    <section id="phase3" class="phase card">
+      <h2>Phase 3 — Activity: 10 MCQs + 5 short written questions</h2>
+      <p class="muted">Apply what was taught. The MCQs reveal answers on SUBMIT (enabled after all MCQs answered). Short answers are self-marked by teacher, but example answers are shown after submit.</p>
+
+      <div id="activityMCQs"></div>
+
+      <div style="margin-top:8px">
+        <h3 class="small">Short one-mark questions (answer in the box)</h3>
+        <ol id="shortAnswers" style="padding-left:18px">
+          <li><input type="text" data-q="s1" style="width:100%; padding:8px; border-radius:8px; border:1px solid #e6f0ff"></li>
+          <li><input type="text" data-q="s2" style="width:100%; padding:8px; border-radius:8px; border:1px solid #e6f0ff"></li>
+          <li><input type="text" data-q="s3" style="width:100%; padding:8px; border-radius:8px; border:1px solid #e6f0ff"></li>
+          <li><input type="text" data-q="s4" style="width:100%; padding:8px; border-radius:8px; border:1px solid #e6f0ff"></li>
+          <li><input type="text" data-q="s5" style="width:100%; padding:8px; border-radius:8px; border:1px solid #e6f0ff"></li>
+        </ol>
+      </div>
+
+      <div class="controls">
+        <button id="activitySubmit" class="start-btn disabled" disabled>SUBMIT</button>
+        <button id="activityReset" class="phase-btn">Reset</button>
+        <div id="activityResult" style="margin-left:auto"></div>
+      </div>
+
+      <div id="activityAnswers" style="margin-top:12px; display:none">
+        <h4>Model answers (short questions)</h4>
+        <ol>
+          <li>Modem — converts digital to analogue and back (modulate/demodulate).</li>
+          <li>Switch — sends packets only to intended device by MAC address.</li>
+          <li>IP address — gives location on the network; MAC identifies the device.</li>
+          <li>WLAN access point (AP) connects wireless devices to the wired network.</li>
+          <li>Bridge — joins two LAN segments using the same protocol.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PHASE 4: Lecture 2 (collapsible micro-topics) -->
+    <section id="phase4" class="phase card">
+      <h2>Phase 4 — Short Lecture (10–12 min) — Practical setup & LAN/WAN</h2>
+      <p class="muted">Collapsible micro-topics: planning a small network, cabling vs Wi-Fi, security & privileges, advantages/disadvantages of LANs/WANs and devices for accessing the internet.</p>
+
+      <div class="accordion">
+        <div class="acc-header" data-acc="acc5">Planning & hardware checklist <span>▶</span></div>
+        <div class="acc-body" id="acc5">
+          <ul>
+            <li>Decide wired vs wireless; choose modem/router; switches for LAN segments; NICs on end devices; firewall (hardware/software).</li>
+            <li>Set up server if central file-sharing or authentication needed; ensure software licensing & backup plan.</li>
+          </ul>
+        </div>
+
+        <div class="acc-header" data-acc="acc6">Cabling vs Wi-Fi — pros/cons <span>▶</span></div>
+        <div class="acc-body" id="acc6">
+          <p>Wired: faster, more secure; Wireless: flexible, easier to add devices, but interference and security risks exist. Use WPA2/3, robust passwords and MAC filtering when appropriate.</p>
+        </div>
+
+        <div class="acc-header" data-acc="acc7">LAN vs WAN advantages/disadvantages <span>▶</span></div>
+        <div class="acc-body" id="acc7">
+          <p>LAN: resource sharing, controlled admin, but viruses can spread easily. WAN: connects distant sites but needs public links (telephone/satellite) and might be slower.</p>
+        </div>
+
+        <div class="acc-header" data-acc="acc8">Accessing the internet: devices comparison <span>▶</span></div>
+        <div class="acc-body" id="acc8">
+          <p>Mobile phones/tablets: very portable, may be expensive off Wi-Fi; desktops: stable wired access and larger screens; laptops: compromise of portability with better productivity than phones.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; display:flex; gap:8px; align-items:center">
+        <button class="phase-btn" id="collapseAll2">Collapse All</button>
+        <button class="phase-btn" id="expandAll2">Expand All</button>
+        <div style="margin-left:auto"><small class="muted">Lecture timer: <span id="lecture2Timer">00:00</span></small></div>
+      </div>
+    </section>
+
+    <!-- PHASE 5: MATCH THE FOLLOWING -->
+    <section id="phase5" class="phase card">
+      <h2>Phase 5 — Match the following (10 descriptions)</h2>
+      <p class="muted">Select the best match for each description. SUBMIT reveals correct matches and a score. Submit enabled only after all matches chosen.</p>
+
+      <div id="matchArea" style="margin-top:8px">
+        <div style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap">
+          <div style="flex:1 1 360px">
+            <ol id="matchList" style="padding-left:18px">
+              <!-- descriptions -->
+            </ol>
+          </div>
+          <div style="width:320px">
+            <div style="font-weight:700; margin-bottom:8px">Options</div>
+            <ol id="matchOptions" style="padding-left:18px"></ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls" style="margin-top:12px">
+        <button id="matchSubmit" class="start-btn disabled" disabled>SUBMIT</button>
+        <button id="matchReset" class="phase-btn">Reset</button>
+        <div id="matchResult" style="margin-left:auto"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+/* ---------- Utilities ---------- */
+const updateProgress = () => {
+  // phases completed when SUBMIT used or lectures opened? We'll track:
+  let total = 5, done = 0;
+  if (starterCompleted) done++;
+  if (lecture1Opened) done++;
+  if (activityCompleted) done++;
+  if (lecture2Opened) done++;
+  if (matchCompleted) done++;
+  const pct = Math.round((done/total)*100);
+  document.getElementById('progPct').textContent = pct + '%';
+  document.getElementById('progBar').style.width = pct + '%';
+}
+
+/* ---------- PHASE 1 Starter Quiz (15 MCQs) ---------- */
+const starterQuestions = [
+  {q:"What device converts a computer's digital signal into an analogue signal for telephone lines?", a:["Switch","Modem","Router","Hub"], k:1},
+  {q:"Which device broadcasts incoming packets to every connected port?", a:["Switch","Bridge","Hub","Router"], k:2},
+  {q:"Which device sends packets only to the device(s) with the destination MAC address?", a:["Hub","Router","Switch","Gateway"], k:2},
+  {q:"What does MAC address uniquely identify?", a:["A software process","A device's network interface","An IP subnet","A router"], k:1},
+  {q:"Which is TRUE about ADSL modems?", a:["They tie up the phone line during use","They are always symmetric","They can remain 'always on' and allow phone use","They are slower than dial-up"], k:2},
+  {q:"Routers primarily work at which network level?", a:["Physical only","Application layer","Between networks (routing)","Only within a LAN"], k:2},
+  {q:"Which is a key difference between IP and MAC address?", a:["IP identifies device; MAC locates network","IP is permanent; MAC changes each session","IP locates device on network; MAC identifies hardware","They are identical"], k:2},
+  {q:"Bluetooth typically operates on which frequency band?", a:["2.45 GHz","5 GHz","900 MHz","60 GHz"], k:0},
+  {q:"Wi-Fi maximum effective range is approximately:", a:["30 m","100 m","1 km","10 m"], k:1},
+  {q:"Which device would join two LANs that use the same protocol?", a:["Hub","Bridge","NIC","Modem"], k:1},
+  {q:"Which is an advantage of wired network cables over Wi-Fi?", a:["Wider range","Slower speed","Higher security and faster transfer rates","No need for NICs"], k:2},
+  {q:"Which term best describes a large network spanning cities or countries?", a:["LAN","PAN","WAN","WLAN"], k:2},
+  {q:"A router uses a routing table to:", a:["Store user passwords","Map destination IP addresses to next hop","Encrypt packets","Assign MAC addresses"], k:1},
+  {q:"Spread-spectrum frequency hopping is used by:", a:["Wi-Fi","Ethernet","Bluetooth","All LAN cables"], k:2},
+  {q:"Which device often sits behind a firewall to protect a LAN?", a:["Modem","Switch","Router","Hub"], k:2}
+];
+
+let starterCompleted = false;
+const starterDiv = document.getElementById('starterQuiz');
+
+function buildStarter() {
+  starterQuestions.forEach((it, idx) => {
+    const qdiv = document.createElement('div');
+    qdiv.className = 'question';
+    qdiv.innerHTML = `<div style="font-weight:700">Q${idx+1}. ${it.q}</div>`;
+    const opts = document.createElement('div'); opts.className='options';
+    it.a.forEach((opt,i)=>{
+      const id = `s_${idx}_${i}`;
+      const label = document.createElement('label'); label.className='option';
+      label.innerHTML = `<input type="radio" name="s${idx}" id="${id}" value="${i}"> <span>${opt}</span>`;
+      opts.appendChild(label);
+    });
+    qdiv.appendChild(opts);
+    starterDiv.appendChild(qdiv);
+  });
+}
+buildStarter();
+
+const starterSubmitBtn = document.getElementById('starterSubmit');
+const starterResetBtn = document.getElementById('starterReset');
+const starterResult = document.getElementById('starterResult');
+
+function checkStarterAllAnswered() {
+  const total = starterQuestions.length;
+  let answered=0;
+  for(let i=0;i<total;i++){
+    if (document.querySelector(`input[name="s${i}"]:checked`)) answered++;
+  }
+  if(answered===total){
+    starterSubmitBtn.classList.remove('disabled'); starterSubmitBtn.disabled=false;
+  } else {
+    starterSubmitBtn.classList.add('disabled'); starterSubmitBtn.disabled=true;
+  }
+}
+
+starterDiv.addEventListener('change', checkStarterAllAnswered);
+
+starterSubmitBtn.addEventListener('click', ()=> {
+  // grade
+  let score=0;
+  starterQuestions.forEach((it,idx)=>{
+    const sel = document.querySelector(`input[name="s${idx}"]:checked`);
+    const qEl = starterDiv.children[idx];
+    // remove old answers
+    qEl.querySelectorAll('.answer').forEach(x=>x.remove());
+    if(sel){
+      const val = parseInt(sel.value,10);
+      if(val===it.k){ score++; 
+        const a = document.createElement('div'); a.className='answer correct small'; a.textContent = 'Correct ✓';
+        qEl.appendChild(a);
+      } else {
+        const a = document.createElement('div'); a.className='answer wrong small'; a.innerHTML = `Incorrect ✗ — Correct: <strong>${it.a[it.k]}</strong>`;
+        qEl.appendChild(a);
+      }
+    }
+  });
+  starterResult.innerHTML = `<div style="font-weight:800;color:#123">Score: ${score} / ${starterQuestions.length}</div>`;
+  starterCompleted = true; updateProgress();
+});
+
+starterResetBtn.addEventListener('click', ()=>{
+  starterDiv.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  starterDiv.querySelectorAll('.answer').forEach(x=>x.remove());
+  starterResult.innerHTML='';
+  starterCompleted = false; updateProgress();
+  checkStarterAllAnswered();
+});
+
+/* ---------- LECTURE 1 accordion ---------- */
+let lecture1Opened = false;
+document.querySelectorAll('.acc-header[data-acc]').forEach(h => {
+  h.addEventListener('click', () => {
+    const id = h.getAttribute('data-acc');
+    const body = document.getElementById(id);
+    const arrow = h.querySelector('span');
+    const open = body.classList.toggle('open');
+    arrow.textContent = open ? '▼' : '▶';
+    if(!lecture1Opened) { lecture1Opened = true; updateProgress(); }
+  });
+});
+document.getElementById('collapseAll').addEventListener('click', ()=> {
+  document.querySelectorAll('.acc-body').forEach(b=>{ b.classList.remove('open'); });
+  document.querySelectorAll('.acc-header span').forEach(s=>s.textContent='▶');
+});
+document.getElementById('expandAll').addEventListener('click', ()=> {
+  document.querySelectorAll('#acc1,#acc2,#acc3,#acc4').forEach(b=>b.classList.add('open'));
+  document.querySelectorAll('.acc-header span').forEach(s=>s.textContent='▼');
+  lecture1Opened=true; updateProgress();
+});
+
+/* Lecture timers */
+let lec1sec=0, lec2sec=0, lec1Timer, lec2Timer;
+const pad = n => n.toString().padStart(2,'0');
+const startLectureTimers = () => {
+  if(!lec1Timer){
+    lec1Timer = setInterval(()=>{ lec1sec++; document.getElementById('lecture1Timer').textContent = pad(Math.floor(lec1sec/60))+':'+pad(lec1sec%60); },1000);
+  }
+  if(!lec2Timer){
+    lec2Timer = setInterval(()=>{ lec2sec++; document.getElementById('lecture2Timer').textContent = pad(Math.floor(lec2sec/60))+':'+pad(lec2sec%60); },1000);
+  }
+};
+
+document.getElementById('startLessonBtn').addEventListener('click', ()=>{
+  // reveal first phase by scrolling
+  document.getElementById('phase1').scrollIntoView({behavior:'smooth'});
+  // start timers
+  startLectureTimers();
+});
+
+/* ---------- PHASE 3 Activity: 10 MCQs + 5 short Qs ---------- */
+const activityMCQData = [
+  {q:"Which device will you use to avoid sending packets to every device in a LAN?", a:["Hub","Switch","Modem","Cable"], k:1},
+  {q:"Which of these is used to connect to the internet over telephone lines?", a:["Switch","Bridge","Modem","Access Point"], k:2},
+  {q:"A gateway is:", a:["A device linking networks (entrance)", "A type of switch", "An IP address", "A wireless standard"], k:0},
+  {q:"Which is NOT a feature of data packets?", a:["Header","Sender IP","Identity number of packet","Physical MAC only"], k:3},
+  {q:"Spread-spectrum is mainly associated with:", a:["Wired Ethernet","Bluetooth","DSL","Fibre optics"], k:1},
+  {q:"Which technology often provides the fastest secure wired transfers?", a:["Copper cable","Fibre optics","Bluetooth","Dial-up"], k:1},
+  {q:"Which uses MAC address to forward frames within a LAN?", a:["Router","Hub","Switch","Modem"], k:2},
+  {q:"Which is a disadvantage of LANs?", a:["Resource sharing", "Increased security risk", "Easier communication", "Central admin"], k:1},
+  {q:"If you need many devices in a wireless campus, you need:", a:["Multiple APs", "Only one AP", "No APs", "Only switches"], k:0},
+  {q:"DHCP assigns:", a:["MAC addresses","IP addresses for sessions","Passwords","Switching rules"], k:1}
+];
+
+const activityDiv = document.getElementById('activityMCQs');
+
+function buildActivityMCQs(){
+  activityMCQData.forEach((it,idx)=>{
+    const qd = document.createElement('div'); qd.className='question';
+    qd.innerHTML = `<div style="font-weight:700">Q${idx+1}. ${it.q}</div>`;
+    const opts = document.createElement('div'); opts.className='options';
+    it.a.forEach((opt,i)=>{
+      const id = `a_${idx}_${i}`;
+      const label = document.createElement('label'); label.className='option';
+      label.innerHTML = `<input type="radio" name="a${idx}" id="${id}" value="${i}"> <span>${opt}</span>`;
+      opts.appendChild(label);
+    });
+    qd.appendChild(opts);
+    activityDiv.appendChild(qd);
+  });
+}
+buildActivityMCQs();
+
+const activitySubmitBtn = document.getElementById('activitySubmit');
+const activityResetBtn = document.getElementById('activityReset');
+
+function checkActivityAllAnswered() {
+  const total = activityMCQData.length;
+  let answered=0;
+  for(let i=0;i<total;i++){
+    if (document.querySelector(`input[name="a${i}"]:checked`)) answered++;
+  }
+  if(answered===total){
+    activitySubmitBtn.classList.remove('disabled'); activitySubmitBtn.disabled=false;
+  } else {
+    activitySubmitBtn.classList.add('disabled'); activitySubmitBtn.disabled=true;
+  }
+}
+activityDiv.addEventListener('change', checkActivityAllAnswered);
+
+activitySubmitBtn.addEventListener('click', ()=>{
+  // grade MCQs
+  let score=0;
+  activityMCQData.forEach((it,idx)=>{
+    const qEl = activityDiv.children[idx];
+    qEl.querySelectorAll('.answer').forEach(x=>x.remove());
+    const sel = document.querySelector(`input[name="a${idx}"]:checked`);
+    if(sel){
+      const val = parseInt(sel.value,10);
+      if(val===it.k){ score++; qEl.appendChild(Object.assign(document.createElement('div'),{className:'answer correct small', textContent:'Correct ✓'})); }
+      else { const a=document.createElement('div'); a.className='answer wrong small'; a.innerHTML=`Incorrect ✗ — Correct: <strong>${it.a[it.k]}</strong>`; qEl.appendChild(a); }
+    }
+  });
+  // show short answers model
+  document.getElementById('activityAnswers').style.display='block';
+  document.getElementById('activityResult').innerHTML = `<div style="font-weight:800;color:#123">MCQ Score: ${score} / ${activityMCQData.length}</div>`;
+  activityCompleted = true; updateProgress();
+});
+
+activityResetBtn.addEventListener('click', ()=>{
+  activityDiv.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  activityDiv.querySelectorAll('.answer').forEach(x=>x.remove());
+  document.getElementById('activityAnswers').style.display='none';
+  document.getElementById('activityResult').innerHTML='';
+  activityCompleted=false; updateProgress();
+  checkActivityAllAnswered();
+});
+
+/* ---------- lecture 2 accordion ---------- */
+let lecture2Opened = false;
+document.querySelectorAll('#acc5,#acc6,#acc7,#acc8').forEach(b=>{ /* ensure separate handling */ });
+document.querySelectorAll('.acc-header').forEach(h=>{
+  h.addEventListener('click', ()=>{
+    if(h.parentElement && h.parentElement.id === 'phase4'){} // not necessary
+    // if any acc-body in phase4 opened we mark lecture2Opened
+    if(h.getAttribute('data-acc') && ['acc5','acc6','acc7','acc8'].includes(h.getAttribute('data-acc'))){
+      lecture2Opened = true; updateProgress();
+    }
+  });
+});
+document.getElementById('collapseAll2').addEventListener('click', ()=>{
+  ['acc5','acc6','acc7','acc8'].forEach(id=>document.getElementById(id).classList.remove('open'));
+  document.querySelectorAll('.acc-header span').forEach(s=>{ if(s.parentElement.textContent.includes('Lecture')){} });
+});
+document.getElementById('expandAll2').addEventListener('click', ()=>{
+  ['acc5','acc6','acc7','acc8'].forEach(id=>document.getElementById(id).classList.add('open'));
+  lecture2Opened = true; updateProgress();
+});
+
+/* ---------- PHASE 5: Match the following ---------- */
+const matches = [
+  {desc:"Converts digital signals to analogue for telephone lines", key:"Modem"},
+  {desc:"Broadcasts incoming packets to every connected port", key:"Hub"},
+  {desc:"Sends packets only to intended MAC address", key:"Switch"},
+  {desc:"Joins two LAN segments using same protocol", key:"Bridge"},
+  {desc:"Routes packets between networks (LAN to WAN)", key:"Router"},
+  {desc:"Unique hardware address assigned to network interface", key:"MAC address"},
+  {desc:"Address giving location on the internet", key:"IP address"},
+  {desc:"Wireless device allowing many clients to connect", key:"Access Point (AP)"},
+  {desc:"Short-range, low-power wireless standard for device-to-device", key:"Bluetooth"},
+  {desc:"High-speed, secure wired medium using light", key:"Fibre optics"}
+];
+const opts = ["Modem","Hub","Switch","Bridge","Router","MAC address","IP address","Access Point (AP)","Bluetooth","Fibre optics"];
+// build lists
+const matchList = document.getElementById('matchList');
+const matchOptions = document.getElementById('matchOptions');
+
+matches.forEach((m,idx)=>{
+  const li = document.createElement('li');
+  const sel = document.createElement('select');
+  sel.id = 'm_'+idx;
+  const placeholder = document.createElement('option'); placeholder.value=''; placeholder.textContent='-- choose option --'; sel.appendChild(placeholder);
+  opts.forEach(o=>{ const op=document.createElement('option'); op.value=o; op.textContent=o; sel.appendChild(op); });
+  li.innerHTML = `<div style="font-weight:700">(${idx+1}) ${m.desc}</div>`;
+  li.appendChild(sel);
+  matchList.appendChild(li);
+});
+opts.forEach((o,idx)=> {
+  const li = document.createElement('li'); li.textContent = `${String.fromCharCode(65+idx)}. ${o}`;
+  matchOptions.appendChild(li);
+});
+
+const matchSubmitBtn = document.getElementById('matchSubmit'); const matchResetBtn = document.getElementById('matchReset');
+const matchResult = document.getElementById('matchResult');
+function checkMatchAllChosen(){
+  const total = matches.length; let chosen=0;
+  for(let i=0;i<total;i++){ if(document.getElementById('m_'+i).value) chosen++; }
+  if(chosen===total){ matchSubmitBtn.classList.remove('disabled'); matchSubmitBtn.disabled=false; }
+  else { matchSubmitBtn.classList.add('disabled'); matchSubmitBtn.disabled=true; }
+}
+document.getElementById('matchArea').addEventListener('change', checkMatchAllChosen);
+
+matchSubmitBtn.addEventListener('click', ()=>{
+  let score=0;
+  matches.forEach((m,idx)=>{
+    const sel = document.getElementById('m_'+idx);
+    const chosen = sel.value;
+    // remove existing helper
+    sel.nextElementSibling && sel.nextElementSibling.remove?.();
+    const res = document.createElement('div'); res.style.marginTop='6px';
+    if(chosen === m.key){ score++; res.innerHTML = `<span style="color:var(--success)"><strong>✓</strong> Correct</span>`; }
+    else { res.innerHTML = `<span style="color:var(--danger)"><strong>✗</strong> Wrong — correct: <strong>${m.key}</strong></span>`; }
+    sel.parentElement.appendChild(res);
+  });
+  matchResult.innerHTML = `<div style="font-weight:800;color:#123">Match Score: ${score} / ${matches.length}</div>`;
+  matchCompleted = true; updateProgress();
+});
+
+matchResetBtn.addEventListener('click', ()=> {
+  matches.forEach((m,idx)=>{ document.getElementById('m_'+idx).value=''; const p=document.getElementById('m_'+idx).parentElement; p.querySelectorAll('div').forEach((d,i)=>{ if(i>0) d.remove(); }); });
+  matchResult.innerHTML=''; matchCompleted=false; updateProgress();
+  checkMatchAllChosen();
+});
+
+/* ---------- Navigation quick buttons ---------- */
+document.querySelectorAll('.phase-btn[data-target]').forEach(b=>{
+  b.addEventListener('click', (e)=>{
+    const t = e.currentTarget.getAttribute('data-target');
+    document.getElementById(t).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ---------- state variables ---------- */
+let activityCompleted = false, matchCompleted = false;
+
+/* ---------- startup checks ---------- */
+updateProgress();
+checkStarterAllAnswered();
+checkActivityAllAnswered();
+checkMatchAllChosen();
+
+/* ---------- small UX: auto-open first lecture when page loads slightly after user starts ---------- */
+window.addEventListener('load', ()=> {
+  // open lecture1 sections collapsed by default — teacher wanted collapsible; we won't auto-open them, but we can open Chapters when Start clicked
+});
+
+/* ---------- Optional: keyboard accessibility ---------- */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' && document.activeElement && document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'radio'){
+    // no-op
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IGCSE 0983 — Chapter 18 Session 1: Introduction to Databases</title>
+  <style>
+    :root{--accent:#2b7cff;--muted:#666;--card:#f7f9fc}
+    body{font-family:Inter,system-ui,Segoe UI,Arial;line-height:1.45;margin:0;background:#f3f6fb;color:#122}
+    header{background:linear-gradient(90deg,#ffffff, #eef6ff);padding:18px 24px;border-bottom:1px solid #e1e8f5}
+    .wrap{max-width:980px;margin:22px auto;padding:0 18px}
+    h1{margin:0;font-size:20px}
+    .meta{color:var(--muted);margin-top:6px;font-size:13px}
+    .card{background:var(--card);border-radius:10px;padding:16px;margin:14px 0;box-shadow:0 4px 12px rgba(16,24,40,0.04)}
+    .phase{margin-bottom:14px}
+    .phase h2{font-size:16px;margin:0 0 8px}
+    .collapsible{background:#fff;border:1px solid #e6eefc;padding:10px;border-radius:8px;cursor:pointer}
+    .content{padding:12px 10px;display:none}
+    .qblock{margin:8px 0;padding:10px;border-radius:6px;background:#fff;border:1px solid #eef2fb}
+    .submit-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+    button.submit{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+    .result{margin-top:12px;padding:10px;border-radius:6px;background:#e9f6ff;border:1px solid #cfe9ff}
+    label{display:block;margin-bottom:6px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    textarea{width:100%;min-height:80px;padding:8px;border-radius:6px;border:1px solid #dfe9fb}
+    select,input[type="number"]{padding:6px;border-radius:6px;border:1px solid #dfe9fb}
+    .small{font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>IGCSE ICT 0983 — Chapter 18: Data Manipulation — Session 1</h1>
+      <div class="meta">Topic: Introduction to Databases — Purpose, Flat‑file vs Relational, Components | Duration: 60 minutes</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Phase 1: Starter (10-15 minutes) -->
+    <section class="card phase" id="phase1">
+      <h2>Phase 1 — Starter (10–15 mins)</h2>
+      <p class="small">Quick review of previous topics. Complete the questions below. Click <strong>Submit</strong> when finished. Answers and scores will be shown; there is intentionally <strong>no reset</strong> button.</p>
+
+      <form id="starterForm">
+        <!-- 10 MCQs -->
+        <div class="qblock">
+          <strong>MCQs (10)</strong>
+          <div id="starterMCQs"></div>
+        </div>
+
+        <!-- 10 Match the following -->
+        <div class="qblock">
+          <strong>Match the following (10)</strong>
+          <div id="starterMatch"></div>
+        </div>
+
+        <!-- 3 Short answer (student types) -->
+        <div class="qblock">
+          <strong>Short answer (3) — enter your answers below. After submitting you'll see model answers; please self‑mark with a score for each (0–3).</strong>
+          <div class="grid">
+            <div>
+              <label>1) What is a record? <textarea name="s_short_1"></textarea>
+                <div class="small">After submit: model answer + box to enter score (0–3)</div>
+              </label>
+            </div>
+            <div>
+              <label>2) Give one reason to use a database rather than a spreadsheet. <textarea name="s_short_2"></textarea>
+                <div class="small">After submit: model answer + box to enter score (0–3)</div>
+              </label>
+            </div>
+            <div>
+              <label>3) Define "field" in a table. <textarea name="s_short_3"></textarea>
+                <div class="small">After submit: model answer + box to enter score (0–3)</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Long answer (student types) -->
+        <div class="qblock">
+          <strong>Long answer (2) — explain in detail. After submitting you'll see model answers; please self‑mark using the provided score inputs (0–6 each).</strong>
+          <label>1) Describe the differences between a flat‑file and a relational database. <textarea name="s_long_1"></textarea></label>
+          <label>2) Explain the importance of a primary key in a relational table. <textarea name="s_long_2"></textarea></label>
+        </div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeStarter()">Submit</button>
+          <div class="small">When you click submit, answers, model answers and scoring boxes for short/long answers will appear below.</div>
+        </div>
+
+        <div id="starterResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 2: Lecture (10-15 minutes) -->
+    <section class="card phase">
+      <h2>Phase 2 — Mini Lecture (10–15 mins)</h2>
+      <button class="collapsible" onclick="toggleContent(this)">Show / Hide: Lecture notes — What is a database; Purpose; Flat‑file vs Relational; Components</button>
+      <div class="content">
+        <h3>What is a database?</h3>
+        <p>A database is an organized collection of related data that can be easily accessed, managed, and updated. It stores data in tables (or files) made up of records and fields.</p>
+
+        <h3>Purpose of databases</h3>
+        <ul>
+          <li>Store and organise large volumes of data</li>
+          <li>Provide fast retrieval and query capabilities</li>
+          <li>Support data integrity and avoid duplication</li>
+          <li>Enable multiple users to access data concurrently</li>
+        </ul>
+
+        <h3>Flat‑file vs Relational</h3>
+        <p><strong>Flat‑file:</strong> single table (e.g. CSV), simple but can have duplication and redundancy. <strong>Relational:</strong> data split into multiple related tables joined via keys; reduces duplication and supports complex queries.</p>
+
+        <h3>Key components</h3>
+        <ul>
+          <li>Tables, Records, Fields</li>
+          <li>Primary key, Foreign key</li>
+          <li>Data types and validation</li>
+          <li>Forms, Queries, Reports</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 3: Activity (apply learning) -->
+    <section class="card phase">
+      <h2>Phase 3 — Activity (apply learning)</h2>
+      <p class="small">This activity tests the concepts covered so far. Click <strong>Submit</strong> to auto‑mark. You'll see correct answers and your score.</p>
+
+      <form id="activityForm">
+        <div class="qblock">
+          <strong>MCQs (10)</strong>
+          <div id="actMCQs"></div>
+        </div>
+
+        <div class="qblock">
+          <strong>Fill in the blanks / Match (10)</strong>
+          <div id="actMatch"></div>
+        </div>
+
+        <div class="qblock">
+          <strong>Short answers (2) — please type; after submit, model answers will appear and you will enter self‑mark (0–3 each).</strong>
+          <label>1) Give an example of a primary key used in a student table. <textarea name="a_short_1"></textarea></label>
+          <label>2) State two benefits of using a relational database. <textarea name="a_short_2"></textarea></label>
+        </div>
+
+        <div class="qblock">
+          <strong>Long answers (2) — type your response; after submit use the score boxes (0–6).</strong>
+          <label>1) A small business wants to move from spreadsheets to a database. Describe the steps you would take to design the database. <textarea name="a_long_1"></textarea></label>
+          <label>2) Describe referential integrity and why it matters. <textarea name="a_long_2"></textarea></label>
+        </div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeActivity()">Submit</button>
+          <div class="small">No reset — students should see model answers and self‑mark where required.</div>
+        </div>
+
+        <div id="activityResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 4: Mini Lecture (10-12 minutes) -->
+    <section class="card phase">
+      <h2>Phase 4 — Mini Lecture (10–12 mins)</h2>
+      <button class="collapsible" onclick="toggleContent(this)">Show / Hide: Lecture notes — Tables, records, fields, keys, examples</button>
+      <div class="content">
+        <h3>Tables, Records and Fields</h3>
+        <p>Explain table structure: rows = records (e.g. a student), columns = fields (e.g. name, DOB). Show simple examples.</p>
+
+        <h3>Keys</h3>
+        <p>Primary key uniquely identifies records. Foreign key links tables together. Composite keys use multiple fields.</p>
+
+        <h3>Simple examples</h3>
+        <p>Student table: StudentID (PK), Name, DOB, Class. Enrollment table: EnrollmentID (PK), StudentID (FK), CourseID (FK), Date.</p>
+      </div>
+    </section>
+
+    <!-- Phase 5: Wrap-up activity -->
+    <section class="card phase">
+      <h2>Phase 5 — Wrap‑up activity (10 minutes)</h2>
+      <p class="small">Short task to consolidate learning. Auto‑marking included for objective questions; self‑mark for longer answers.</p>
+
+      <form id="wrapForm">
+        <div class="qblock">
+          <strong>Mixed — 8 MCQs, 6 match/fill, 2 short answers, 1 long answer</strong>
+          <div id="wrapMCQs"></div>
+          <div id="wrapMatch"></div>
+        </div>
+
+        <div class="qblock">
+          <label>Short answer 1 — Explain one advantage of using a primary key. <textarea name="w_short_1"></textarea></label>
+          <label>Short answer 2 — What is data redundancy? <textarea name="w_short_2"></textarea></label>
+          <label>Long answer — Design a simple 2‑table relational schema for a library (books, borrowers) and describe the primary/foreign keys. <textarea name="w_long_1"></textarea></label>
+        </div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeWrap()">Submit</button>
+          <div class="small">Model answers will be revealed and space provided to enter marks for short/long answers.</div>
+        </div>
+
+        <div id="wrapResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <footer class="small" style="margin:18px 0 60px">Generated for my (Ravi's) use — IGCSE ICT 0983 Chapter 18 (Session 1) Ravi Raju </footer>
+  </main>
+
+  <script>
+    // Utility: toggle collapsible content
+    function toggleContent(btn){
+      const c = btn.nextElementSibling;
+      if(c.style.display === 'block'){ c.style.display = 'none'; btn.style.borderColor = '#e6eefc' } else { c.style.display = 'block'; btn.style.borderColor='#cfe3ff' }
+    }
+
+    // Question data (concise and strictly aligned to IGCSE 0983 topics)
+    const starterMCQData = [
+      {q:'Which of these is NOT a database component?', a:['Table','Record','Formula','Field'], ans:2},
+      {q:'A primary key must be:', a:['Unique','Nullable','Duplicate allowed','Long text only'], ans:0},
+      {q:'A flat‑file database is usually stored as:', a:['Multiple linked tables','Single table or file','Encrypted tables only','Graph structure'], ans:1},
+      {q:'Which is an example of a field?', a:['Row','Record','Name','Table'], ans:2},
+      {q:'Which task is done by a query?', a:['Designing the UI','Sorting and filtering data','Printing the table layout','Replacing the primary key'], ans:1},
+      {q:'Referential integrity ensures:', a:['All foreign keys match a primary key','No fields contain NULL','All tables have same columns','No duplicates anywhere'], ans:0},
+      {q:'Which is a benefit of relational databases?', a:['Increased redundancy','Reduced duplication','Single user only','Impossible to query'], ans:1},
+      {q:'Which is NOT a suitable primary key?', a:['National ID','Auto‑increment ID','Person name','Unique code'], ans:2},
+      {q:'A record corresponds to:', a:['A field','A row','A column heading','A DBMS'], ans:1},
+      {q:'A report in a database is mainly used for:', a:['Data entry','Formatted output for users','Creating tables','Defining data types'], ans:1}
+    ];
+
+    const starterMatchData = [
+      {left:'Table', rightOptions:['Row','Group of related records','Column','Unique field'],'ans':1},
+      {left:'Record', rightOptions:['Row','Column','Schema','Key'],'ans':0},
+      {left:'Field', rightOptions:['Unique identifier','Column','Export format','Report'],'ans':1},
+      {left:'Primary key', rightOptions:['May be duplicate','Uniquely identifies record','Used for sorting','Is a report'],'ans':1},
+      {left:'Foreign key', rightOptions:['Links to primary key in another table','A data type','A DBMS','A form'],'ans':0},
+      {left:'Flat‑file', rightOptions:['Multiple linked tables','Single file/table','Encrypted storage','A type of report'],'ans':1},
+      {left:'Query', rightOptions:['Used to format reports','Used to search/sort/filter','Defines a key','Is a field'],'ans':1},
+      {left:'Report', rightOptions:['Used for output','Used to define tables','Same as query','Is a key'],'ans':0},
+      {left:'Validation', rightOptions:['Checking data correctness','Formatting reports','Linking tables','Importing data'],'ans':0},
+      {left:'CSV', rightOptions:['A query language','A file format for flat files','A key type','A report style'],'ans':1}
+    ];
+
+    // Activity/Wrap MCQs (similar structure)
+    const actMCQData = starterMCQData.slice().map(x=>x); // reuse but could be different
+    const wrapMCQData = starterMCQData.slice(0,8);
+
+    // Build forms dynamically
+    function buildMCQs(containerId, data, namePrefix){
+      const container = document.getElementById(containerId);
+      data.forEach((item,i)=>{
+        const div = document.createElement('div');
+        div.className='small';
+        div.innerHTML = `<div style="margin-bottom:6px"><strong>Q${i+1}.</strong> ${item.q}</div>`;
+        item.a.forEach((opt,j)=>{
+          const id = `${namePrefix}_${i}_${j}`;
+          const rb = document.createElement('div');
+          rb.innerHTML = `<label><input type="radio" name="${namePrefix}_${i}" value="${j}"> ${opt}</label>`;
+          div.appendChild(rb);
+        });
+        container.appendChild(div);
+      });
+    }
+
+    function buildMatch(containerId,data,namePrefix){
+      const container = document.getElementById(containerId);
+      data.forEach((item,i)=>{
+        const div = document.createElement('div');
+        div.className='small';
+        let options = item.rightOptions.map((o,idx)=>`<option value="${idx}">${o}</option>`).join('');
+        div.innerHTML = `<label><strong>${item.left}</strong><br><select name="${namePrefix}_${i}"><option value="-1">--choose--</option>${options}</select></label>`;
+        container.appendChild(div);
+      });
+    }
+
+    // Initialize builders
+    buildMCQs('starterMCQs',starterMCQData,'s_mcq');
+    buildMatch('starterMatch',starterMatchData,'s_match');
+    buildMCQs('actMCQs',actMCQData,'a_mcq');
+    buildMatch('actMatch',starterMatchData,'a_match');
+    buildMCQs('wrapMCQs',wrapMCQData,'w_mcq');
+    buildMatch('wrapMatch',starterMatchData.slice(0,6),'w_match');
+
+    // Grading functions
+    function gradeStarter(){
+      // grade MCQs
+      let score=0; let total=0;
+      starterMCQData.forEach((q,i)=>{
+        total++;
+        const val = document.querySelector(`input[name="s_mcq_${i}"]:checked`);
+        if(val && parseInt(val.value)===q.ans){ score++; }
+      });
+      // grade matches
+      starterMatchData.forEach((m,i)=>{ total++; const sel = document.querySelector(`select[name="s_match_${i}"]`); if(sel && parseInt(sel.value)===m.ans) score++; });
+      // show model answers and ask for self marks for short and long answers
+      const resDiv = document.getElementById('starterResult');
+      resDiv.style.display='block';
+      resDiv.innerHTML = `<strong>Objective score:</strong> ${score} / ${total} (MCQs + Matching)<br><hr>`;
+      // show model answers
+      resDiv.innerHTML += `<strong>Model answers — Short answers (max 3 each)</strong><ol><li>Record: a row of related fields representing one item (e.g. a student)</li><li>One reason to use a database: supports multiple users and reduces duplication / better integrity</li><li>Field: a single data item / column (e.g. Name)</li></ol>`;
+      resDiv.innerHTML += `<div class="small">Please enter your self‑marks for the 3 short answers (0–3) and 2 long answers (0–6). These will be added to your objective score.</div>`;
+      // scoring inputs
+      resDiv.innerHTML += `<div style="margin-top:8px">Short1: <input type=number id="s_s1_mark" min=0 max=3 value=0> /3&nbsp;&nbsp;Short2: <input type=number id="s_s2_mark" min=0 max=3 value=0> /3&nbsp;&nbsp;Short3: <input type=number id="s_s3_mark" min=0 max=3 value=0> /3</div>`;
+      resDiv.innerHTML += `<div style="margin-top:6px">Long1: <input type=number id="s_l1_mark" min=0 max=6 value=0> /6&nbsp;&nbsp;Long2: <input type=number id="s_l2_mark" min=0 max=6 value=0> /6</div>`;
+      resDiv.innerHTML += `<div style="margin-top:10px"><button class="submit" onclick="finalizeStarter(${score},${total})">Finalize score (add your self marks)</button></div>`;
+    }
+    function finalizeStarter(objectiveScore,totalObj){
+      const s1 = Number(document.getElementById('s_s1_mark').value)||0;
+      const s2 = Number(document.getElementById('s_s2_mark').value)||0;
+      const s3 = Number(document.getElementById('s_s3_mark').value)||0;
+      const l1 = Number(document.getElementById('s_l1_mark').value)||0;
+      const l2 = Number(document.getElementById('s_l2_mark').value)||0;
+      const objTotal = totalObj;
+      const subjectiveTotal = s1+s2+s3+l1+l2;
+      const grandTotal = objectiveScore + subjectiveTotal;
+      const maxTotal = objTotal + (3*3) + (2*6); // objective + short(3x3) + long(2x6)
+      const resDiv = document.getElementById('starterResult');
+      resDiv.innerHTML += `<hr><strong>Subjective marks added:</strong> ${subjectiveTotal} / ${(3*3)+(2*6)}<br><strong>Grand total:</strong> ${grandTotal} / ${maxTotal}`;
+      // Reveal correct answers for objective parts
+      resDiv.innerHTML += `<details style="margin-top:8px"><summary>Show correct answers for objective questions</summary><ol>`;
+      starterMCQData.forEach((q,i)=>{ resDiv.innerHTML += `<li>${q.q} — <em>Answer:</em> ${q.a[q.ans]}</li>`; });
+      resDiv.innerHTML += `</ol><ol>`;
+      starterMatchData.forEach((m,i)=>{ resDiv.innerHTML += `<li>${m.left} → ${m.rightOptions[m.ans]}</li>`; });
+      resDiv.innerHTML += `</ol></details>`;
+    }
+
+    // Activity grading
+    function gradeActivity(){
+      let score=0; let total=0;
+      actMCQData.forEach((q,i)=>{ total++; const val = document.querySelector(`input[name="a_mcq_${i}"]:checked`); if(val && parseInt(val.value)===q.ans) score++; });
+      starterMatchData.forEach((m,i)=>{ total++; const sel = document.querySelector(`select[name="a_match_${i}"]`); if(sel && parseInt(sel.value)===m.ans) score++; });
+      const res = document.getElementById('activityResult'); res.style.display='block'; res.innerHTML = `<strong>Objective score:</strong> ${score} / ${total}<br><hr>`;
+      res.innerHTML += `<p class="small">Model answers for short answers:<ol><li>Primary key example: StudentID (unique numeric ID)</li><li>Benefits of relational DB: reduces duplication; supports complex queries; enforces integrity.</li></ol></p>`;
+      res.innerHTML += `<div class="small">Enter your self marks: Short1(0–3): <input type=number id="a_s1" min=0 max=3 value=0> Short2(0–3): <input type=number id="a_s2" min=0 max=3 value=0></div>`;
+      res.innerHTML += `<div style="margin-top:6px" class="small">Long1(0–6): <input type=number id="a_l1" min=0 max=6 value=0> Long2(0–6): <input type=number id="a_l2" min=0 max=6 value=0></div>`;
+      res.innerHTML += `<div style="margin-top:8px"><button class="submit" onclick="finalizeActivity(${score},${total})">Finalize activity score</button></div>`;
+    }
+    function finalizeActivity(objScore,totalObj){
+      const s1=Number(document.getElementById('a_s1').value)||0; const s2=Number(document.getElementById('a_s2').value)||0; const l1=Number(document.getElementById('a_l1').value)||0; const l2=Number(document.getElementById('a_l2').value)||0;
+      const subj = s1+s2+l1+l2; const maxSubj = 2*3 + 2*6; const grand = objScore + subj; const maxTotal = totalObj + maxSubj;
+      const res = document.getElementById('activityResult'); res.innerHTML += `<hr><strong>Subjective added:</strong> ${subj} / ${maxSubj}<br><strong>Grand total:</strong> ${grand} / ${maxTotal}`;
+      res.innerHTML += `<details style="margin-top:8px"><summary>Show objective correct answers</summary><ol>`;
+      actMCQData.forEach((q,i)=>{ res.innerHTML += `<li>${q.q} — <em>Answer:</em> ${q.a[q.ans]}</li>`; });
+      res.innerHTML += `</ol><ol>`;
+      starterMatchData.forEach((m,i)=>{ res.innerHTML += `<li>${m.left} → ${m.rightOptions[m.ans]}</li>`; });
+      res.innerHTML += `</ol></details>`;
+    }
+
+    // Wrap grading
+    function gradeWrap(){
+      let score=0; let total=0;
+      wrapMCQData.forEach((q,i)=>{ total++; const val = document.querySelector(`input[name="w_mcq_${i}"]:checked`); if(val && parseInt(val.value)===q.ans) score++; });
+      const matchData = starterMatchData.slice(0,6);
+      matchData.forEach((m,i)=>{ total++; const sel = document.querySelector(`select[name="w_match_${i}"]`); if(sel && parseInt(sel.value)===m.ans) score++; });
+      const res = document.getElementById('wrapResult'); res.style.display='block'; res.innerHTML = `<strong>Objective score:</strong> ${score} / ${total}<br><hr>`;
+      res.innerHTML += `<p class="small">Model answers for short answers:<ol><li>Advantage of primary key: uniquely identifies records; needed for relationships.</li><li>Data redundancy: unnecessary duplication of data across records/tables.</li></ol></p>`;
+      res.innerHTML += `<div class="small">Long answer (library schema) model (max 10): Books(BookID PK, Title, Author) Borrowers(BorrowerID PK, Name, Contact) Loans(LoanID PK, BookID FK, BorrowerID FK, LoanDate). Please self‑mark your long answer (0–10): <input id="w_long_mark" type=number min=0 max=10 value=0></div>`;
+      res.innerHTML += `<div style="margin-top:8px"><button class="submit" onclick="finalizeWrap(${score},${total})">Finalize wrap score</button></div>`;
+    }
+    function finalizeWrap(objScore,totalObj){
+      const longMark = Number(document.getElementById('w_long_mark').value)||0; const subj = longMark; const grand = objScore + subj; const maxTotal = totalObj + 10;
+      const res = document.getElementById('wrapResult'); res.innerHTML += `<hr><strong>Subjective added:</strong> ${subj} / 10<br><strong>Grand total:</strong> ${grand} / ${maxTotal}`;
+      res.innerHTML += `<details style="margin-top:8px"><summary>Show objective correct answers</summary><ol>`;
+      wrapMCQData.forEach((q,i)=>{ res.innerHTML += `<li>${q.q} — <em>Answer:</em> ${q.a[q.ans]}</li>`; });
+      res.innerHTML += `</ol><ol>`;
+      starterMatchData.slice(0,6).forEach((m,i)=>{ res.innerHTML += `<li>${m.left} → ${m.rightOptions[m.ans]}</li>`; });
+      res.innerHTML += `</ol></details>`;
+    }
+
+    // Disable forms from being submitted normally
+    document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>e.preventDefault()));
+  </script>
+</body>
+</html>

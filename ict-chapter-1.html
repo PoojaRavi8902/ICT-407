@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11: File Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background: #2b6777;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0.2rem 0;
+    }
+    header h3 {
+      margin: 0;
+      font-weight: normal;
+    }
+    nav {
+      background: #52ab98;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 1rem;
+      background: #fff;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+      color: #2b6777;
+    }
+    .file-format {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .format-card {
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      transition: transform 0.2s;
+    }
+    .format-card:hover {
+      transform: scale(1.05);
+      background: #eef;
+    }
+    button {
+      background: #52ab98;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2b6777;
+    }
+    .dark-mode {
+      background: #1c1c1c;
+      color: #f4f4f4;
+    }
+    .dark-mode section {
+      background: #2c2c2c;
+      color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chapter 11: File Management</h1>
+    <h3>Prepared by Ravi Raju</h3>
+  </header>
+  <nav>
+    <a href="#manage">Manage Files</a>
+    <a href="#formats">File Formats</a>
+    <a href="#compression">File Compression</a>
+    <button onclick="toggleDarkMode()">Toggle Theme</button>
+  </nav>
+
+  <section id="manage">
+    <h2>11.1 Manage Files Effectively</h2>
+    <p>File management is the process of organizing, storing, naming, and retrieving files effectively. A good system ensures easy access, sharing, and prevents data loss.</p>
+    <ul>
+      <li><strong>Locate stored files:</strong> Use search functions or directory navigation. Example: finding a Word document by searching its name.</li>
+      <li><strong>Open and import files:</strong> Applications can import multiple file types (.csv into Excel, .jpg into PowerPoint).</li>
+      <li><strong>Save files in hierarchical folders:</strong> Example: <em>School Work → Computer Science → Chapter 11 → Notes.docx</em>.</li>
+      <li><strong>Use meaningful filenames:</strong> Instead of “doc1.docx,” use “IGCSE_FileManagement_Notes.docx.”</li>
+      <li><strong>Save/print in different formats:</strong> Document (.docx, .pdf), database reports, graphs/charts, web pages.</li>
+      <li><strong>Export files in specific formats:</strong> .docx, .xlsx, .sdb, .pptx, etc.</li>
+      <li><strong>Export in generic formats:</strong> .csv, .txt, .rtf, .pdf, .jpg, .png for compatibility across systems.</li>
+    </ul>
+  </section>
+
+  <section id="formats">
+    <h2>File Formats</h2>
+    <p>Different file formats have unique characteristics and uses. Below are common ones:</p>
+    <div class="file-format">
+      <div class="format-card"><strong>.css</strong> – Stylesheets used for web design.</div>
+      <div class="format-card"><strong>.csv</strong> – Comma-separated values, useful for spreadsheets/databases.</div>
+      <div class="format-card"><strong>.gif</strong> – Animated/static images, small file sizes.</div>
+      <div class="format-card"><strong>.htm/.html</strong> – Webpage content files.</div>
+      <div class="format-card"><strong>.jpg</strong> – Compressed images, common for photos.</div>
+      <div class="format-card"><strong>.pdf</strong> – Portable document format, fixed layout.</div>
+      <div class="format-card"><strong>.png</strong> – High-quality images with transparency support.</div>
+      <div class="format-card"><strong>.rtf</strong> – Rich text format, cross-platform text documents.</div>
+      <div class="format-card"><strong>.txt</strong> – Plain text files.</div>
+      <div class="format-card"><strong>.zip/.rar</strong> – Compressed file archives.</div>
+    </div>
+    <p><strong>Need for generic file formats:</strong> Ensures files can be accessed across different platforms and software (e.g., exporting .csv so data can open in Excel, Google Sheets, or a database).</p>
+  </section>
+
+  <section id="compression">
+    <h2>11.2 Reduce File Sizes for Storage or Transmission</h2>
+    <p>Large files are often compressed to save storage space or make transmission quicker over the internet.</p>
+    <ul>
+      <li><strong>Compression tools:</strong> WinRAR, 7-Zip, WinZip.</li>
+      <li><strong>Compressed formats:</strong> .zip and .rar are most common.</li>
+      <li><strong>Advantages:</strong>
+        <ul>
+          <li>Saves storage space.</li>
+          <li>Speeds up file transfers.</li>
+          <li>Groups multiple files into one archive.</li>
+        </ul>
+      </li>
+    </ul>
+    <button onclick="simulateCompression()">Simulate File Compression</button>
+    <p id="compressionResult"></p>
+  </section>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+    function simulateCompression() {
+      const original = 20; // MB
+      const compressed = (original * 0.4).toFixed(2);
+      document.getElementById('compressionResult').innerText = `Original size: ${original}MB → Compressed size: ${compressed}MB`;
+    }
+  </script>
+</body>
+</html>

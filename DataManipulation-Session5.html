@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>IGCSE ICT 0983 — Chapter 18 Session 5: Reports, Output Formats & Evaluation</title>
+<style>
+  :root{--blue:#0b63c6;--muted:#546;--card:#fff;--bg:#f6f8fb}
+  body{font-family:Inter,system-ui,Segoe UI,Arial;line-height:1.45;margin:12px;background:var(--bg);color:#102}
+  .wrap{max-width:980px;margin:12px auto;padding:10px}
+  header{background:#fff;border-left:6px solid var(--blue);padding:14px;border-radius:6px}
+  h1{margin:0;font-size:18px;color:var(--blue)}
+  .meta{color:var(--muted);font-size:13px;margin-top:6px}
+  .card{background:var(--card);border-radius:8px;padding:14px;margin:14px 0;box-shadow:0 6px 18px rgba(17,24,40,0.04)}
+  .collapsible{background:#fff;border:1px solid #e6eefc;padding:8px;border-radius:6px;cursor:pointer}
+  .content{padding:12px 10px;display:block}
+  .question{margin:10px 0;padding:8px;border-radius:6px;background:#fff;border:1px solid #eef2fb}
+  .submit-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+  button.submit{background:var(--blue);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  textarea,input[type=text]{width:100%;padding:8px;border-radius:6px;border:1px solid #dfe9fb}
+  .result{margin-top:12px;padding:10px;border-radius:6px;background:#e9f6ff;border:1px solid #cfe9ff}
+  .small{font-size:13px;color:var(--muted)}
+  svg.diagram{width:100%;height:auto;border:1px solid #e6eefc;border-radius:6px;background:#fff}
+  pre.sql{background:#f3f7ff;border:1px solid #d8e8ff;padding:10px;border-radius:6px;font-family:Menlo,Monaco,Consolas,'Courier New',monospace}
+  table.db{width:100%;border-collapse:collapse;margin-top:10px}
+  table.db th, table.db td{border:1px solid #e6eefc;padding:6px;text-align:left;font-size:13px}
+  footer{font-size:13px;color:#666;text-align:center;margin:18px 0}
+  .reflection{width:100%;padding:8px;border-radius:6px;border:1px solid #dfe9fb}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>IGCSE ICT 0983 — Chapter 18: Data Manipulation — Session 5</h1>
+      <div class="meta">Topic: Reports, Output Formats & Evaluation | Duration: 60 minutes</div>
+    </header>
+
+    <!-- Phase 1 Starter -->
+    <section class="card" id="phase1">
+      <h2>Phase 1 — Starter (10–15 min): Quick revision (Queries & Reports basics)</h2>
+      <p class="small">Exam-style starter: objective and written questions. Click <strong>Submit</strong> to auto-mark objective parts.</p>
+      <form id="starterForm">
+        <h3>10 MCQs</h3>
+        <div id="s_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="s_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="s_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="s_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeStarter()">Submit</button>
+          <div class="small">Objective answers and model guidance appear after submit. Then enter self-marks.</div>
+        </div>
+
+        <div id="starterResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 2 Lecture: Report design + SVG diagram -->
+    <section class="card">
+      <h2>Phase 2 — Lecture (10–15 min): Report design concepts</h2>
+      <div class="collapsible" onclick="toggle(this)">Show / Hide: Teaching notes & Report diagram</div>
+      <div class="content">
+        <h3>Key points</h3>
+        <ul>
+          <li>Reports present data for reading/printing: headers, detail section, group headers, footers, page footer.</li>
+          <li>Group by fields (e.g., Class), include summary calculations (average) in group footer.</li>
+          <li>Design for readability: clear titles, alignment, consistent fonts, and page breaks.</li>
+        </ul>
+
+        <h4>SVG — Report: Students by Subject, Grouped by Class, with Average Mark (classic)</h4>
+        <svg class="diagram" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Report diagram">
+          <rect x="8" y="8" width="884" height="504" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="18" fill="#0b63c6">Report: Students by Subject — Grouped by Class</text>
+          <!-- Report header -->
+          <rect x="28" y="46" width="820" height="48" rx="4" fill="#f8f9fb" stroke="#e6eefc"/>
+          <text x="36" y="74" font-size="13" fill="#102">Report title: Students by Subject | Date generated: 30/10/2025 | Page 1</text>
+
+          <!-- Group header: Class 10A -->
+          <rect x="28" y="106" width="820" height="28" rx="4" fill="#eef6ff" stroke="#dfeeff"/>
+          <text x="36" y="126" font-size="13" fill="#0b63c6">Class: 10A (Group Header)</text>
+
+          <!-- Column headings -->
+          <rect x="28" y="146" width="820" height="28" rx="4" fill="#fff" stroke="#eef2fb"/>
+          <text x="36" y="164" font-size="13" fill="#102">Student Name</text>
+          <text x="300" y="164" font-size="13" fill="#102">Subject</text>
+          <text x="540" y="164" font-size="13" fill="#102">Mark</text>
+          <text x="680" y="164" font-size="13" fill="#102">Grade</text>
+
+          <!-- Detail rows (two rows example) -->
+          <rect x="28" y="176" width="820" height="28" rx="4" fill="#fff" stroke="#f3f7ff"/>
+          <text x="36" y="194" font-size="13">Amir Hassan</text>
+          <text x="300" y="194" font-size="13">Mathematics</text>
+          <text x="540" y="194" font-size="13">86</text>
+          <text x="680" y="194" font-size="13">A</text>
+
+          <rect x="28" y="206" width="820" height="28" rx="4" fill="#f9fbff" stroke="#f3f7ff"/>
+          <text x="36" y="224" font-size="13">Sara Ali</text>
+          <text x="300" y="224" font-size="13">Mathematics</text>
+          <text x="540" y="224" font-size="13">72</text>
+          <text x="680" y="224" font-size="13">B</text>
+
+          <!-- Group footer: average -->
+          <rect x="28" y="246" width="820" height="28" rx="4" fill="#eef6ff" stroke="#dfeeff"/>
+          <text x="36" y="264" font-size="13" fill="#102">Class average (10A): 79.0</text>
+
+          <!-- Next group header: Class 10B -->
+          <rect x="28" y="286" width="820" height="28" rx="4" fill="#eef6ff" stroke="#dfeeff"/>
+          <text x="36" y="304" font-size="13" fill="#0b63c6">Class: 10B (Group Header)</text>
+
+          <!-- Detail rows (one row example) -->
+          <rect x="28" y="326" width="820" height="28" rx="4" fill="#fff" stroke="#f3f7ff"/>
+          <text x="36" y="344" font-size="13">Mai Chen</text>
+          <text x="300" y="344" font-size="13">Mathematics</text>
+          <text x="540" y="344" font-size="13">91</text>
+          <text x="680" y="344" font-size="13">A</text>
+
+          <!-- Group footer: average -->
+          <rect x="28" y="366" width="820" height="28" rx="4" fill="#eef6ff" stroke="#dfeeff"/>
+          <text x="36" y="384" font-size="13" fill="#102">Class average (10B): 91.0</text>
+
+          <!-- Report footer -->
+          <rect x="28" y="416" width="820" height="28" rx="4" fill="#fff" stroke="#eef2fb"/>
+          <text x="36" y="434" font-size="12" fill="#546">Generated by: School MIS | Output: PDF | Confidential</text>
+        </svg>
+
+        <p class="small">Use the group header to label groups (Class) and group footer to show aggregate values (average). Design for page breaks and legibility when printing.</p>
+      </div>
+    </section>
+
+    <!-- Phase 3 Activity -->
+    <section class="card">
+      <h2>Phase 3 — Activity (15–20 min): Design & Evaluate Reports</h2>
+      <p class="small">Exam-style applied tasks: create report layouts, choose export formats, and evaluate output. Objective parts auto-marked.</p>
+      <form id="activityForm">
+        <h3>10 MCQs</h3>
+        <div id="a_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="a_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="a_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="a_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeActivity()">Submit</button>
+        </div>
+        <div id="activityResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 4 Lecture: Output formats & evaluation -->
+    <section class="card">
+      <h2>Phase 4 — Lecture (10–12 min): Output Formats & Evaluation</h2>
+      <div class="collapsible" onclick="toggle(this)">Show / Hide: Notes</div>
+      <div class="content">
+        <h3>Key points</h3>
+        <ul>
+          <li>Export formats: PDF for fixed layout, CSV for raw data exchange, TXT for simple text, HTML for web display.</li>
+          <li>Choose format based on recipient needs: readability, data reuse, archival.</li>
+          <li>Evaluation checklist: accuracy, clarity, relevance, timeliness, accessibility.</li>
+        </ul>
+
+        <h4>Case study: Principal’s Award list — evaluation questions</h4>
+        <ol>
+          <li>Is the report showing the correct students and marks? (accuracy)</li>
+          <li>Does the layout allow quick scanning of top performers? (clarity)</li>
+          <li>Is the format appropriate for the recipient (parent, senior leader)? (purpose)</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Phase 5 Wrap-up -->
+    <section class="card">
+      <h2>Phase 5 — Wrap-up (10–12 min)</h2>
+      <p class="small">Final consolidation: objective parts auto-marked; written parts use model guidance and self-marking.</p>
+      <form id="wrapForm">
+        <h3>10 MCQs</h3>
+        <div id="w_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="w_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="w_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="w_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeWrap()">Submit</button>
+          <div class="small">Reflection (optional):</div>
+        </div>
+        <div style="margin-top:10px"><textarea class="reflection" placeholder="One thing I learned / found challenging..."></textarea></div>
+        <div id="wrapResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <footer><strong>Designed for my (Ravi's) use — IGCSE ICT 0983 Chapter 18 (Session 5) Ravi Raju</strong></footer>
+  </div>
+
+<script>
+// Utility
+function toggle(el){const p=el.nextElementSibling; p.style.display=(p.style.display==='none'||p.style.display==='')?'block':'none';}
+
+// Builders
+function buildMCQ(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';let html=`<strong>${i+1}.</strong> ${it.q}<br>`;it.options.forEach((opt,j)=>{html+=`<label><input type=radio name="${prefix}_mcq${i+1}" value="${String.fromCharCode(65+j)}"> ${opt}</label><br>`});div.innerHTML=html;c.appendChild(div);});}
+function buildFill(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${it.q}<br><input type=text name="${prefix}_fb${i+1}"></label>`;c.appendChild(div);});}
+function buildShort(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${it.q}<br><textarea name="${prefix}_sa${i+1}" rows=2></textarea></label>`;c.appendChild(div);});}
+function buildLong(containerId,items,prefix){const c=document.getElementById(containerId);items.forEach((it,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${it.q}<br><textarea name="${prefix}_la${i+1}" rows=4></textarea></label>`;c.appendChild(div);});}
+
+// Question banks (exam-style)
+const s_mcqs=[
+  {q:'Which report component appears at the top of each page?', options:['Detail section','Page header','Group footer']},
+  {q:'Which format is best for fixed printable layout?', options:['CSV','PDF','TXT']},
+  {q:'Group headers are used to:', options:['Sort data','Label and group records','Encrypt data']},
+  {q:'Which shows aggregated values per group?', options:['Detail rows','Group footer','Page header']},
+  {q:'Which is important for report readability?', options:['Small fonts','Clear headings','No spacing']},
+  {q:'Which export is best for data reuse in spreadsheets?', options:['PDF','CSV','JPEG']},
+  {q:'Page footer commonly shows:', options:['Report title only','Date and page number','Only data rows']},
+  {q:'Which helps users scan report quickly?', options:['Colour contrast','Complex fonts','Hidden headings']},
+  {q:'Reports should be evaluated for accuracy and ________.', options:['timeliness','weight','encryption']},
+  {q:'Which is not a report section?', options:['Detail','Header','Query']}
+];
+const s_fills=[
+  {q:'The section that repeats for each record is the ________.'},
+  {q:'Use ________ to show averages per class.'},
+  {q:'Export to ________ when data will be edited in Excel.'},
+  {q:'A good heading should be ________ and descriptive.'},
+  {q:'Page footers often include page ________.'},
+  {q:'Grouping by Class places students into ________.'},
+  {q:'Use ________ to separate groups visually (e.g., shaded header).'},
+  {q:'Reports for parents should be ________ for clarity.'},
+  {q:'CSV stands for comma separated ________.'},
+  {q:'A checklist for evaluation includes accuracy, clarity and ________.'}
+];
+const s_shorts=[
+  {q:'Define group footer in one sentence.'},
+  {q:'Give one reason to export as PDF.'},
+  {q:'Name one visual design tip for reports.'},
+  {q:'Why include page numbers? (short)'},
+  {q:'State one purpose of reports in schools.'}
+];
+const s_longs=[
+  {q:'Describe how you would design a report to show top 10 students in each class (6–8 lines).'},
+  {q:'Explain why grouping and averaging are useful for senior leaders (6–8 lines).'},
+  {q:'Discuss considerations when exporting reports for parents vs for data analysts (6–8 lines).'}
+];
+
+const a_mcqs=[
+  {q:'Which area should hold the report title?', options:['Detail','Report header','Group footer']},
+  {q:'To calculate class average use', options:['Detail row','Group footer with Avg','Page header']},
+  {q:'Which format preserves layout exactly?', options:['PDF','CSV','TXT']},
+  {q:'Alternating row shading improves', options:['printing cost','readability','security']},
+  {q:'Which file is best for importing into a spreadsheet?', options:['PDF','CSV','TXT']},
+  {q:'Which is part of evaluation?', options:['Accuracy','Colour of screen only','Number of fonts used']},
+  {q:'Use page breaks to', options:['Limit report length','Organise printed pages','Hide data']},
+  {q:'Include contact details in', options:['Page header','Report footer','Detail rows']},
+  {q:'A summary section often appears in', options:['Group footer','Detail','Page header']},
+  {q:'Which export is best for web viewing?', options:['HTML','PDF','DOCX']}
+];
+const a_fills=[
+  {q:'Place the title in the ________ header.'},
+  {q:'Use ________ to calculate averages in group footers.'},
+  {q:'Export to ________ to keep layout but not editable.'},
+  {q:'Reports for analysis often use ________ format for raw data.'},
+  {q:'A report should include a ________ to identify when it was produced.'},
+  {q:'Use ________ to make groups visually distinct.'},
+  {q:'Include ________ on each page to help navigation.'},
+  {q:'Use ________ to limit the number of records printed per page.'},
+  {q:'Ensure ________ by testing queries used to build the report.'},
+  {q:'A readable font size for print reports is around ________ pt.'}
+];
+const a_shorts=[
+  {q:'Write a short SQL to select Class and AVG(Mark) grouped by Class.'},
+  {q:'Suggest one field to include in a report footer and why.'},
+  {q:'How would you format numeric marks for clarity? (brief)'},
+  {q:'Give one reason to export a report to CSV.'},
+  {q:'Name a simple test to check report accuracy.'}
+];
+const a_longs=[
+  {q:'Design a layout for a report showing student attendance and average mark; explain field placement and grouping (8–10 lines).'},
+  {q:'Evaluate pros and cons of exporting student reports as PDF vs CSV for different audiences (8–10 lines).'},
+  {q:'Describe steps to verify a report before distribution (6–8 lines).'}
+];
+
+const w_mcqs=[
+  {q:'Which is best when copying data into Excel?', options:['PDF','CSV','PNG']},
+  {q:'Group footer is suitable for', options:['Totals/averages','Detail fields','Page numbers']},
+  {q:'Which is NOT an export format?', options:['PDF','CSV','EXE']},
+  {q:'Reports should be accessible to all users including', options:['only admins','users with disabilities','no one']},
+  {q:'Which is part of evaluation?', options:['Relevance','Font choice only','Colour scheme only']},
+  {q:'Use of headings helps', options:['hide data','scan quickly','reduce records']},
+  {q:'Page numbers help when printing multi-page reports because', options:['they show order','they change data','they encrypt content']},
+  {q:'Which format is editable in a text editor?', options:['PDF','CSV','JPEG']},
+  {q:'A cover page is best placed in', options:['Report header','Detail','Group footer']},
+  {q:'Which should be tested in report evaluation?', options:['Data accuracy','Background wallpaper','Screen resolution']}
+];
+const w_fills=[
+  {q:'Use ________ to export raw rows for analysis.'},
+  {q:'A clear ________ helps users understand a report quickly.'},
+  {q:'Include ________ in footers for traceability.'},
+  {q:'Group footers commonly show ________ values.'},
+  {q:'Use ________ rows to improve readability.'},
+  {q:'PDF format is best for ________ layout.'},
+  {q:'CSV files are easy to import into ________.'},
+  {q:'Always check ________ in the source queries before printing.'},
+  {q:'A good report must be both accurate and ________.'},
+  {q:'Use ________ to indicate confidential status.'}
+];
+const w_shorts=[
+  {q:'Give a concise evaluation question to check report clarity.'},
+  {q:'Suggest a way to make reports accessible.'},
+  {q:'Why include generation date on a report? (short)'},
+  {q:'Give one way to reduce paper when printing reports.'},
+  {q:'What should you check in the data source before running a report?'}
+];
+const w_longs=[
+  {q:'Create a 6-step checklist to evaluate a report before distribution.'},
+  {q:'Explain how you would present attendance and grades to parents vs senior leaders (6–8 lines).'},
+  {q:'Discuss consequences of distributing inaccurate reports and how to prevent them (8–10 lines).'}
+];
+
+// Build sections
+buildMCQ('s_mcqs',s_mcqs,'s'); buildFill('s_fills',s_fills,'s'); buildShort('s_shorts',s_shorts,'s'); buildLong('s_longs',s_longs,'s');
+buildMCQ('a_mcqs',a_mcqs,'a'); buildFill('a_fills',a_fills,'a'); buildShort('a_shorts',a_shorts,'a'); buildLong('a_longs',a_longs,'a');
+buildMCQ('w_mcqs',w_mcqs,'w'); buildFill('w_fills',w_fills,'w'); buildShort('w_shorts',w_shorts,'w'); buildLong('w_longs',w_longs,'w');
+
+// Answer keys (objective)
+const starterMCQKey={s_mcq1:'B',s_mcq2:'B',s_mcq3:'B',s_mcq4:'B',s_mcq5:'B',s_mcq6:'B',s_mcq7:'B',s_mcq8:'A',s_mcq9:'A',s_mcq10:'C'};
+const starterFillKey={s_fb1:'detail',s_fb2:'group footer',s_fb3:'csv',s_fb4:'short',s_fb5:'numbers',s_fb6:'groups',s_fb7:'shading',s_fb8:'clear',s_fb9:'values',s_fb10:'timeliness'};
+const activityMCQKey={a_mcq1:'B',a_mcq2:'B',a_mcq3:'A',a_mcq4:'B',a_mcq5:'B',a_mcq6:'A',a_mcq7:'B',a_mcq8:'B',a_mcq9:'A',a_mcq10:'A'};
+const activityFillKey={a_fb1:'report',a_fb2:'avg',a_fb3:'pdf',a_fb4:'csv',a_fb5:'generation date',a_fb6:'shading',a_fb7:'page numbers',a_fb8:'page breaks',a_fb9:'queries',a_fb10:'10'};
+const wrapMCQKey={w_mcq1:'B',w_mcq2:'A',w_mcq3:'C',w_mcq4:'B',w_mcq5:'A',w_mcq6:'B',w_mcq7:'A',w_mcq8:'B',w_mcq9:'A',w_mcq10:'A'};
+const wrapFillKey={w_fb1:'csv',w_fb2:'title',w_fb3:'footer',w_fb4:'aggregate',w_fb5:'alternate',w_fb6:'fixed',w_fb7:'spreadsheets',w_fb8:'queries',w_fb9:'usable',w_fb10:'confidential'};
+
+function normalize(s){return String(s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[–—]/g,'-');}
+function gradeMCQ(key){let score=0;let total=Object.keys(key).length;for(const k in key){const el=document.querySelector(`input[name="${k}"]:checked`); if(el && el.value===key[k]) score++;}return {score,total};}
+function gradeFill(key){let score=0;let total=Object.keys(key).length;for(const k in key){const el=document.querySelector(`[name="${k}"]`); if(el && normalize(el.value)===key[k]) score++;}return {score,total};}
+
+// Graders
+function gradeStarter(){const m=gradeMCQ(starterMCQKey); const f=gradeFill(starterFillKey); const out=document.getElementById('starterResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>Group footer: a section that appears after each group to show summaries.</li><li>PDF preserves layout and is suitable for printing and sharing.</li><li>Use clear headings, spacing and readable fonts.</li><li>Page numbers help navigation in printed reports.</li><li>Reports used for informing decisions, monitoring and communication.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Design top10: run query with ORDER BY [Mark] DESC and use TOP 10 or LIMIT equivalent; group by Class and display top students per group in report.</li><li>Grouping and averaging give senior leaders quick summaries across cohorts to spot trends.</li><li>Parents need clear readable reports; analysts need raw CSVs and aggregates. Choose accordingly.</li></ol>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='s_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='s_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeStarter()'>Finalize Starter Score</button></div>`;
+}
+function finalizeStarter(){const m=gradeMCQ(starterMCQKey); const f=gradeFill(starterFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`s_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`s_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('starterResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+function gradeActivity(){const m=gradeMCQ(activityMCQKey); const f=gradeFill(activityFillKey); const out=document.getElementById('activityResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>SELECT [Class], AVG([Mark]) AS [AvgMark] FROM [Students] GROUP BY [Class];</li><li>Report footer often includes date/time or contact info.</li><li>Format numbers with 1 decimal place for averages.</li><li>CSV is useful for analysis; PDF for sharing formatted output.</li><li>Test report by comparing sample rows to source queries.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Layout: Header with title, group by Class, detail rows with student fields, group footer with average and count, page footer with date/page. Explain placements to favour readability.</li><li>PDF preserves layout for parents; CSV allows analysts to compute further metrics. PDFs are not editable; CSVs lose formatting.</li><li>Verification steps: run source queries, sample-check totals, review formatting, confirm recipients and permissions.</li></ol>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='a_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='a_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeActivity()'>Finalize Activity Score</button></div>`;
+}
+function finalizeActivity(){const m=gradeMCQ(activityMCQKey); const f=gradeFill(activityFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`a_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`a_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('activityResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+function gradeWrap(){const m=gradeMCQ(wrapMCQKey); const f=gradeFill(wrapFillKey); const out=document.getElementById('wrapResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>SQL: SELECT [Class], AVG([Mark]) AS [AvgMark] FROM [Students] GROUP BY [Class];</li><li>Make reports accessible by using readable fonts and alt text for charts.</li><li>Generation date confirms timeliness and traceability.</li><li>Reduce paper by using filters and selecting needed pages only.</li><li>Check source queries, sample totals and known values before distribution.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Checklist: 1) Confirm data source & query, 2) Check field selection, 3) Verify grouping/aggregation, 4) Review layout for readability, 5) Test sample outputs, 6) Confirm distribution permissions.</li><li>For parents: show clear attendance and marks with explanations; for leaders: include aggregates, trends and comparisons. Use appropriate formats for each audience.</li><li>Inaccurate reports damage trust and may lead to wrong decisions; prevent by validation, peer review and audit trail.</li></ol>`;
+  out.innerHTML+=`<div style='margin-top:8px'>Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='w_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='w_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeWrap()'>Finalize Wrap Score</button></div>`;
+}
+function finalizeWrap(){const m=gradeMCQ(wrapMCQKey); const f=gradeFill(wrapFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`w_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`w_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('wrapResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+</script>
+<!-- Worked Example Section: Report Creation (SQL → Design Grid → Result) -->
+<section id="worked-example-report" class="my-12 p-6 bg-gray-50 rounded-2xl shadow-md">
+  <h2 class="text-2xl font-semibold mb-4 text-blue-700">Worked Example: Creating and Evaluating a Report</h2>
+
+  <p class="mb-4">This step-by-step walkthrough demonstrates how to create and evaluate a report using a realistic dataset — <strong>Students by Subject, Grouped by Class with Average Mark</strong>.</p>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Step 1 — SQL Query</h3>
+  <pre class="bg-gray-900 text-green-300 rounded-lg p-4 overflow-x-auto mb-4"><code>SELECT ClassName, SubjectName, AVG(Mark) AS AverageMark
+FROM StudentMarks
+GROUP BY ClassName, SubjectName
+ORDER BY ClassName, SubjectName;</code></pre>
+  <p class="text-gray-700 mb-6">This SQL query calculates the average mark per subject for each class. It uses the <code>AVG()</code> aggregate function and groups results by both <code>ClassName</code> and <code>SubjectName</code>.</p>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Step 2 — Query Design Grid</h3>
+  <div class="flex justify-center mb-6">
+    <img src="assets/query-design-grid-report.svg" alt="Access Query Design Grid for Class and Subject Report" class="rounded-xl border border-gray-300 shadow-sm" width="700">
+  </div>
+  <p class="text-gray-700 mb-6">The design grid above shows the equivalent setup in Access: fields <code>ClassName</code>, <code>SubjectName</code>, and <code>Mark</code> with the <strong>Totals</strong> row set to <em>Group By</em> for the first two and <em>Avg</em> for <code>Mark</code>.</p>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Step 3 — Report Layout View</h3>
+  <div class="flex justify-center mb-6">
+    <img src="assets/report-layout-view.svg" alt="Access Report Layout Grouped by Class and Subject" class="rounded-xl border border-gray-300 shadow-sm" width="700">
+  </div>
+  <p class="text-gray-700 mb-6">The layout view arranges the report grouped by <strong>Class</strong>, then by <strong>Subject</strong>. The average mark is displayed in each subject group footer. Report headers and footers contain titles and page numbers.</p>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Step 4 — Report Output</h3>
+  <pre class="bg-gray-900 text-blue-200 rounded-lg p-4 overflow-x-auto mb-4"><code>Class: 10A
+--------------------------------------
+Subject     | Average Mark
+English     | 76.5
+Mathematics | 82.0
+Science     | 79.4
+
+Class: 10B
+--------------------------------------
+Subject     | Average Mark
+English     | 74.2
+Mathematics | 80.8
+Science     | 77.6</code></pre>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Step 5 — Evaluation Criteria</h3>
+  <ul class="list-disc list-inside text-gray-700">
+    <li>Is grouping logical and clearly shown (Class → Subject)?</li>
+    <li>Are averages correctly formatted to one decimal place?</li>
+    <li>Does the report include a suitable title and page footer?</li>
+    <li>Are all records and subjects represented without omission?</li>
+    <li>Is layout consistent and readable when printed or exported?</li>
+  </ul>
+
+  <p class="mt-6 text-gray-600 italic">Tip:  Dear Students,try test reports with varied datasets (e.g., missing values, outliers) to verify design robustness.</p>
+</section>
+<!-- End of Worked Example Section -->
+</body>
+</html>

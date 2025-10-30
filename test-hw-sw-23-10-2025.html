@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test on Hardware and Software | IGCSE ICT</title>
+  <style>
+    :root{
+      --accent:#1565c0;
+      --bg:#f3f6fb;
+      --card:#fff;
+      --muted:#555;
+    }
+    body{font-family:Inter,Segoe UI,Roboto,Arial; background:var(--bg); margin:0; padding:24px; color:#111}
+    .container{max-width:980px;margin:0 auto}
+    header{background:var(--accent); color:white; padding:18px 20px; border-radius:10px}
+    h1{margin:0;font-size:20px}
+    .subhead{margin-top:6px;font-size:14px;color:rgba(255,255,255,0.9)}
+    .card{background:var(--card); margin-top:18px; padding:18px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    input[type="text"]{width:100%;padding:10px;border-radius:8px;border:1px solid #d1d5db}
+    button{background:var(--accent); color:white; border:none; padding:10px 16px; border-radius:8px; cursor:pointer; font-weight:700}
+    button:disabled{background:#cbd5e1; cursor:not-allowed}
+    .section-title{font-size:18px;color:var(--accent);margin:12px 0}
+    .question{margin-bottom:14px;padding:10px;border-radius:8px;border:1px solid #eef2ff;background:#fcfeff}
+    .question b{display:block;margin-bottom:8px}
+    textarea{width:100%;min-height:80px;padding:10px;border-radius:8px;border:1px solid #d1d5db}
+    .result{font-weight:700;color:#0b6623;margin-top:16px}
+    .correct-answer{margin-top:8px;color:#0b6623;font-weight:600}
+    .wrong-answer{margin-top:8px;color:#b91c1c;font-weight:600}
+    .topline{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .name-mark{background:rgba(255,255,255,0.08); padding:8px 12px;border-radius:8px}
+    .hint{color:var(--muted);font-size:13px;margin-top:8px}
+    @media print{
+      button, input, textarea { -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div>
+          <h1>Test on Hardware and Software</h1>
+          <div class="subhead">IGCSE ICT — Self Assessment (Total: 50 marks)</div>
+        </div>
+        <div id="topNameMark" class="name-mark" aria-live="polite">
+          <!-- Student name and marks will appear here after submission -->
+          Not started
+        </div>
+      </div>
+    </header>
+
+    <div class="card" id="startCard">
+      <label for="studentName">Enter student full name (required to begin):</label>
+      <input id="studentName" type="text" placeholder="e.g., Aisha Ahmed">
+      <div style="margin-top:12px; display:flex; gap:8px; align-items:center">
+        <button id="startBtn">Start Test</button>
+        <div class="hint">You must enter your name. The SUBMIT button will be enabled only when all questions are answered.</div>
+      </div>
+    </div>
+
+    <form id="testForm" class="card" style="display:none">
+      <div class="topline" style="margin-bottom:12px; align-items:center">
+        <div><strong>Student:</strong> <span id="studentHeader"></span></div>
+        <div id="marksTop" style="font-weight:700;color:var(--accent)"></div>
+      </div>
+
+      <hr>
+
+      <div class="section-title">Section A — Multiple Choice (30 × 1 mark)</div>
+      <div id="mcqSection"></div>
+
+      <div class="section-title">Section B — Short Answers (5 × 2 marks)</div>
+      <div id="shortSection"></div>
+
+      <div class="section-title">Section C — Long Answers (2 × 5 marks)</div>
+      <div id="longSection"></div>
+
+      <div style="text-align:center;margin-top:18px">
+        <button id="submitBtn" type="button" disabled>SUBMIT</button>
+      </div>
+
+      <div id="resultsArea" class="result" style="display:none"></div>
+    </form>
+  </div>
+
+<script>
+/* -------------------------
+   Question bank (30 MCQs)
+   15 Software, 15 Hardware
+   ------------------------- */
+const mcqs = [
+  // SOFTWARE (15)
+  {q:"Which software runs and controls the computer hardware?", options:["System software","Application software","Utility software","Game"], answer:"System software"},
+  {q:"Which program is used to write, test and debug code?", options:["IDE","Word processor","Spreadsheet","Browser"], answer:"IDE"},
+  {q:"Which software helps clean temporary files and free disk space?", options:["Disk cleanup utility","Compiler","Operating system","Text editor"], answer:"Disk cleanup utility"},
+  {q:"Which program translates high-level language into machine code?", options:["Compiler","Antivirus","Browser","Image editor"], answer:"Compiler"},
+  {q:"Which software category includes MS Word and MS Excel?", options:["Application software","System software","Utility","Firmware"], answer:"Application software"},
+  {q:"Which software protects the computer from malware?", options:["Antivirus","Zip utility","Device driver","IDE"], answer:"Antivirus"},
+  {q:"What does 'UI' stand for in operating systems?", options:["User Interface","Universal Input","Unit Index","Unique Identifier"], answer:"User Interface"},
+  {q:"Which utility compresses files to reduce their size?", options:["Compression/Zip utility","Database","Compiler","IDE"], answer:"Compression/Zip utility"},
+  {q:"Which software helps recover deleted files or undo mistakes?", options:["Backup/Recovery utility","Spreadsheet","Browser","Game"], answer:"Backup/Recovery utility"},
+  {q:"Which of these is a system program needed for hardware to work?", options:["Device driver","Word processor","Antivirus (app)","Hyperlink"], answer:"Device driver"},
+  {q:"Which tool stores reusable code snippets and automates builds in development?", options:["IDE with tools","Antivirus","Photo editor","Game engine"], answer:"IDE with tools"},
+  {q:"Which software provides menu, icons and windows for users?", options:["Graphical user interface (GUI)","Compiler","CLI","Printer driver"], answer:"Graphical user interface (GUI)"},
+  {q:"Which utility would you use to check and fix disk errors?", options:["Disk checker (CHKDSK)","Text editor","Database","Browser"], answer:"Disk checker (CHKDSK)"},
+  {q:"Which software feature helps locate and delete duplicate files?", options:["Duplicate file finder utility","Spreadsheet","Driver updater","Image viewer"], answer:"Duplicate file finder utility"},
+  {q:"Which software type is used to translate human languages using memories?", options:["Computer-assisted translation (CAT)","Antivirus","Compression tool","Compiler"], answer:"Computer-assisted translation (CAT)"},
+
+  // HARDWARE (15)
+  {q:"Which input device is best for freehand drawing on the computer?", options:["Graphics tablet","Keyboard","Barcode scanner","Microphone"], answer:"Graphics tablet"},
+  {q:"Which device reads marks on exam answer sheets?", options:["OMR","RFID","Magnetic stripe reader","Touchpad"], answer:"OMR"},
+  {q:"Which device converts printed text into editable text?", options:["OCR","RFID","Touchscreen","Joystick"], answer:"OCR"},
+  {q:"Which technology uses radio waves to read tags without line-of-sight?", options:["RFID","Barcode","OMR","OCR"], answer:"RFID"},
+  {q:"Which device would you use to scan a printed photograph?", options:["Flatbed scanner","Joystick","Microphone","RFID reader"], answer:"Flatbed scanner"},
+  {q:"Which wearable is used to show notifications and track fitness?", options:["Smartwatch","Mainframe","Scanner","Projector"], answer:"Smartwatch"},
+  {q:"Which large computer handles huge data processing for banks?", options:["Mainframe","Laptop","Tablet","Smartphone"], answer:"Mainframe"},
+  {q:"Which technology amplifies infrared light to see in dark?", options:["Night vision enhancement","Holography","OCR","CAT"], answer:"Night vision enhancement"},
+  {q:"Which system displays an artificially created environment using goggles?", options:["Virtual reality (VR)","RFID","OMR","MICR"], answer:"Virtual reality (VR)"},
+  {q:"Which imaging technique creates 3-D images using lasers?", options:["Holography","OCR","Barcode","OMR"], answer:"Holography"},
+  {q:"Which device is used in shops to read barcodes on products?", options:["Barcode reader","Graphics tablet","Light pen","Trackerball"], answer:"Barcode reader"},
+  {q:"Which device captures live video for video calls?", options:["Webcam","OMR","MICR","Touchpad"], answer:"Webcam"},
+  {q:"Which input device uses a ball or optical sensor to move the pointer?", options:["Mouse","Scanner","RFID reader","Barcode reader"], answer:"Mouse"},
+  {q:"Which device reads magnetic ink characters on bank cheques?", options:["MICR reader","RFID reader","OMR","OCR"], answer:"MICR reader"},
+  {q:"Which robotics use includes precise surgical operations?", options:["Surgical robots","Barcode robots","Printer robots","Scanner robots"], answer:"Surgical robots"}
+];
+
+/* Short answer questions — each 2 marks, scored by keywords */
+const shortQs = [
+  {q:"Name one example of a system software and one example of an application software.", keys:["operating system","os","windows","linux","mac","word","excel","browser","photoshop"]},
+  {q:"Give two simple uses of Virtual Reality.", keys:["training","education","gaming","simulation","practice"]},
+  {q:"State two advantages of RFID over barcode systems.", keys:["no line","line of sight","read multiple","multiple tags","fast","remote"]},
+  {q:"Give two tasks utility software can perform.", keys:["cleanup","backup","recover","compress","antivirus","scan","defrag","disk"]},
+  {q:"State two functions of an IDE.", keys:["write","edit","compile","debug","test","run","build"]}
+];
+
+/* Long answer questions — each 5 marks, scored by keywords */
+const longQs = [
+  {q:"Explain briefly how OCR works and give two uses where it is helpful.", keys:["scan","image","characters","recognition","text","postal","digitize","archive","ocr","convert"]},
+  {q:"Describe the difference between system software and application software and give one example of each.", keys:["system","manage","hardware","application","task","example","os","word","excel","driver","browser"]}
+];
+
+/* ---------- helper functions ---------- */
+function shuffle(array){ // Fisher-Yates
+  let a = array.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ---------- render / lifecycle ---------- */
+const startBtn = document.getElementById('startBtn');
+const startCard = document.getElementById('startCard');
+const testForm = document.getElementById('testForm');
+const mcqSection = document.getElementById('mcqSection');
+const shortSection = document.getElementById('shortSection');
+const longSection = document.getElementById('longSection');
+const submitBtn = document.getElementById('submitBtn');
+const studentHeader = document.getElementById('studentHeader');
+const topNameMark = document.getElementById('topNameMark');
+const marksTop = document.getElementById('marksTop');
+const resultsArea = document.getElementById('resultsArea');
+
+let studentName = "";
+let shuffledMCQs = []; // will store {item, shuffledOptions} per question
+
+startBtn.addEventListener('click', () => {
+  const name = document.getElementById('studentName').value.trim();
+  if(!name){ alert("Please enter the student's full name to begin."); return; }
+  studentName = name;
+  studentHeader.textContent = studentName;
+  topNameMark.innerHTML = `<strong>${studentName}</strong> — Test in progress`;
+  startCard.style.display = 'none';
+  testForm.style.display = 'block';
+  renderQuestions();
+});
+
+function renderQuestions(){
+  // shuffle MCQ order for variety
+  shuffledMCQs = shuffle(mcqs).map((item, idx)=>{
+    const shuffledOptions = shuffle(item.options);
+    return { index: idx, item, shuffledOptions };
+  });
+
+  // clear containers
+  mcqSection.innerHTML = "";
+  shortSection.innerHTML = "";
+  longSection.innerHTML = "";
+  resultsArea.style.display = 'none';
+  marksTop.textContent = "";
+
+  // Render MCQs
+  shuffledMCQs.forEach((entry, i)=>{
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    qDiv.dataset.correct = entry.item.answer;
+    qDiv.id = `mcqQ${i}`;
+    let html = `<b>Q${i+1}.</b> ${entry.item.q}<div style="margin-top:8px">`;
+    entry.shuffledOptions.forEach(opt=>{
+      // radio name must be unique index-based
+      html += `<label style="display:block"><input type="radio" name="mcq${i}" value="${escapeHtml(opt)}" onchange="checkCompletion()"> ${escapeHtml(opt)}</label>`;
+    });
+    html += `</div><div class="answerReveal" id="mcqAns${i}" style="display:none"></div>`;
+    qDiv.innerHTML = html;
+    mcqSection.appendChild(qDiv);
+  });
+
+  // Render short answers
+  shortQs.forEach((s,i)=>{
+    const div = document.createElement('div');
+    div.className='question';
+    div.innerHTML = `<b>S${i+1}.</b> ${s.q}<div style="margin-top:8px"><textarea name="short${i}" oninput="checkCompletion()"></textarea></div><div class="answerReveal" id="shortAns${i}" style="display:none"></div>`;
+    shortSection.appendChild(div);
+  });
+
+  // Render long answers
+  longQs.forEach((l,i)=>{
+    const div = document.createElement('div');
+    div.className='question';
+    div.innerHTML = `<b>L${i+1}.</b> ${l.q}<div style="margin-top:8px"><textarea name="long${i}" oninput="checkCompletion()"></textarea></div><div class="answerReveal" id="longAns${i}" style="display:none"></div>`;
+    longSection.appendChild(div);
+  });
+
+  // ensure submit disabled until completion
+  submitBtn.disabled = true;
+}
+
+/* escape html helper (for option values rendered back safely) */
+function escapeHtml(text){
+  return text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+/* check if all MCQs and textareas have answers */
+function checkCompletion(){
+  const mcqCount = shuffledMCQs.length;
+  let allMcqAnswered = true;
+  for(let i=0;i<mcqCount;i++){
+    if(!document.querySelector(`input[name="mcq${i}"]:checked`)){ allMcqAnswered = false; break; }
+  }
+  const allText = Array.from(document.querySelectorAll('textarea')).every(t=>t.value.trim()!=="");
+  submitBtn.disabled = !(allMcqAnswered && allText);
+}
+
+/* scoring logic on submit */
+submitBtn.addEventListener('click', ()=> {
+  // prevent double submit
+  submitBtn.disabled = true;
+
+  let mcqScore = 0;
+  // Show correct answers area and mark
+  shuffledMCQs.forEach((entry,i)=>{
+    const selected = document.querySelector(`input[name="mcq${i}"]:checked`);
+    const correct = entry.item.answer;
+    const revealEl = document.getElementById(`mcqAns${i}`);
+    if(selected && selected.value === correct){
+      mcqScore++;
+      revealEl.innerHTML = `<span class="correct-answer">Correct ✓</span> — Answer: <strong>${correct}</strong>`;
+    } else {
+      revealEl.innerHTML = `<span class="wrong-answer">Incorrect ✗</span> — Correct answer: <strong>${correct}</strong>`;
+    }
+    revealEl.style.display = 'block';
+  });
+
+  // Short answers (2 marks each) — keyword matching
+  let shortScore = 0;
+  shortQs.forEach((s,i)=>{
+    const ans = document.querySelector(`textarea[name="short${i}"]`).value.toLowerCase();
+    const keys = s.keys;
+    // count unique keys present
+    let found = 0;
+    keys.forEach(k=>{ if(ans.includes(k)) found++; });
+    // heuristics: 2+ unique keys -> full 2 marks; 1 key -> 1 mark else 0
+    let awarded = (found>=2)?2:((found===1)?1:0);
+    shortScore += awarded;
+    const ansEl = document.getElementById(`shortAns${i}`);
+    ansEl.innerHTML = `Awarded: <strong>${awarded}/2</strong>. Keywords found: ${found}`;
+    ansEl.style.display = 'block';
+  });
+
+  // Long answers (5 marks each) — keyword matching
+  let longScore = 0;
+  longQs.forEach((l,i)=>{
+    const ans = document.querySelector(`textarea[name="long${i}"]`).value.toLowerCase();
+    const keys = l.keys;
+    let found = 0;
+    keys.forEach(k=>{ if(ans.includes(k)) found++; });
+    // grading scale:
+    // >=5 keywords -> 5 marks, 3-4 -> 3 marks, 1-2 -> 1 mark, 0 -> 0
+    let awarded = 0;
+    if(found >= 5) awarded = 5;
+    else if(found >= 3) awarded = 3;
+    else if(found >= 1) awarded = 1;
+    longScore += awarded;
+    const ansEl = document.getElementById(`longAns${i}`);
+    ansEl.innerHTML = `Awarded: <strong>${awarded}/5</strong>. Keywords found: ${found}`;
+    ansEl.style.display = 'block';
+  });
+
+  const totalPossible = mcqs.length + (shortQs.length*2) + (longQs.length*5);
+  const totalScore = mcqScore + shortScore + longScore;
+
+  // Display marks near top (first page)
+  marksTop.textContent = `Marks: ${totalScore}/${totalPossible}`;
+  topNameMark.innerHTML = `<strong>${studentName}</strong> — Marks: <strong>${totalScore}/${totalPossible}</strong>`;
+
+  // Show summary area
+  resultsArea.style.display = 'block';
+  resultsArea.innerHTML = `MCQ: ${mcqScore}/${mcqs.length} &nbsp; | &nbsp; Short: ${shortScore}/${shortQs.length*2} &nbsp; | &nbsp; Long: ${longScore}/${longQs.length*5} &nbsp; ⇒ <strong>Total: ${totalScore}/${totalPossible}</strong>`;
+
+  // reveal all correct answers are already shown; now prompt print
+  setTimeout(()=>{ window.print(); }, 300); // small delay to ensure DOM updates before print
+});
+
+/* Prevent accidental form submission (Enter key) */
+document.addEventListener('submit', e => e.preventDefault());
+
+/* Expose checkCompletion to global scope (used by inline onchange/oninput) */
+window.checkCompletion = checkCompletion;
+
+</script>
+</body>
+</html>

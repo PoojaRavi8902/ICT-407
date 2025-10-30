@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>IGCSE ICT 0983 — Chapter 18 Session 3: Forms, Data Entry, Validation & Verification (Exam-style)</title>
+<style>
+  :root{--blue:#0b63c6;--muted:#546;--card:#fff;--bg:#f6f8fb}
+  body{font-family:Inter,system-ui,Segoe UI,Arial;line-height:1.45;margin:12px;background:var(--bg);color:#102}
+  .wrap{max-width:980px;margin:12px auto;padding:10px}
+  header{background:#fff;border-left:6px solid var(--blue);padding:14px;border-radius:6px}
+  h1{margin:0;font-size:18px;color:var(--blue)}
+  .meta{color:var(--muted);font-size:13px;margin-top:6px}
+  .card{background:var(--card);border-radius:8px;padding:14px;margin:14px 0;box-shadow:0 6px 18px rgba(17,24,40,0.04)}
+  .collapsible{background:#fff;border:1px solid #e6eefc;padding:8px;border-radius:6px;cursor:pointer}
+  .content{padding:12px 10px;display:block}
+  .question{margin:10px 0;padding:8px;border-radius:6px;background:#fff;border:1px solid #eef2fb}
+  .submit-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+  button.submit{background:var(--blue);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  textarea,input[type=text]{width:100%;padding:8px;border-radius:6px;border:1px solid #dfe9fb}
+  .result{margin-top:12px;padding:10px;border-radius:6px;background:#e9f6ff;border:1px solid #cfe9ff}
+  .small{font-size:13px;color:var(--muted)}
+  svg.diagram{width:100%;height:auto;border:1px solid #e6eefc;border-radius:6px;background:#fff}
+  footer{font-size:13px;color:#666;text-align:center;margin:18px 0}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>IGCSE ICT 0983 — Chapter 18: Data Manipulation — Session 3</h1>
+      <div class="meta">Topic: Forms, Data Entry, Validation & Verification | Exam-style questions | Duration: 60 minutes</div>
+    </header>
+
+    <!-- Phase 1: Starter (revision of session 2) -->
+    <section class="card" id="phase1">
+      <h2>Phase 1 — Starter (10–15 min) — Revision (Data types, Keys, Relationships)</h2>
+      <p class="small">Exam-style starter: quick IGCSE-style objective and short/long questions drawn from Session 2. Click <strong>Submit</strong> to auto-mark objective parts.</p>
+      <form id="starterForm">
+        <h3>10 MCQs (Objective)</h3>
+        <div id="s_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks (Objective)</h3>
+        <div id="s_fills"></div>
+
+        <h3>5 Short answer (brief, 2–4 lines)</h3>
+        <div id="s_shorts"></div>
+
+        <h3>3 Long answer (scenario, 6–10 lines)</h3>
+        <div id="s_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeStarter()">Submit</button>
+          <div class="small">Objective answers and model guidance will appear. Then enter self-marks for written responses.</div>
+        </div>
+
+        <div id="starterResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 2: Lecture with Cambridge-style (classic) SVG diagrams -->
+    <section class="card">
+      <h2>Phase 2 — Lecture (10–15 min): Forms & Data Entry</h2>
+      <div class="collapsible" onclick="toggle(this)">Show / Hide: Teaching notes & diagrams</div>
+      <div class="content">
+        <h3>Key teaching points</h3>
+        <ul>
+          <li>Forms are interfaces for structured data entry; they reduce errors and enforce constraints.</li>
+          <li>Controls: Text box, dropdown, radio, checkbox, date picker. Properties: required, input mask, default, max length.</li>
+          <li>Design for accessibility (labels, tab order), and include placeholders for validation messages.</li>
+        </ul>
+
+        <h4>Diagram — Classic form layout (minimalist)</h4>
+        <svg class="diagram" viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Classic form layout">
+          <rect x="8" y="8" width="784" height="324" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="18" fill="#0b63c6">Student Registration</text>
+          <text x="28" y="62" font-size="12" fill="#222">Name *</text>
+          <rect x="28" y="68" width="440" height="28" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="28" y="110" font-size="12" fill="#222">Date of birth *</text>
+          <rect x="28" y="116" width="200" height="28" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="28" y="158" font-size="12" fill="#222">Gender</text>
+          <rect x="28" y="164" width="160" height="28" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="28" y="206" font-size="12" fill="#222">Phone</text>
+          <rect x="28" y="212" width="240" height="28" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="28" y="254" font-size="11" fill="#546">* required fields</text>
+          <rect x="600" y="280" width="140" height="36" rx="4" fill="#0b63c6"/>
+          <text x="640" y="305" font-size="13" fill="#fff">Submit</text>
+        </svg>
+
+        <h4>Diagram — Field properties (classic)</h4>
+        <svg class="diagram" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Field properties">
+          <rect x="8" y="8" width="784" height="144" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="14" fill="#0b63c6">Field: Phone</text>
+          <text x="28" y="62" font-size="12" fill="#222">Type: Text</text>
+          <text x="28" y="82" font-size="12" fill="#222">Input mask: 10 digits</text>
+          <text x="28" y="102" font-size="12" fill="#222">Required: Yes</text>
+          <text x="28" y="122" font-size="12" fill="#222">Validation: numeric, length=10</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Phase 3: Activity (Exam-style) -->
+    <section class="card">
+      <h2>Phase 3 — Activity (20 min) — Design & Apply</h2>
+      <p class="small">Exam-style applied questions on form design, data types, validation and simple verification. Objective parts auto-marked.</p>
+      <form id="activityForm">
+        <h3>10 MCQs (Objective)</h3>
+        <div id="a_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks (Objective)</h3>
+        <div id="a_fills"></div>
+
+        <h3>5 Short answer (2–5 lines)</h3>
+        <div id="a_shorts"></div>
+
+        <h3>3 Long answer (scenario — teacher to self-mark)</h3>
+        <div id="a_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeActivity()">Submit</button>
+          <div class="small">Objective answers revealed immediately; written answers get model guidance and self-mark fields.</div>
+        </div>
+        <div id="activityResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <!-- Phase 4: Lecture (Validation & Verification) with diagrams -->
+    <section class="card">
+      <h2>Phase 4 — Lecture (10–12 min): Validation & Verification</h2>
+      <div class="collapsible" onclick="toggle(this)">Show / Hide: Notes & diagrams</div>
+      <div class="content">
+        <h3>Core points</h3>
+        <ul>
+          <li>Validation types: range, type, presence, format (input mask), length, lookup.</li>
+          <li>Verification: double-entry, cross-check, manual review.</li>
+          <li>Balance client-side feedback with server-side enforcement for security.</li>
+        </ul>
+
+        <h4>Diagram — Validation error (classic)</h4>
+        <svg class="diagram" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Validation error example">
+          <rect x="8" y="8" width="784" height="124" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="14" fill="#0b63c6">Validation Example</text>
+          <text x="28" y="62" font-size="12" fill="#222">Phone: [01234]</text>
+          <rect x="160" y="48" width="200" height="28" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="28" y="100" font-size="12" fill="#c0392b">Error: Phone must be exactly 10 digits</text>
+        </svg>
+
+        <h4>Diagram — Verification (double entry)</h4>
+        <svg class="diagram" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Verification example">
+          <rect x="8" y="8" width="784" height="124" rx="6" fill="#fff" stroke="#e6eefc"/>
+          <text x="28" y="36" font-size="14" fill="#0b63c6">Verification Example</text>
+          <text x="28" y="62" font-size="12" fill="#222">Enter Email: </text>
+          <rect x="120" y="50" width="420" height="24" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="28" y="98" font-size="12" fill="#222">Re-enter Email: </text>
+          <rect x="120" y="86" width="420" height="24" rx="4" fill="#fff" stroke="#dfe9fb"/>
+          <text x="120" y="118" font-size="11" fill="#546">If both match -> Verified. If not -> Show error to re-enter.</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Phase 5: Wrap-up activity -->
+    <section class="card">
+      <h2>Phase 5 — Wrap-up (10–15 min)</h2>
+      <p class="small">Final exam-style consolidation: objective auto-marked; written parts self-marked using guidance.</p>
+      <form id="wrapForm">
+        <h3>10 MCQs</h3>
+        <div id="w_mcqs"></div>
+
+        <h3>10 Fill-in-the-blanks</h3>
+        <div id="w_fills"></div>
+
+        <h3>5 Short answer</h3>
+        <div id="w_shorts"></div>
+
+        <h3>3 Long answer</h3>
+        <div id="w_longs"></div>
+
+        <div class="submit-row">
+          <button type="button" class="submit" onclick="gradeWrap()">Submit</button>
+        </div>
+        <div id="wrapResult" class="result" style="display:none"></div>
+      </form>
+    </section>
+
+    <footer><strong>Designed for my (Ravi's) use — IGCSE ICT 0983 Chapter 18 (Session 3) Ravi Raju</strong></footer>
+  </div>
+
+<script>
+// Utility
+function toggle(el){const p=el.nextElementSibling; p.style.display=(p.style.display==='none'||p.style.display==='')?'block':'none';}
+
+// Builders
+function buildMCQ(containerId,data,prefix){const c=document.getElementById(containerId);data.forEach((d,i)=>{const div=document.createElement('div');div.className='question';let html=`<strong>${i+1}.</strong> ${d.q}<br>`;d.options.forEach((opt,j)=>{html += `<label><input type="radio" name="${prefix}_mcq${i+1}" value="${String.fromCharCode(65+j)}"> ${opt}</label><br>`});div.innerHTML=html;c.appendChild(div);});}
+function buildFill(containerId,data,prefix){const c=document.getElementById(containerId);data.forEach((d,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${d.q}<br><input type="text" name="${prefix}_fb${i+1}"></label>`;c.appendChild(div);});}
+function buildShort(containerId,data,prefix){const c=document.getElementById(containerId);data.forEach((d,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${d.q}<br><textarea name="${prefix}_sa${i+1}" rows="2"></textarea></label>`;c.appendChild(div);});}
+function buildLong(containerId,data,prefix){const c=document.getElementById(containerId);data.forEach((d,i)=>{const div=document.createElement('div');div.className='question';div.innerHTML=`<label><strong>${i+1}.</strong> ${d.q}<br><textarea name="${prefix}_la${i+1}" rows="4"></textarea></label>`;c.appendChild(div);});}
+
+// Question banks (exam-style) — Starter (revision of session 2)
+const s_mcqs=[
+  {q:'Which data type stores true/false values?', options:['Text','Boolean','Integer']},
+  {q:'Which key uniquely identifies a record?', options:['Foreign key','Primary key','Lookup key']},
+  {q:'Which relationship allows many records in child for one parent?', options:['One-to-one','One-to-many','Many-to-many']},
+  {q:'A CSV file is an example of a', options:['Relational DB','Flat-file','Encrypted file']},
+  {q:'Which reduces data duplication?', options:['Flat-file','Relational design','Manual duplication']},
+  {q:'Which is a composite key example?', options:['StudentID','StudentID+CourseID','Name']},
+  {q:'Referential integrity prevents', options:['Duplicate rows','Orphan child records','Faster queries']},
+  {q:'Which is a numeric data type?', options:['Date','Integer','Paragraph']},
+  {q:'Primary key must be', options:['Unique','Nullable','Text only']},
+  {q:'A record is best described as a', options:['Column','Row of fields','Database type']}
+];
+const s_fills=[
+  {q:'A ________ is a column in a table.'},
+  {q:'A ________ is a single row of fields.'},
+  {q:'_______ integrity ensures FK matches PK.'},
+  {q:'A ________ key links two tables.'},
+  {q:'_______ is used to split data into tables to remove duplication.'},
+  {q:'Date fields should use a ________ data type.'},
+  {q:'A ________ stores a fixed number of characters.'},
+  {q:'A ________ key may combine multiple fields.'},
+  {q:'CSV stands for comma separated ________.'},
+  {q:'A primary key cannot be ________.'}
+];
+const s_shorts=[
+  {q:'Define referential integrity (1–2 lines).'},
+  {q:'Give one advantage of relational databases.'},
+  {q:'Give one suitable primary key for a students table.'},
+  {q:'Why avoid using names as primary keys?'},
+  {q:'State one reason to use date data type.'}
+];
+const s_longs=[
+  {q:'Explain the difference between a flat-file and a relational database with an example (6–8 lines).'},
+  {q:'Describe how a primary key and foreign key work together to link tables (6–8 lines).'},
+  {q:'Discuss normalization and how it reduces redundancy (6–8 lines).'}
+];
+
+// Activity bank — Forms, Validation & Verification (exam-style)
+const a_mcqs=[
+  {q:'Which control prevents free text and forces a limited set of choices?', options:['Text box','Dropdown list','Paragraph box']},
+  {q:'An input mask is best used for:', options:['Formatting reports','Phone numbers','Storing images']},
+  {q:'A range check on age should be:', options:['0–120','-100–100','0–10,000']},
+  {q:'Verification is primarily concerned with:', options:['Format','Accuracy of content','Display']},
+  {q:'Required property prevents:', options:['Blank entries','Wrong format','Slow performance']},
+  {q:'Client-side validation is useful because it:', options:['Prevents server bypass','Improves UX with instant feedback','Secures database']},
+  {q:'Server-side validation is necessary because:', options:['Client checks can be bypassed','It is faster','It uses less bandwidth']},
+  {q:'Which is a verification technique?', options:['Double entry','Input mask','Dropdown']},
+  {q:'Validation message should be:', options:['Technical','User-friendly','Hidden']},
+  {q:'To verify email, best method is:', options:['Double entry and compare','Only domain check','Only format check']}
+];
+const a_fills=[
+  {q:'An ________ mask enforces a required format.'},
+  {q:'A ________ check ensures a number falls between limits.'},
+  {q:'______ entry requires typing the value twice.'},
+  {q:'A ________ field forces a selection from list.'},
+  {q:'Use ________ to prevent very long text entries.'},
+  {q:'Client validation runs in the ________.'},
+  {q:'Server validation runs on the ________.'},
+  {q:'Validation reduces ________ in databases.'},
+  {q:'An error message should suggest a ________.'},
+  {q:'Verification confirms the ________ of data.'}
+];
+const a_shorts=[
+  {q:'Write an input mask for a 10-digit phone (format).'},
+  {q:'List two properties to set on a date field.'},
+  {q:'Give a short reason why dropdowns reduce errors.'},
+  {q:'Name one disadvantage of client-side validation.'},
+  {q:'Give one check you would use for numeric ticket quantity.'}
+];
+const a_longs=[
+  {q:'Design a registration form for an exam (fields, types, validation rules). Explain choices (8–10 lines).'},
+  {q:'Evaluate client-side vs server-side validation in terms of UX and security (8–10 lines).'},
+  {q:'Explain how double-entry verification reduces transcription errors and its limitations (6–8 lines).'}
+];
+
+// Wrap-up bank
+const w_mcqs=[
+  {q:'Which is BEST described as a validation?', options:['Re-entering value','Checking format','Comparing records']},
+  {q:'Which control allows multiple selections?', options:['Radio','Checkbox','Dropdown (single)']},
+  {q:'Which is server-side validation example?', options:['JS check','DB constraint','HTML placeholder']},
+  {q:'Which is NOT a validation type?', options:['Range','Lookup','Template']},
+  {q:'Verification step is useful for:', options:['Confirming accuracy','Speeding printing','Changing keys']},
+  {q:'Accessibility tip for forms?', options:['No labels','Clear labels','Hidden inputs']},
+  {q:'Which improves data integrity?', options:['Validation','Large fonts','More tables']},
+  {q:'Which data type suits currency?', options:['Text','Decimal','Boolean']},
+  {q:'Which prevents orphan rows?', options:['Index','Referential integrity','Formatting']},
+  {q:'Which is a helpful validation guideline?', options:['Ambiguous messages','Actionable messages','No feedback']}
+];
+const w_fills=[
+  {q:'______ checks ensure a value exists (not blank).'},
+  {q:'Use ________ to limit characters length.'},
+  {q:'A helpful error message suggests an ________.'},
+  {q:'Double entry is a verification ________.'},
+  {q:'Validation should not be easily ________ by users.'},
+  {q:'Server-side validation protects against ________ attacks.'},
+  {q:'Use ________ lists to limit inputs to valid options.'},
+  {q:'Validation should be ________ and helpful.'},
+  {q:'Verification increases ________ of data.'},
+  {q:'A validation rule can be a ________ expression.'}
+];
+const w_shorts=[
+  {q:'Give a concise validation message for an invalid date.'},
+  {q:'How would you verify a postal code? (brief)'},
+  {q:'Why keep validation messages short and actionable?'},
+  {q:'Name one method to make forms accessible.'},
+  {q:'When should you prefer server-side validation?'}
+];
+const w_longs=[
+  {q:'Prepare a 6-point checklist for a data-entry operator to follow before submitting records.'},
+  {q:'Describe steps to implement an input mask and a range check in a form (technical plus rationale).'},
+  {q:'Discuss consequences for a school if validation is poor when collecting exam entries (8–10 lines).'}
+];
+
+// Build all parts
+buildMCQ('s_mcqs',s_mcqs,'s'); buildFill('s_fills',s_fills,'s'); buildShort('s_shorts',s_shorts,'s'); buildLong('s_longs',s_longs,'s');
+buildMCQ('a_mcqs',a_mcqs,'a'); buildFill('a_fills',a_fills,'a'); buildShort('a_shorts',a_shorts,'a'); buildLong('a_longs',a_longs,'a');
+buildMCQ('w_mcqs',w_mcqs,'w'); buildFill('w_fills',w_fills,'w'); buildShort('w_shorts',w_shorts,'w'); buildLong('w_longs',w_longs,'w');
+
+// Answer keys for objective parts
+const starterMCQKey={s_mcq1:'B',s_mcq2:'B',s_mcq3:'B',s_mcq4:'B',s_mcq5:'B',s_mcq6:'B',s_mcq7:'B',s_mcq8:'B',s_mcq9:'A',s_mcq10:'B'};
+const starterFillKey={s_fb1:'field',s_fb2:'record',s_fb3:'referential',s_fb4:'foreign',s_fb5:'normalization',s_fb6:'date',s_fb7:'char',s_fb8:'composite',s_fb9:'values',s_fb10:'null'};
+const activityMCQKey={a_mcq1:'B',a_mcq2:'B',a_mcq3:'A',a_mcq4:'B',a_mcq5:'A',a_mcq6:'B',a_mcq7:'A',a_mcq8:'A',a_mcq9:'B',a_mcq10:'A'};
+const activityFillKey={a_fb1:'input',a_fb2:'range',a_fb3:'double',a_fb4:'dropdown',a_fb5:'maxlength',a_fb6:'client',a_fb7:'server',a_fb8:'errors',a_fb9:'slider',a_fb10:'help'};
+const wrapMCQKey={w_mcq1:'B',w_mcq2:'A',w_mcq3:'B',w_mcq4:'C',w_mcq5:'A',w_mcq6:'B',w_mcq7:'A',w_mcq8:'B',w_mcq9:'B',w_mcq10:'B'};
+const wrapFillKey={w_fb1:'presence',w_fb2:'maxlength',w_fb3:'action',w_fb4:'technique',w_fb5:'bypassed',w_fb6:'injection',w_fb7:'dropdown',w_fb8:'clear',w_fb9:'accuracy',w_fb10:'regular'};
+
+function normalize(s){return String(s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[–—]/g,'-');}
+function gradeMCQ(key){let score=0;let total=Object.keys(key).length;for(const k in key){const el=document.querySelector(`input[name="${k}"]:checked`); if(el && el.value===key[k]) score++;}return {score,total};}
+function gradeFill(key){let score=0;let total=Object.keys(key).length;for(const k in key){const el=document.querySelector(`[name="${k}"]`); if(el && normalize(el.value)===key[k]) score++;}return {score,total};}
+
+// Graders that reveal model answers and self-mark inputs for written
+function gradeStarter(){const m=gradeMCQ(starterMCQKey); const f=gradeFill(starterFillKey); const out=document.getElementById('starterResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>Referential integrity: ensures FK references existing PK.</li><li>Relational DB reduces duplication and supports queries.</li><li>StudentID or RegNo.</li><li>Names change and are not unique.</li><li>Date type enables date calculations and validation.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers (guidance)</strong><ol><li>Flat-file stores all fields in one file causing duplication; relational splits into tables such as Students and Enrolments linked by keys.</li><li>PK uniquely identifies; FK stored in child table refers to PK enabling joins.</li><li>Normalization: 1NF/2NF reduces repeating groups and partial dependencies — split into separate tables.</li></ol>`;
+  out.innerHTML+=`<div style="margin-top:8px">Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='s_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='s_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeStarter()'>Finalize Starter Score</button></div>`;
+}
+function finalizeStarter(){const m=gradeMCQ(starterMCQKey); const f=gradeFill(starterFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`s_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`s_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('starterResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+function gradeActivity(){const m=gradeMCQ(activityMCQKey); const f=gradeFill(activityFillKey); const out=document.getElementById('activityResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>+44 07xxxxxxxx (example mask)</li><li>Properties: required, format; default value as needed.</li><li>Dropdowns limit choices and speed correct entry.</li><li>Client-side can be bypassed by users.</li><li>Range check with min/max values.</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Registration form: Name(text,required), DOB(date with range), Email(text with pattern), Phone(text mask), Tickets(integer range 1-10). Explain validations.</li><li>Client-side good for UX; server-side for security — use both.</li><li>Double-entry reduces typos; limitation: user may copy same wrong value twice.</li></ol>`;
+  out.innerHTML+=`<div style="margin-top:8px">Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='a_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='a_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeActivity()'>Finalize Activity Score</button></div>`;
+}
+function finalizeActivity(){const m=gradeMCQ(activityMCQKey); const f=gradeFill(activityFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`a_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`a_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('activityResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+function gradeWrap(){const m=gradeMCQ(wrapMCQKey); const f=gradeFill(wrapFillKey); const out=document.getElementById('wrapResult'); out.style.display='block'; out.innerHTML=`<strong>Objective — MCQs:</strong> ${m.score}/${m.total} &nbsp; <strong>Fills:</strong> ${f.score}/${f.total}<hr>`;
+  out.innerHTML+=`<strong>Model short answers</strong><ol><li>"Enter date in DD/MM/YYYY format"</li><li>Compare against known database or double-entry</li><li>Short actionable messages help correction</li><li>Provide labels and keyboard focus order</li><li>Server-side required when data security is critical</li></ol>`;
+  out.innerHTML+=`<strong>Model long answers</strong><ol><li>Checklist: validate required fields, verify key identifiers, check duplicates, confirm with user, save logs, back-up.</li><li>Implement mask using control property; range checks use min/max and test edge cases.</li><li>Poor validation leads to wrong reports, poor decisions, potential legal issues when data incorrect.</li></ol>`;
+  out.innerHTML+=`<div style="margin-top:8px">Enter self-marks: short answers (5 × max3): ${[1,2,3,4,5].map(i=>`<input id='w_sa${i}_mark' type='number' min='0' max='3' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:6px'>Long answers (3 × max6): ${[1,2,3].map(i=>`<input id='w_la${i}_mark' type='number' min='0' max='6' value='0' style='width:64px;margin-right:6px'>`).join('')}</div>`;
+  out.innerHTML+=`<div style='margin-top:8px'><button class='submit' onclick='finalizeWrap()'>Finalize Wrap Score</button></div>`;
+}
+function finalizeWrap(){const m=gradeMCQ(wrapMCQKey); const f=gradeFill(wrapFillKey); let subj=0; for(let i=1;i<=5;i++) subj+=Number(document.getElementById(`w_sa${i}_mark`).value||0); for(let i=1;i<=3;i++) subj+=Number(document.getElementById(`w_la${i}_mark`).value||0); const objTotal=m.total+f.total; const grand=m.score+f.score+subj; const max=objTotal+(5*3)+(3*6); document.getElementById('wrapResult').innerHTML+=`<hr><strong>Subjective:</strong> ${subj} / ${(5*3)+(3*6)}<br><strong>Grand total:</strong> ${grand} / ${max}`;}
+
+</script>
+</body>
+</html>
