@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Guide — Chapter 18: Data Manipulation (Step-by-step)</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.5;margin:18px;background:#f8fafc;color:#031124}
+    .container{max-width:900px;margin:0 auto}
+    h1{font-size:1.3rem;margin-bottom:6px}
+    p.lead{color:#475569;margin-top:0}
+    .card{background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.06);margin-top:12px}
+    ol.steps{counter-reset:step;list-style:none;padding-left:0}
+    ol.steps li{margin:12px 0;padding-left:14px}
+    ol.steps li::before{counter-increment:step;content:counter(step);display:inline-block;width:28px;height:28px;border-radius:50%;background:#0f766e;color:#fff;text-align:center;margin-right:10px;line-height:28px;font-weight:700}
+    .sub{margin:8px 0 0 28px}
+    .note{background:#eef2ff;padding:8px;border-left:4px solid #2563eb;border-radius:6px;margin-top:8px}
+    .warn{background:#fff7ed;padding:8px;border-left:4px solid #f59e0b;border-radius:6px;margin-top:8px}
+    .success{background:#ecfdf5;padding:8px;border-left:4px solid #10b981;border-radius:6px;margin-top:8px}
+    .btn{display:inline-block;background:#0f766e;color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
+    .small{font-size:0.95rem;color:#475569}
+    pre.code{background:#0b1220;color:#e6fffa;padding:10px;border-radius:6px;font-family:monospace;font-size:0.9rem;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Student Step-by-Step Guide — Chapter 18: Data Manipulation</h1>
+    <p class="lead">Follow these steps exactly. If you get stuck, re-read the step and try again — do not skip. I will give you the screenshots if required.</p>
+
+    <div class="card">
+      <h2>Before you start — setup checklist</h2>
+      <ul class="small">
+        <li>Computer with database software (MS Access, LibreOffice Base or equivalent).</li>
+        <li>Sample database file: <em>Students.accdb</em> (or .odb/.db).</li>
+        <li>Sample CSV file with errors: <em>students_errors.csv</em>.</li>
+        <li>USB or cloud folder to save your work.</li>
+      </ul>
+      <div class="note">Tip: Save a copy of the sample database into your own folder and work on that copy only.</div>
+    </div>
+
+    <div class="card">
+      <h2>Task 1 — Validation & Integrity (Follow every step)</h2>
+      <ol class="steps">
+        <li>
+          <strong>Open the sample database file</strong>
+          <div class="sub small">Open <em>Students.accdb</em> from the folder your teacher gave you. Do not open other files.</div>
+        </li>
+
+        <li>
+          <strong>Inspect the tables</strong>
+          <div class="sub small">Open the <em>Students</em> table in design view and read the field names and data types.</div>
+        </li>
+
+        <li>
+          <strong>Set validation rules</strong>
+          <div class="sub small">For each field, set the following properties (use table design view):
+            <ul>
+              <li><em>StudentID</em> — Data type: Number; Required = Yes</li>
+              <li><em>FullName</em> — Data type: Text; Required = Yes</li>
+              <li><em>Phone</em> — Data type: Text; Input mask = 011######### (or numeric type if preferred)</li>
+              <li><em>Marks</em> — Data type: Number; Validation Rule: &gt;=0 And &lt;=100</li>
+              <li><em>Class</em> — Lookup: choose from list (Year7, Year8, Year9)</li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <strong>Import the CSV with errors</strong>
+          <div class="sub small">Use the Import wizard: choose <em>students_errors.csv</em>. During import, accept suggestions but DO NOT overwrite the table—import into a NEW table called <em>ImportCheck</em>.</div>
+        </li>
+
+        <li>
+          <strong>Review rejected or flagged rows</strong>
+          <div class="sub small">Open <em>ImportCheck</em> and look for fields with missing values, wrong formats or invalid marks (&lt;0 or &gt;100). Note them in your worksheet.</div>
+        </li>
+
+        <li>
+          <strong>Fix errors using a form</strong>
+          <div class="sub small">Open a data-entry form for <em>ImportCheck</em> (or create a simple form). Edit invalid rows so they meet validation rules. Save changes.</div>
+        </li>
+
+        <li>
+          <strong>Compare counts</strong>
+          <div class="sub small">Run a simple query: Count records in <em>ImportCheck</em> before and after cleaning. Note the counts on your worksheet.</div>
+        </li>
+
+        <li>
+          <strong>Enforce referential integrity (demo)</strong>
+          <div class="sub small">Open Relationships → link <em>Students</em> (StudentID) to <em>Enrolments</em> (StudentID). Tick <strong>Enforce Referential Integrity</strong>. Try to delete a student who has enrolments (teacher demo or show error). Record what happens.</div>
+        </li>
+
+        <li>
+          <strong>Save your file</strong>
+          <div class="sub small">Save the database as <em>YourName_Chapter18.accdb</em> in your folder.</div>
+        </li>
+      </ol>
+      <div class="success">Submit: a screenshot of the import errors before/after and the query counts. Add 2 lines explaining the fixes you made.</div>
+    </div>
+
+    <div class="card">
+      <h2>Task 2 — Manipulating Data (Sort / Filter / Query)</h2>
+      <ol class="steps">
+        <li>
+          <strong>Create a Select Query</strong>
+          <div class="sub small">Open Query Design. Add the <em>Students</em> table. Add fields: StudentID, FullName, Class, Marks.</div>
+        </li>
+
+        <li>
+          <strong>Filter by marks</strong>
+          <div class="sub small">In the Criteria row under <em>Marks</em>, type: &gt;75. Run the query and save it as <em>HighMarks</em>.</div>
+        </li>
+
+        <li>
+          <strong>Sort results</strong>
+          <div class="sub small">Open <em>HighMarks</em> in design view. Under <em>FullName</em>, set Sort = Ascending. Run to check order.</div>
+        </li>
+
+        <li>
+          <strong>Add a calculated field</strong>
+          <div class="sub small">In the query field grid, create a new column: Grade: IIf([Marks]&gt;=90,"A",IIf([Marks]&gt;=75,"B","C")) . Run and check results. Save.</div>
+        </li>
+
+        <li>
+          <strong>Parameter query (optional stretch)</strong>
+          <div class="sub small">Replace the criteria with: [Enter minimum marks:] — run. When prompted, type 80. Observe returned records.</div>
+        </li>
+
+        <li>
+          <strong>Insert / Update / Delete demo (teacher-led)</strong>
+          <div class="sub small">Teacher will demonstrate safe update: show how to edit one record via form (update), add a new student (insert), and create a delete query with a clear WHERE criteria (delete). Students must NOT run delete queries without teacher permission.</div>
+        </li>
+      </ol>
+      <div class="success">Submit: screenshot of <em>HighMarks</em> showing calculated Grade column and a short note: “How did calculated field work?”</div>
+    </div>
+
+    <div class="card">
+      <h2>Task 3 — Reporting & Exporting</h2>
+      <ol class="steps">
+        <li>
+          <strong>Use the Report Wizard</strong>
+          <div class="sub small">Choose <em>HighMarks</em> as source. Select fields: FullName, Class, Marks, Grade.</div>
+        </li>
+
+        <li>
+          <strong>Group results</strong>
+          <div class="sub small">Group by <em>Class</em> and set subtotals: Count of students. Add sort by Marks Descending within group.</div>
+        </li>
+
+        <li>
+          <strong>Format the report</strong>
+          <div class="sub small">Add Title: "High Marks Report". Add page footer with Page Number and Date (use Insert → Page Number / Date).</div>
+        </li>
+
+        <li>
+          <strong>Preview and export</strong>
+          <div class="sub small">Preview the report. Export to PDF: File → Export → PDF. Save as <em>YourName_HighMarks.pdf</em>.</div>
+        </li>
+      </ol>
+      <div class="success">Submit: the exported PDF and one-line explanation: "Who will use this report and why?"</div>
+    </div>
+
+    <div class="card">
+      <h2>Task 4 — Import / Export & Backup (Short)</h2>
+      <ol class="steps">
+        <li>
+          <strong>Export a table as CSV</strong>
+          <div class="sub small">Select table <em>Students</em> → External Data → Export → Text File. Choose CSV and save as <em>YourName_Students.csv</em>.</div>
+        </li>
+
+        <li>
+          <strong>Re-import into a new table</strong>
+          <div class="sub small">Import <em>YourName_Students.csv</em> into the database as <em>Reimport</em>. Verify field types during import wizard.</div>
+        </li>
+
+        <li>
+          <strong>Create a backup</strong>
+          <div class="sub small">File → Save As → Backup Database. Save a copy to your cloud folder or USB with date in filename (e.g., YourName_Chapter18_backup_2025-11-11.accdb).</div>
+        </li>
+      </ol>
+      <div class="warn">Important: Keep backups before making large changes. If something goes wrong, you will restore from backup.</div>
+    </div>
+
+    <div class="card">
+      <h2>Final submission checklist</h2>
+      <ul class="small">
+        <li>Upload: <em>YourName_Chapter18.accdb</em> or exported PDF evidence to the assignment page.</li>
+        <li>Include: screenshots for Task 1 (before/after), Task 2 query result (with Grade), Task 3 PDF report, and backup filename.</li>
+        <li>Answer two short questions in a text file: (a) Which validation check caught most errors? (b) One risk when exporting data to the web and a mitigation.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Troubleshooting — common problems & quick fixes</h2>
+      <ul class="small">
+        <li>Import fails because of wrong delimiter: retry import and choose correct delimiter (comma or tab).</li>
+        <li>Calculated field shows #Error: check field names for typos and correct data types.</li>
+        <li>Report shows empty groups: ensure query has data and grouping field is included.</li>
+      </ul>
+      <div class="note">If you cannot fix a problem after 10 minutes, write a short note of what you tried and raise your hand — do not tinker further.</div>
+    </div>
+
+    <footer style="margin-top:14px" class="small">Good luck — follow steps exactly. I will check your files and screenshots for evidence. Remember: save early and save often.</footer>
+  </div>
+</body>
+</html>

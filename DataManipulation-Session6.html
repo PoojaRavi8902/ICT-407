@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IGCSE ICT — Chapter 18: Data Manipulation (My page- Ravi Raju)</title>
+  <style>
+    :root{--bg:#f7fafc;--card:#ffffff;--muted:#6b7280;--accent:#0f766e}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;line-height:1.5;background:var(--bg);color:#0f172a;margin:0;padding:24px}
+    .wrap{max-width:980px;margin:0 auto}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    h1{font-size:1.4rem;margin:0}
+    p.lead{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 20px rgba(2,6,23,0.06)}
+    .section-title{display:flex;justify-content:space-between;align-items:center}
+    .small{font-size:0.9rem;color:var(--muted)}
+    details{margin-top:12px}
+    summary{cursor:pointer;font-weight:600}
+    table{width:100%;border-collapse:collapse;margin:8px 0}
+    th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left}
+    .activity{background:#f1f5f9;padding:12px;border-radius:8px;margin-top:10px}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none}
+    .right-col{position:sticky;top:20px}
+    .code{background:#0f172a;color:#e6fffa;padding:8px;border-radius:6px;font-family:monospace;font-size:0.9rem;white-space:pre-wrap}
+    .hint{font-size:0.9rem;color:var(--muted);margin-top:6px}
+    .timing{font-weight:700;color:var(--accent)}
+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Chapter 18 — Data Manipulation (Teacher page)</h1>
+        <p class="lead">In-class teaching notes, expanded explanations and 2-class student activities — IGCSE ICT 0983 (2026–2028)</p>
+      </div>
+      <div style="margin-left:auto;text-align:right" class="small">Prepared for classroom use —MES Cairo</div>
+    </header>
+
+    <div class="grid">
+      <main>
+
+        <section class="card">
+          <div class="section-title">
+            <div>
+              <h2 style="margin:0">18.4 — Data Validation & Data Integrity</h2>
+              <div class="small">Clear, practical explanations for students</div>
+            </div>
+            <div class="small timing">Class time: 25–35 min</div>
+          </div>
+
+          <details open>
+            <summary>Concise explanation (teacher wording)</summary>
+            <p class="small" style="margin-top:8px">Validation prevents bad data entering the system; integrity keeps the whole database correct, linked and useful.</p>
+          </details>
+
+          <h3 style="margin-top:12px">Validation checks — what they are & quick classroom examples</h3>
+          <table aria-label="Validation checks">
+            <thead>
+              <tr><th>Check</th><th>What it does</th><th>Simple classroom example</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Range</td><td>Limits numeric values</td><td>Marks must be 0–100</td></tr>
+              <tr><td>List / Lookup</td><td>Limits choices to preset values</td><td>Gender → Male / Female / Prefer not to say</td></tr>
+              <tr><td>Format</td><td>Requires pattern</td><td>Date: DD/MM/YYYY</td></tr>
+              <tr><td>Presence</td><td>Cannot be blank</td><td>Student ID required</td></tr>
+              <tr><td>Length</td><td>Limits characters</td><td>Postcode = 6 chars</td></tr>
+              <tr><td>Type</td><td>Numeric, text, date</td><td>Phone number numeric only</td></tr>
+            </tbody>
+          </table>
+
+          <p class="hint">Tip for demos: show a CSV with bad rows, import it and use the package's import wizard to highlight rejected records — students see validation in action.</p>
+
+          <h3 style="margin-top:12px">Referential integrity (simple phrasing)</h3>
+          <p>When tables are linked (for example <em>Students</em> and <em>Enrollments</em>), referential integrity makes sure that every enrolment refers to a real student. Tools: Relationships → check <strong>Enforce Referential Integrity</strong>.</p>
+
+          <div class="activity">
+            <strong>Activity A — class demo (10–12 min)</strong>
+            <ol style="margin:8px 0 0 18px">
+              <li>Open the sample database (Students + Enrolments).</li>
+              <li>Try to delete a student who has enrolments — observe the package response.</li>
+              <li>Turn off enforcement (teacher demo only) and delete the student; show the orphaned enrolment.</li>
+              <li>Discuss consequences and restore from backup or undo.</li>
+            </ol>
+            <div class="hint">Assessment: short written note — “What happened and why is enforcement important?” (3 marks)</div>
+          </div>
+
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">
+            <div>
+              <h2 style="margin:0">18.5 — Manipulating Data</h2>
+              <div class="small">Sort, filter, query, insert, update, delete — focus on software steps</div>
+            </div>
+            <div class="small timing">Class time: 35–45 min</div>
+          </div>
+
+          <h3 style="margin-top:12px">Sorting & Filtering — student-friendly explanation</h3>
+          <p>Sorting orders records so we can find patterns. Filtering hides records that don’t match a rule. Use multi-field sorts for tidy reports.</p>
+
+          <details>
+            <summary>Teacher steps — Quick demo (5 steps)</summary>
+            <ol style="margin:8px 0 0 18px">
+              <li>Open the table or query.</li>
+              <li>Click column header &amp; choose Sort Asc/Desc.</li>
+              <li>For multi-field sort, open the Sort dialog and add fields in order.</li>
+              <li>To filter by criteria, use Filter by Form or enter criteria in Query Design.</li>
+              <li>Demonstrate AND / OR by combining criteria.</li>
+            </ol>
+          </details>
+
+          <h3 style="margin-top:8px">Queries — practical view</h3>
+          <p>Explain queries as "questions" the database answers. Show examples: find all stock &lt; 10, list all sales in January, show average salary per dept.</p>
+
+          <div class="activity">
+            <strong>Activity B — pair practical (25–30 min)</strong>
+            <ol style="margin:8px 0 0 18px">
+              <li>Task 1 (10 min): Create a select query that shows students with marks &gt; 75. Save as <em>HighMarks</em>.</li>
+              <li>Task 2 (10 min): Add a calculated field that converts marks to grade bands (e.g., 90+ → A+).</li>
+              <li>Task 3 (5 min): Export the query result as CSV and paste a screenshot into the worksheet.</li>
+            </ol>
+            <div class="hint">Assessment: submit the query name, screenshot and one-line explanation of the calculated field (5 marks).</div>
+          </div>
+
+          <h4 style="margin-top:12px">Insert / Update / Delete — best-practice reminders</h4>
+          <ul style="margin:8px 0 0 18px">
+            <li>Always back up before bulk updates or deletes.</li>
+            <li>Use clear WHERE-like criteria when deleting in queries (example shown in class).</li>
+            <li>Prefer forms for data-entry to reduce accidental mistakes.</li>
+          </ul>
+
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">
+            <div>
+              <h2 style="margin:0">18.6 — Reporting from a Database</h2>
+              <div class="small">Turn query output into readable reports</div>
+            </div>
+            <div class="small timing">Class time: 25–30 min</div>
+          </div>
+
+          <p>Reports should be tailored to the audience: include the fields they need, group related data, and summarise with totals or averages.</p>
+
+          <ol style="margin:8px 0 0 18px">
+            <li>Choose source query/table</li>
+            <li>Design grouping (e.g., department, month)</li>
+            <li>Add summaries (COUNT, SUM, AVG)</li>
+            <li>Adjust layout and headings</li>
+            <li>Preview and export (PDF for distribution)</li>
+          </ol>
+
+          <div class="activity">
+            <strong>Activity C — mini report (homework / class)</strong>
+            <p>Create a report from the <em>HighMarks</em> query showing counts per grade band and include a title, page number and date. Export to PDF and submit.</p>
+            <div class="hint">Mark scheme: correct grouping (2), correct totals (2), neat layout (1).</div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title">
+            <div>
+              <h2 style="margin:0">18.7 — Databases in a Wider System Context</h2>
+              <div class="small">Import/export, security, backup and integration</div>
+            </div>
+            <div class="small timing">Class time: 20–25 min (discussion)</div>
+          </div>
+
+          <h3 style="margin-top:8px">Import / Export — classroom notes</h3>
+          <p>Common formats: CSV, TXT, XLSX, XML. Explain why CSV is simple & universal (no formatting) while XLSX preserves sheets and formatting.</p>
+
+          <h3 style="margin-top:8px">Security & Backup — teacher points</h3>
+          <ul style="margin:8px 0 0 18px">
+            <li>Usernames &amp; passwords, role permissions, audit trails.</li>
+            <li>Encryption is for sensitive data — conceptually explain only.</li>
+            <li>Backups: full and incremental; schedule and test restores.</li>
+          </ul>
+
+          <div class="activity">
+            <strong>Activity D — short discussion (10 min)</strong>
+            <p>In groups, students list 3 risks when linking a school database to a public web form. Collect ideas and write one short mitigation for each risk.</p>
+            <div class="hint">Assessment: each group submits 3 risks + mitigations (2 marks each).</div>
+          </div>
+
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <h2 style="margin:0">Revision checklist & Sample questions</h2>
+          <details>
+            <summary>Revision checklist (quick)</summary>
+            <ul style="margin:8px 0 0 18px">
+              <li>List validation checks and examples</li>
+              <li>Explain referential integrity with an example</li>
+              <li>Be able to create basic queries, filters and sorts in the software</li>
+              <li>Design a simple grouped report with totals</li>
+              <li>Explain import/export formats and backup strategies</li>
+            </ul>
+          </details>
+
+          <details style="margin-top:8px">
+            <summary>Sample exam-style questions</summary>
+            <ol style="margin:8px 0 0 18px">
+              <li>Define referential integrity and give one example of its importance. (3 marks)</li>
+              <li>Describe two validation checks and state where you would apply them. (4 marks)</li>
+              <li>Explain why a manager might prefer a grouped report rather than a raw table. (3 marks)</li>
+            </ol>
+          </details>
+        </section>
+
+      </main>
+
+      <aside class="right-col">
+        <div class="card">
+          <h3 style="margin:0">Lesson plan (2 classes)</h3>
+          <ol style="margin:8px 0 0 18px">
+            <li><strong>Class 1 (75 min)</strong>: Intro validation + integrity demo (20), sorting/filtering (20), pair practical query (30), quick plenary (5).</li>
+            <li style="margin-top:6px"><strong>Class 2 (75 min)</strong>: Report design (30), export/import (15), security & backup discussion (15), assessment tasks & submission (15).</li>
+          </ol>
+
+          <h4 style="margin-top:12px">Resources you will need</h4>
+          <ul style="margin:8px 0 0 18px">
+            <li>Sample database file (Students, Enrolments, Results)</li>
+            <li>CSV sample with deliberate errors</li>
+            <li>PCs with MS Access / LibreOffice Base or equivalent</li>
+            <li>Printer/PDF export enabled</li>
+          </ul>
+
+          <div style="margin-top:12px">
+            <a class="btn" href="#" onclick="alert('Download the teacher pack from your LMS or attach sample files.');return false">Download teacher pack</a>
+          </div>
+
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h4 style="margin:0">Quick teacher tips</h4>
+          <ul style="margin:8px 0 0 18px">
+            <li>Show live demos — students remember visual errors best.</li>
+            <li>Keep activities short &amp; focused — 10–25 minutes each.</li>
+            <li>Use screenshots as evidence for assessment where possible.</li>
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer>
+      <div class="card" style="margin-top:18px">
+        <strong>Editable notes:</strong> Prepared by Ravi Raju for IGCSE-ICT</strong>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // small accessibility tweak: open details with keyboard Enter on summary
+    document.querySelectorAll('summary').forEach(s => s.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); s.parentElement.open = !s.parentElement.open; }
+    }));
+  </script>
+</body>
+</html>
