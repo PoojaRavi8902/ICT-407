@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IGCSE ICT (0983) — Input & Output Devices — Exam‑Ready</title>
+  <style>
+    :root{--accent:#1565c0;--muted:#6b7280;--bg:#f7fbff;--card:#ffffff}
+    body{font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#0f1724;margin:0;padding:24px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    h1{margin:0;font-size:1.6rem;color:var(--accent)}
+    .meta{color:var(--muted);font-size:0.95rem}
+    nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+    .btn{background:var(--card);border:1px solid #e6eef9;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(14,30,37,0.06)}
+    section h2{margin-top:0}
+    .sub{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+    dl{margin:12px 0}
+    dt{font-weight:700;margin-top:12px}
+    dd{margin:6px 0 12px 18px;color:#1f2937}
+    .table{width:100%;border-collapse:collapse;margin-top:8px}
+    .table th,.table td{border:1px solid #e6eef9;padding:8px;text-align:left}
+    .exam-tip{background:#eef6ff;border-left:4px solid var(--accent);padding:10px;border-radius:6px;margin:12px 0}
+    .scenario{background:#fff8e6;border-left:4px solid #d97706;padding:10px;border-radius:6px;margin:12px 0}
+    .small{font-size:0.9rem;color:var(--muted)}
+    details{margin:12px 0;padding:10px;border-radius:8px;background:#fbfeff;border:1px solid #eef7ff}
+    summary{font-weight:700;cursor:pointer}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem}
+    @media(max-width:980px){.grid{grid-template-columns:1fr} .two-col{grid-template-columns:1fr}}
+    /* Print friendly */
+    @media print{body{background:white} .wrap{padding:0} nav, .btn{display:none} .grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>IGCSE ICT (0983) — Input & Output Devices</h1>
+        <div class="meta">Exam‑ready notes • Teacher + Student friendly • Includes exam tips & scenarios</div>
+      </div>
+      <div style="margin-left:auto" class="small">Last updated: Nov 13, 2025</div>
+    </header>
+
+    <nav>
+      <button class="btn" onclick="document.getElementById('input').scrollIntoView({behavior:'smooth'})">Input Devices</button>
+      <button class="btn" onclick="document.getElementById('direct').scrollIntoView({behavior:'smooth'})">Direct Data Entry</button>
+      <button class="btn" onclick="document.getElementById('output').scrollIntoView({behavior:'smooth'})">Output Devices</button>
+      <button class="btn" onclick="window.print()">Print / Save PDF</button>
+    </nav>
+
+    <div class="grid">
+      <main>
+        <article id="input" class="card">
+          <h2>2.1 — Input Devices and Their Uses</h2>
+          <p class="sub">Definition: An <strong>input device</strong> is any hardware used to enter data or instructions into a computer system for processing.</p>
+
+          <section>
+            <h3>Complete device list (syllabus coverage)</h3>
+            <p class="small">Keyboard, numeric keypad, pointing devices, remote control, joystick/driving wheel, touch screen, scanners, camera, microphone, sensors, light pen.</p>
+          </section>
+
+          <section>
+            <h3>Detailed notes — device by device</h3>
+
+            <dl>
+              <dt>Keyboard</dt>
+              <dd>
+                <strong>Description:</strong> Standard text entry device — letters, numbers, function & control keys.<br>
+                <strong>Uses:</strong> Word processing, programming, data entry, shortcuts in exams (calculations & commands).<br>
+                <strong>Advantages:</strong> Easy for text, accurate after practice, inexpensive and widely available.<br>
+                <strong>Disadvantages:</strong> Slow for mass numeric entry, takes desk space, risk of RSI.
+                <div class="exam-tip">Exam tip: If question asks about numeric data entry, mention the <em>numeric keypad</em> separately and compare speed/accuracy.</div>
+              </dd>
+
+              <dt>Numeric keypad</dt>
+              <dd>
+                <strong>Description:</strong> Calculator style block for fast numeric entry.<br>
+                <strong>Uses:</strong> ATMs, POS terminals, calculators, phone number entry.<br>
+                <strong>Advantages:</strong> Efficient for numbers, compact. <strong>Disadvantages:</strong> Not suitable for text; limited in functionality.
+              </dd>
+
+              <dt>Pointing devices (mouse, touch‑pad, trackball)</dt>
+              <dd>
+                <strong>Uses:</strong> GUI navigation, drawing, selection.<br>
+                <strong>Advantages:</strong> Intuitive; accurate for graphics and selection.<br>
+                <strong>Disadvantages:</strong> Mouse needs flat surface; touch‑pad less precise for drawing; not ideal for phones.
+              </dd>
+
+              <dt>Remote control</dt>
+              <dd>
+                <strong>Description & Uses:</strong> Wireless hand‑held transmitter for TVs, presentations, drones.<br>
+                <strong>Advantages:</strong> Operates at a distance; increases convenience.<br>
+                <strong>Disadvantages:</strong> Range limitations, line‑of‑sight (IR), batteries required.
+              </dd>
+
+              <dt>Joystick / Driving wheel</dt>
+              <dd>
+                <strong>Uses:</strong> Gaming, simulators, robotics control.<br>
+                <strong>Advantages:</strong> Realistic directional control; precision for simulation tasks.<br>
+                <strong>Disadvantages:</strong> Specialist; mechanical wear & maintenance.
+              </dd>
+
+              <dt>Touch screen (input)</dt>
+              <dd>
+                <strong>Types:</strong> Capacitive, resistive, infrared.<br>
+                <strong>Uses:</strong> ATMs, kiosks, smartphones, ticket machines.<br>
+                <strong>Advantages:</strong> Direct interaction; combines input & output; intuitive.<br>
+                <strong>Disadvantages:</strong> Fingerprints, reduced visibility, less precision for detailed tasks, cleaning/calibration required.
+              </dd>
+
+              <dt>Scanner</dt>
+              <dd>
+                <strong>Types:</strong> Flat‑bed, hand‑held, document feeder, barcode/QR scanners.<br>
+                <strong>Uses:</strong> Digitising documents, photographs, reading barcodes & QR codes.<br>
+                <strong>Advantages:</strong> Accurate digital copies; quick for printed material.<br>
+                <strong>Disadvantages:</strong> Large file sizes at high resolution; quality depends on resolution and lighting.
+              </dd>
+
+              <dt>Camera</dt>
+              <dd>
+                <strong>Uses:</strong> Video conferencing, security, facial recognition, image capture for documents.<br>
+                <strong>Advantages:</strong> Portable, produces digital evidence/visuals.<br>
+                <strong>Disadvantages:</strong> Dependent on lighting & resolution; privacy concerns.
+              </dd>
+
+              <dt>Microphone</dt>
+              <dd>
+                <strong>Uses:</strong> Voice recognition, audio recording, telephony & conferencing.<br>
+                <strong>Advantages:</strong> Enables hands‑free input and accessibility features.<br>
+                <strong>Disadvantages:</strong> Picks up background noise; quality varies by hardware.
+              </dd>
+
+              <dt>Sensors</dt>
+              <dd>
+                <strong>Examples & Uses:</strong> Temperature (climate control), light (auto‑lighting), motion (security), pressure (industrial measurement).<br>
+                <strong>Advantages:</strong> Enables automation and continuous monitoring; useful in hazardous/remote areas.<br>
+                <strong>Disadvantages:</strong> Requires calibration; can fail in extreme environments; potential maintenance overhead.
+              </dd>
+
+              <dt>Light pen</dt>
+              <dd>
+                <strong>Description & Uses:</strong> Stylus that detects CRT screen light for selection and drawing (historic but syllabus mentions it).<br>
+                <strong>Advantages:</strong> Precise selection for CAD tasks.<br>
+                <strong>Disadvantages:</strong> Works only with CRTs; can be tiring to use.
+              </dd>
+            </dl>
+
+            <div class="exam-tip">Exam tip: In 6‑mark or 8‑mark questions, structure your answer: <em>Identify → Justify suitability → State one advantage → State one disadvantage</em>. Use a short scenario sentence: "For <strong>____</strong>, use <strong>____</strong> because..."</div>
+
+            <details>
+              <summary>Quick comparison table — input devices (one glance)</summary>
+              <table class="table">
+                <thead><tr><th>Device</th><th>Best for</th><th>Key advantage</th><th>Key disadvantage</th></tr></thead>
+                <tbody>
+                  <tr><td>Keyboard</td><td>Text entry</td><td>Accuracy</td><td>RSI, space</td></tr>
+                  <tr><td>Numeric keypad</td><td>Numeric entry</td><td>Speed for numbers</td><td>Limited use</td></tr>
+                  <tr><td>Mouse / Touchpad</td><td>GUI navigation</td><td>Intuitive</td><td>Surface needed</td></tr>
+                  <tr><td>Scanner</td><td>Printed materials</td><td>Accurate digital copy</td><td>Large files</td></tr>
+                  <tr><td>RFID</td><td>Inventory / tracking</td><td>No line of sight</td><td>Cost & privacy</td></tr>
+                </tbody>
+              </table>
+            </details>
+
+          </section>
+        </article>
+
+        <article id="direct" class="card" style="margin-top:18px">
+          <h2>2.2 — Direct Data Entry & Associated Devices</h2>
+          <p class="sub">Definition: Direct data entry devices input data automatically from a source (no manual typing required).</p>
+
+          <section>
+            <h3>Devices and notes</h3>
+            <dl>
+              <dt>Magnetic stripe reader</dt>
+              <dd>
+                <strong>Uses:</strong> Credit/debit cards, ID cards, hotel keys.<br>
+                <strong>Advantages:</strong> Fast and simple.<br>
+                <strong>Disadvantages:</strong> Low storage; stripe wear or damage.
+              </dd>
+
+              <dt>Chip & PIN reader</dt>
+              <dd>
+                <strong>Uses:</strong> Secure card payments.<br>
+                <strong>Advantages:</strong> Encrypted security, prevents cloning.<br>
+                <strong>Disadvantages:</strong> Requires PIN; damaged chip disables card.
+              </dd>
+
+              <dt>RFID reader</dt>
+              <dd>
+                <strong>Uses:</strong> Contactless payments, tracking, passports.<br>
+                <strong>Advantages:</strong> Reads multiple tags; no line of sight.<br>
+                <strong>Disadvantages:</strong> High setup cost; security/privacy risks.
+              </dd>
+
+              <dt>OMR (Optical Mark Recognition)</dt>
+              <dd>
+                <strong>Uses:</strong> Multiple‑choice tests, surveys.<br>
+                <strong>Advantages:</strong> Fast & accurate for mass marking.<br>
+                <strong>Disadvantages:</strong> Strict form design; damaged marks cause errors.
+              </dd>
+
+              <dt>OCR (Optical Character Recognition)</dt>
+              <dd>
+                <strong>Uses:</strong> Convert printed pages to editable text.<br>
+                <strong>Advantages:</strong> Fast conversion, saves typing time.<br>
+                <strong>Disadvantages:</strong> Struggles with handwriting, requires proofreading.
+              </dd>
+
+              <dt>Bar code reader</dt>
+              <dd>
+                <strong>Uses:</strong> Retail, stock management, hospital bands.<br>
+                <strong>Advantages:</strong> Quick & accurate.<br>
+                <strong>Disadvantages:</strong> Needs line of sight; damaged codes fail.
+              </dd>
+
+              <dt>QR scanner</dt>
+              <dd>
+                <strong>Uses:</strong> Links to websites, tickets, payments.<br>
+                <strong>Advantages:</strong> Stores more data; omnidirectional read.<br>
+                <strong>Disadvantages:</strong> Requires camera; poor lighting reduces reliability.
+              </dd>
+            </dl>
+
+            <div class="scenario"><strong>Scenario practice:</strong> "A supermarket checkout needs the fastest method to scan thousands of items per day." → Recommend a <strong>barcode reader</strong> (or multiple scanners) — justify: speed, accuracy, low per‑item cost; mention disadvantage: damaged labels and line‑of‑sight.
+            </div>
+
+            <div class="exam-tip">Exam tip: For OMR/OCR questions, mention form/template design and a short note about validation or proof‑reading to gain extra marks.</div>
+          </section>
+        </article>
+
+        <article id="output" class="card" style="margin-top:18px">
+          <h2>2.3 — Output Devices and Their Uses</h2>
+          <p class="sub">Definition: An <strong>output device</strong> displays or presents processed data to users in visual, auditory, or physical form.</p>
+
+          <section>
+            <h3>Device notes</h3>
+            <dl>
+              <dt>Monitor / Screen</dt>
+              <dd>
+                <strong>Types:</strong> CRT (historic), LCD, LED.<br>
+                <strong>Uses:</strong> Displaying interfaces, documents, photos, video.<br>
+                <strong>Advantages:</strong> Immediate visual feedback, good colour and resolution (modern screens).<br>
+                <strong>Disadvantages:</strong> Power consumption and portability issues (especially older types).
+              </dd>
+
+              <dt>Touch screen (output)</dt>
+              <dd>
+                <strong>Uses:</strong> ATMs, ticket machines, phones.<br>
+                <strong>Advantages:</strong> Intuitive, combines output with direct input.<br>
+                <strong>Disadvantages:</strong> Smudges, glare and limited precision.
+              </dd>
+
+              <dt>Multimedia projector</dt>
+              <dd>
+                <strong>Uses:</strong> Classrooms, meetings, public display.<br>
+                <strong>Advantages:</strong> Large shared display; good for audiences.<br>
+                <strong>Disadvantages:</strong> Needs darkened room; lamp replacement costs.
+              </dd>
+
+              <dt>Printers</dt>
+              <dd>
+                <strong>Laser:</strong> High‑volume text, fast and quiet; costly toner.<br>
+                <strong>Inkjet:</strong> Good for photos and small office use; slower and ink may smudge.<br>
+                <strong>Dot‑matrix:</strong> For continuous forms and harsh environments; noisy and low quality.<br>
+                <strong>3D printer:</strong> Creates physical objects from models; slow and material costs are high.
+              </dd>
+
+              <dt>Plotter</dt>
+              <dd>
+                <strong>Uses:</strong> Engineering drawings, CAD prints.<br>
+                <strong>Advantages:</strong> High precision, large format.<br>
+                <strong>Disadvantages:</strong> Slow and expensive; niche use.
+              </dd>
+
+              <dt>Speakers</dt>
+              <dd>
+                <strong>Uses:</strong> Audio playback for media, alarms, notifications.<br>
+                <strong>Advantages:</strong> Sound feedback and accessibility for visually impaired.<br>
+                <strong>Disadvantages:</strong> Noise pollution; unsuited to quiet environments.
+              </dd>
+
+              <dt>Actuator</dt>
+              <dd>
+                <strong>Description & Uses:</strong> Converts electrical signals into physical movement (robot arms, automated doors).<br>
+                <strong>Advantages:</strong> Enables physical automation and control systems.<br>
+                <strong>Disadvantages:</strong> Costly, requires safety control and maintenance.
+              </dd>
+            </dl>
+
+            <div class="two-col">
+              <div class="card" style="background:#fff7f0;border-left:4px solid #ef4444">
+                <strong>Exam checklist — output devices</strong>
+                <ol style="padding-left:18px;margin:8px 0">
+                  <li>Always name the device and purpose.</li>
+                  <li>State one clear advantage and one clear limitation.</li>
+                  <li>Link the device to the scenario (audience, environment, cost).</li>
+                </ol>
+              </div>
+
+              <div class="card" style="background:#f0fff4;border-left:4px solid #10b981">
+                <strong>Practical example</strong>
+                <p class="small">School open day: choose projector for large audience + handouts printed by inkjet/laser. Mention dark room & cost trade‑offs.</p>
+              </div>
+            </div>
+
+          </section>
+        </article>
+
+        <article class="card" style="margin-top:18px">
+          <h2>Mastery & Exam Practice</h2>
+          <p class="small">Below are high‑yield question types and model answer structure — ideal for classroom tests and revision.</p>
+
+          <details>
+            <summary>Model question (6 marks)</summary>
+            <div style="margin-top:10px">
+              <p><strong>Question:</strong> "A small clinic needs to record patient arrival times and print name labels. Recommend one input device and one output device. Justify your choices and state one advantage and one disadvantage for each."</p>
+              <p><strong>Model answer structure:</strong></p>
+              <ol>
+                <li><strong>Input device:</strong> <em>Barcode/QR scanner</em> — Justification: quick patient check‑in, reduces typing errors. Advantage: fast; Disadvantage: barcode labels may be damaged.</li>
+                <li><strong>Output device:</strong> <em>Thermal/inkjet label printer</em> — Justification: prints durable name labels at point of care. Advantage: quick/portable; Disadvantage: consumable costs (ink/labels).</li>
+              </ol>
+            </div>
+          </details>
+
+          <details>
+            <summary>Model question (8 marks)</summary>
+            <div style="margin-top:10px">
+              <p><strong>Question:</strong> "Compare OCR and OMR for use in marking exam papers. In your answer discuss speed, accuracy, cost and suitability."</p>
+              <p><strong>Answer pointers:</strong></p>
+              <ul>
+                <li>Definition of OCR vs OMR.</li>
+                <li>Speed — OMR is faster for MCQs; OCR suitable for printed long answers but requires proofreading.</li>
+                <li>Accuracy — OMR very accurate for filled bubbles; OCR error prone with poor print/handwriting.</li>
+                <li>Cost & setup — OMR requires standardized forms; OCR needs software and proofreading staff.</li>
+                <li>Suitability — OMR for MCQs; OCR for legacy printed documents needing digital conversion.</li>
+              </ul>
+            </div>
+          </details>
+
+          <div class="exam-tip">Revision tip: Make a short two‑column A4 cheat sheet: left = device; right = 1 use + 1 advantage + 1 disadvantage. Use that for quick recall.</div>
+
+        </article>
+
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3>At a glance — syllabus checklist</h3>
+          <ul>
+            <li>2.1 Input devices — covered</li>
+            <li>2.2 Direct data entry — covered</li>
+            <li>2.3 Output devices — covered</li>
+          </ul>
+
+          <h4 style="margin-top:12px">Quick exam hacks</h4>
+          <ol class="small">
+            <li>Always link device choice to the scenario.</li>
+            <li>When asked, compare two devices directly (use table language: faster/slower; accurate/less accurate).</li>
+            <li>Write concise bullets — examiners reward clarity.</li>
+            <li>If unsure, pick a conservative, low‑cost option and justify with cost & simplicity.</li>
+          </ol>
+
+          <h4 style="margin-top:12px">Printable checklist</h4>
+          <p class="small">Press <strong>Print / Save PDF</strong> at top to create handouts.</p>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Quick revision cards (copy / paste into flashcards)</h3>
+          <ul class="small">
+            <li><strong>Keyboard:</strong> Text input — advantage: accuracy; disadvantage: RSI.</li>
+            <li><strong>Scanner:</strong> Digitises pages — advantage: accurate copy; disadvantage: large files.</li>
+            <li><strong>RFID:</strong> Contactless tags — advantage: multi‑read; disadvantage: cost/privacy.</li>
+            <li><strong>OCR:</strong> Text recognition — advantage: fast conversion; disadvantage: errors with handwriting.</li>
+            <li><strong>3D printer:</strong> Physical prototype — advantage: custom parts; disadvantage: slow/expensive.</li>
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer>
+      <div class="small">Created for teacher & student use. If you'd like diagrams, printable worksheets, Google Forms for self‑marking quizzes, or a condensed one‑page cheat sheet, tell me which and I'll add them to this page.</div>
+    </footer>
+  </div>
+</body>
+</html>
