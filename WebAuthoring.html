@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IGCSE ICT 0983 - Chapter 21 Web Authoring</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: lemonchiffon; /* lemon yellow */
+    color: #003399; /* blue foreground */
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  .pane {
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .left {
+    width: 50%;
+    border-right: 3px solid #003399;
+  }
+  .right {
+    width: 50%;
+  }
+  details {
+    margin-bottom: 15px;
+    background: #fff9c4;
+    border: 1px solid #003399;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  summary {
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1em;
+  }
+  h1 {
+    text-align: center;
+    border-bottom: 3px solid #003399;
+    padding-bottom: 10px;
+  }
+  .exercise {
+    background: #fff9c4;
+    padding: 10px;
+    border: 1px solid #003399;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+</style>
+</head>
+<body>
+<h1>IGCSE ICT 0983 — Chapter 21: Web Authoring</h1>
+<div class="container">
+  <!-- Teaching Pane -->
+  <div class="pane left">
+    <h2>Teaching Notes</h2>
+
+    <!-- 21.1 Web Page Structure -->
+    <details open>
+      <summary>21.1 Web Page Structure</summary>
+      <p><strong>Purpose of HTML:</strong> HTML (HyperText Markup Language) defines the structure and meaning of your webpage content. It tells the browser what each piece of content represents.</p>
+      <p><strong>Elements & Tags:</strong> Elements are created using tags. Most tags have an opening and closing tag. Example: <code>&lt;p&gt;This is a paragraph&lt;/p&gt;</code>.</p>
+      <p><strong>Nesting:</strong> Tags can be placed inside other tags, but must close in opposite order (LIFO).</p>
+      <p><strong>Basic HTML Document Structure:</strong></p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is my first webpage.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p><strong>Key Concepts to Teach:</strong></p>
+      <ul>
+        <li>Block vs inline elements</li>
+        <li>Whitespace and indentation conventions</li>
+        <li>Importance of <code>&lt;head&gt;</code> metadata</li>
+      </ul>
+    </details>
+
+    <!-- 21.2 Text Formatting -->
+    <details>
+      <summary>21.2 Text Formatting</summary>
+      <p>HTML provides structural and stylistic text formatting.</p>
+      <ul>
+        <li><strong>Heading Tags:</strong> <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>, where <code>&lt;h1&gt;</code> is largest.</li>
+        <li><strong>Paragraph:</strong> <code>&lt;p&gt;</code> creates blocks of text.</li>
+        <li><strong>Bold:</strong> <code>&lt;b&gt;</code> (visual), <code>&lt;strong&gt;</code> (semantic).</li>
+        <li><strong>Italic:</strong> <code>&lt;i&gt;</code> (visual), <code>&lt;em&gt;</code> (semantic emphasis).</li>
+        <li><strong>Line Break:</strong> <code>&lt;br&gt;</code> forces a new line.</li>
+      </ul>
+      <p><strong>Example:</strong></p>
+      <pre>&lt;p&gt;This is &lt;strong&gt;important&lt;/strong&gt; text.&lt;/p&gt;</pre>
+    </details>
+
+    <!-- 21.3 Hyperlinks -->
+    <details>
+      <summary>21.3 Hyperlinks</summary>
+      <p>Hyperlinks connect one webpage to another.</p>
+      <p><strong>Absolute links:</strong> Point to external sites.<br>
+      <code>&lt;a href="https://www.cie.org.uk" target="_blank"&gt;Visit Cambridge&lt;/a&gt;</code></p>
+      <p><strong>Relative links:</strong> Used inside your website folder.<br>
+      <code>&lt;a href="about.html"&gt;About Us&lt;/a&gt;</code></p>
+      <p><strong>Anchors:</strong> Jump to a section on the same page.</p>
+      <pre>&lt;a href="#section1"&gt;Go to Section 1&lt;/a&gt;
+...
+&lt;h2 id="section1"&gt;Section 1&lt;/h2&gt;</pre>
+    </details>
+
+    <!-- 21.4 Images -->
+    <details>
+      <summary>21.4 Images</summary>
+      <p>Images improve the visual appeal of webpages.</p>
+      <ul>
+        <li><strong>src:</strong> Path to image file.</li>
+        <li><strong>alt:</strong> Text shown if image fails; used by screen readers.</li>
+        <li><strong>width / height:</strong> Resizes the image.</li>
+      </ul>
+      <pre>&lt;img src="images/logo.png" alt="School Logo" width="200"&gt;</pre>
+      <p>Discuss JPG vs PNG vs GIF.</p>
+    </details>
+
+    <!-- 21.5 Tables -->
+    <details>
+      <summary>21.5 Tables</summary>
+      <p>Tables display data in rows and columns.</p>
+      <pre>&lt;table border="1" cellpadding="5"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Ali&lt;/td&gt;
+    &lt;td&gt;16&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+      <p>Teach table headers, spanning, and layout best practices.</p>
+    </details>
+
+    <!-- 21.6 Forms -->
+    <details>
+      <summary>21.6 Forms</summary>
+      <p>Forms capture user input.</p>
+      <ul>
+        <li><strong>Text fields</strong> – <code>&lt;input type="text"&gt;</code></li>
+        <li><strong>Radio buttons</strong></li>
+        <li><strong>Checkboxes</strong></li>
+        <li><strong>Dropdown lists</strong></li>
+        <li><strong>Textarea</strong></li>
+        <li><strong>Submit button</strong></li>
+      </ul>
+      <pre>&lt;form action="send.php" method="post"&gt;
+  Name: &lt;input type="text" name="username"&gt;&lt;br&gt;
+  Gender:
+  &lt;input type="radio" name="g" value="M"&gt;Male
+  &lt;input type="radio" name="g" value="F"&gt;Female&lt;br&gt;
+  &lt;input type="submit" value="Send"&gt;
+&lt;/form&gt;</pre>
+    </details>
+
+    <!-- 21.7 CSS Basics -->
+    <details>
+      <summary>21.7 CSS Basics</summary>
+      <p>CSS controls the appearance of webpages.</p>
+      <p><strong>Inline CSS:</strong> In the element.<br><code>&lt;p style="color:red;"&gt;</code></p>
+      <p><strong>Internal CSS:</strong> In &lt;style&gt; inside &lt;head&gt;.</p>
+      <p><strong>External CSS:</strong> Separate .css file linked in HTML.</p>
+      <pre>p {
+  font-size: 18px;
+  color: blue;
+}</pre>
+    </details>
+
+    <!-- 21.8 Folder Structure -->
+    <details>
+      <summary>21.8 Website Folder Structure</summary>
+      <p>Teach organising files:</p>
+      <ul>
+        <li>/images</li>
+        <li>/css</li>
+        <li>/scripts</li>
+        <li>/pages</li>
+      </ul>
+      <p>Discuss naming conventions, linking resources, and avoiding broken links.</p>
+    </details>
+  </div>
+
+  <!-- Student Notes Pane -->
+  <div class="pane right">
+    <h2>Student Notes & Exercises</h2>
+
+    <!-- 21.1 Notes -->
+    <h3>21.1 Web Page Structure</h3>
+    <p>HTML structures the content of a webpage. Every page has:</p>
+    <ul>
+      <li><strong>HTML element</strong> – wraps everything</li>
+      <li><strong>Head</strong> – title and metadata</li>
+      <li><strong>Body</strong> – visible content</li>
+    </ul>
+    <div class="exercise">Create a webpage with a heading, paragraph, and your name.</div>
+
+    <!-- 21.2 Notes -->
+    <h3>21.2 Text Formatting</h3>
+    <ul>
+      <li>Headings: h1–h6</li>
+      <li>Bold: &lt;b&gt; or &lt;strong&gt;</li>
+      <li>Italics: &lt;i&gt; or &lt;em&gt;</li>
+      <li>Paragraphs: &lt;p&gt;</li>
+    </ul>
+    <div class="exercise">Write a paragraph with bold, italic, and underline formatting.</div>
+
+    <!-- 21.3 Notes -->
+    <h3>21.3 Hyperlinks</h3>
+    <p>There are two types of links:</p>
+    <ul>
+      <li><strong>Absolute:</strong> External website</li>
+      <li><strong>Relative:</strong> Page inside your website</li>
+    </ul>
+    <div class="exercise">Create a homepage linking to two other pages.</div>
+
+    <!-- 21.4 Notes -->
+    <h3>21.4 Images</h3>
+    <p>Record notes about image types and attributes.</p>
+    <div class="exercise">Insert three images: small, medium, and large.</div>
+
+    <!-- 21.5 Notes -->
+    <h3>21.5 Tables</h3>
+    <p>Tables display data in rows and columns.</p>
+    <div class="exercise">Create a table listing 5 ICT topics and descriptions.</div>
+
+    <!-- 21.6 Notes -->
+    <h3>21.6 Forms</h3>
+    <p>Forms collect user data through inputs, radio buttons, checkboxes, and dropdown menus.</p>
+    <div class="exercise">Build a registration form with 6 fields.</div>
+
+    <!-- 21.7 Notes -->
+    <h3>21.7 CSS Basics</h3>
+    <p>CSS controls colours, layout, spacing, borders, and fonts.</p>
+    <div class="exercise">Create an external CSS file and style your website.</div>
+
+    <!-- 21.8 Notes -->
+    <h3>21.8 Folder Structure</h3>
+    <p>Your site should be organised neatly.</p>
+    <div class="exercise">Create a folder structure and build
+<<< END OF RESPONSE >>>
+
+(note: truncated for brevity, but expected full content would continue)
+
+    <h3>21.2 Text Formatting</h3>
+    <p>List the formatting tags and their purpose. Compare &lt;strong&gt; vs &lt;b&gt;.</p>
+    <div class="exercise">Exercise: Create a paragraph describing yourself using bold and italics.</div>
+
+    <h3>21.3 Hyperlinks</h3>
+    <p>Write examples of absolute and relative links. Note when each is useful.</p>
+    <div class="exercise">Exercise: Link your page to a second HTML page named "about.html".</div>
+
+    <h3>21.4 Images</h3>
+    <p>Record image attributes and their purpose.</p>
+    <div class="exercise">Exercise: Insert any image and resize it to width 200.</div>
+
+    <h3>21.5 Tables</h3>
+    <p>Write table structure with heading and two rows.</p>
+    <div class="exercise">Exercise: Create a table listing three ICT devices and their uses.</div>
+
+    <h3>21.6 Forms</h3>
+    <p>List types of form inputs and what they collect.</p>
+    <div class="exercise">Exercise: Create a form with name, email, and comments field.</div>
+
+    <h3>21.7 CSS Basics</h3>
+    <p>Summarise types of CSS. Write basic styling notes.</p>
+    <div class="exercise">Exercise: Change the body background to light blue using internal CSS.</div>
+
+    <h3>21.8 Website Folder Structure</h3>
+    <p>Write notes on keeping files organised.</p>
+    <div class="exercise">Exercise: Create a folder structure and save an image inside an images/ folder. Link it correctly.</div>
+
+  </div>
+</div>
+</body>
+</html>
