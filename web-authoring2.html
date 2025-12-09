@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="IGCSE 0983 — Chapter 21 Web Authoring: exam-ready notes, examples, practice questions and quick reference for Content, Presentation, Behaviour, HTML head, body, tables, lists, links, anchors and publishing.">
+  <meta name="keywords" content="IGCSE, ICT, 0983, Web Authoring, HTML, CSS, meta tags, tables, anchors, links">
+  <meta name="author" content="R. Ravi — Classroom resource">
+  <title>IGCSE 0983 — Chapter 21: Web Authoring (Exam-Ready)</title>
+
+  <!-- Example of attaching an external CSS (demonstration only) -->
+  <link rel="stylesheet" href="styles/site.css">
+
+  <style>
+    /* Inline CSS used for the page presentation layer demonstration */
+    :root{--accent:#0b5ed7;--muted:#666;--bg:#f7f9fc}
+    html,body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:#222;margin:0;padding:0}
+    header{background:white;border-bottom:1px solid #e3e6ea;padding:18px 24px;position:sticky;top:0;z-index:10}
+    header h1{margin:0;font-size:20px}
+    .container{max-width:1100px;margin:20px auto;padding:0 18px}
+    nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    nav a{color:var(--accent);text-decoration:none;font-size:14px}
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:20px}
+    aside{background:white;border:1px solid #e7e9ee;padding:12px;border-radius:8px;height:fit-content}
+    main{background:white;border:1px solid #e7e9ee;padding:18px;border-radius:8px}
+    h2{color:#08306b}
+    .section{margin-bottom:18px}
+    .example{background:#f1f5fa;border-left:4px solid var(--accent);padding:12px;margin:12px 0}
+    pre{background:#0b1220;color:#e6eef8;padding:12px;border-radius:6px;overflow:auto}
+    code{font-family:Menlo,Monaco,monospace;font-size:13px}
+    table.ref{width:100%;border-collapse:collapse}
+    table.ref td,table.ref th{border:1px solid #dfe5ee;padding:8px}
+    .collapsible{cursor:pointer;padding:10px;border-radius:6px;border:1px dashed #c9d6ef;background:#fbfdff}
+    .hint{font-size:13px;color:var(--muted)}
+    .exam-tip{background:#fff7e6;border-left:4px solid #f59e0b;padding:10px;margin:10px 0}
+    .practice{display:grid;gap:8px}
+    .code-sample{border:1px solid #dde6f4;padding:10px;border-radius:6px;background:#fbfdff}
+    .btn{display:inline-block;padding:8px 10px;border-radius:6px;background:var(--accent);color:white;text-decoration:none}
+    footer{font-size:13px;color:var(--muted);margin:20px 0;text-align:center}
+    .quick{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{background:#eef4ff;padding:6px 8px;border-radius:999px;font-size:13px}
+    .code-run{margin-top:8px}
+  </style>
+
+  <script>
+    // Behaviour layer: small JS to show collapsible sections and live preview
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll('.collapsible').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const target = document.getElementById(btn.dataset.target);
+          if(!target) return;
+          target.style.display = (target.style.display === 'none' || !target.style.display)? 'block' : 'none';
+        });
+      });
+
+      // Live preview for HTML snippet example
+      const runBtn = document.getElementById('run-snippet');
+      if(runBtn){
+        runBtn.addEventListener('click', ()=>{
+          const code = document.getElementById('snippet-code').value;
+          const iframe = document.getElementById('preview-iframe');
+          iframe.srcdoc = code;
+        });
+      }
+    });
+  </script>
+
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>IGCSE 0983 — Chapter 21: Web Authoring — Exam-ready page</h1>
+      <nav>
+        <a href="#layers">Web development layers</a>
+        <a href="#create">Create a web page (head & body)</a>
+        <a href="#elements">HTML elements: lists, tables, images</a>
+        <a href="#links">Hyperlinks & anchors</a>
+        <a href="#practice">Practice & Exam questions</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container grid">
+    <aside>
+      <h3>Quick Reference</h3>
+      <div class="quick">
+        <div class="chip">Doctype: <code>&lt;!doctype html&gt;</code></div>
+        <div class="chip">Charset: <code>&lt;meta charset="utf-8"&gt;</code></div>
+        <div class="chip">Viewport meta</div>
+        <div class="chip">External CSS: <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></div>
+      </div>
+
+      <hr>
+      <h4>Exam checklist</h4>
+      <ol style="padding-left:16px;font-size:14px">
+        <li>Write valid HTML; include a title and required meta tags.</li>
+        <li>Use relative paths for internal links and assets in exam projects.</li>
+        <li>Label tables with captions; use <code>thead</code>/<code>tbody</code>.</li>
+        <li>Show an understanding of presentation (CSS) vs content (HTML).</li>
+        <li>Explain & demonstrate anchors/bookmarks and different link types.</li>
+      </ol>
+
+      <hr>
+      <h4>Common marks winners</h4>
+      <ul>
+        <li>Correct use of <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>.</li>
+        <li>Valid table markup with <code>colspan/rowspan</code> where needed.</li>
+        <li>Well‑commented code snippets explaining purpose of tags.</li>
+      </ul>
+
+      <hr>
+      <p class="hint">Note: this page demonstrates the three layers — Content (HTML), Presentation (CSS), Behaviour (JavaScript). Exams test knowledge and the ability to produce correct markup.</p>
+    </aside>
+
+    <main>
+      <!-- 21.1 Web development layers -->
+      <section id="layers" class="section">
+        <h2>21.1 Web development layers</h2>
+        <p><strong>Content layer (HTML)</strong> — provides the structure and semantic meaning of content. Examples: <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;img&gt;</code>.</p>
+        <p><strong>Presentation layer (CSS)</strong> — controls layout and style: fonts, colours, spacing, responsive behaviour. Can be internal (style tag), external (linked stylesheet), or inline (style attribute).</p>
+        <p><strong>Behaviour layer (JavaScript)</strong> — adds interactivity: form validation, collapsible menus, live preview, DOM manipulation. In exams you must explain the role (not necessarily write complex JS).</p>
+
+        <div class="example">
+          <strong>Exam-style explanation (short answer):</strong>
+          <p>Content (HTML) should be separate from presentation (CSS) and behaviour (JavaScript). Separating layers helps maintenance, accessibility, and accessibility marks in the exam.</p>
+        </div>
+
+        <div class="collapsible" data-target="layers-example">Click to toggle a minimal three-layer example</div>
+        <div id="layers-example" style="display:none;margin-top:8px">
+          <div class="code-sample">
+            <pre><code>&lt;!-- index.html (Content) --&gt;
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Three-layer demo&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello&lt;/h1&gt;
+  &lt;button id="sayHi"&gt;Say hi&lt;/button&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+/* styles.css (Presentation) */
+body{font-family:Arial}
+h1{color:darkblue}
+
+// app.js (Behaviour)
+document.getElementById('sayHi').addEventListener('click', ()=>alert('Hi'));</code></pre>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 21.2 Create a web page -->
+      <section id="create" class="section">
+        <h2>21.2 Create a web page — head and body</h2>
+        <h3>Head section: required elements and common meta tags</h3>
+        <ul>
+          <li><code>&lt;title&gt;</code> — required for pages and exam answers.</li>
+          <li><code>&lt;meta charset="utf-8"&gt;</code> — prevents character encoding issues.</li>
+          <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code> — mobile responsiveness.</li>
+          <li>Link external stylesheet(s) using <code>&lt;link rel="stylesheet" href="..."&gt;</code>. Use the correct file path and order: default browser styles &lt; user stylesheet &lt; inline styles (last priority).</li>
+          <li>Optional: <code>&lt;meta name="description"&gt;</code>, <code>keywords</code>, author, and favicons.</li>
+        </ul>
+
+        <h3>Body section: content elements</h3>
+        <p>The <code>&lt;body&gt;</code> contains the visible content: headings, paragraphs, lists, images, tables, multimedia, forms, links, and anchors. In exam answers, show correct nesting and closing tags.</p>
+
+        <div class="example">
+          <strong>Head + Body minimal template (exam-ready)</strong>
+          <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;IGCSE Web Authoring Sample&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles/site.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;&lt;h1&gt;Web Authoring&lt;/h1&gt;&lt;/header&gt;
+  &lt;main&gt;&lt;p&gt;Content goes here&lt;/p&gt;&lt;/main&gt;
+  &lt;footer&gt;&lt;p&gt;Author: Teacher&lt;/p&gt;&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <h4>Head ordering rules (important for marks)</h4>
+        <ol>
+          <li>Place &lt;meta charset&gt; before any text content.</li>
+          <li>Include responsive viewport meta before CSS that relies on it.</li>
+          <li>External CSS links should go in the &lt;head&gt; so content appears styled without flicker.</li>
+        </ol>
+
+        <div class="exam-tip">Exam tip: When asked to create a page in the exam, always include the full document structure (doctype, html, head, meta tags, title, body). Missing <code>&lt;title&gt;</code> often loses easy marks.</div>
+
+      </section>
+
+      <!-- HTML elements: lists, tables, images -->
+      <section id="elements" class="section">
+        <h2>HTML elements used in Web Authoring</h2>
+
+        <h3>Lists (ordered and unordered)</h3>
+        <p>Use ordered lists (<code>&lt;ol&gt;</code>) for sequences and unordered lists (<code>&lt;ul&gt;</code>) for bulleted items. Use <code>&lt;li&gt;</code> inside both.</p>
+        <div class="code-sample">
+          <pre><code>&lt;h2&gt;Steps to publish&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Create files in correct folder&lt;/li&gt;
+  &lt;li&gt;Test links locally&lt;/li&gt;
+  &lt;li&gt;Upload via FTP&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Topics&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+
+        <h3>Tables (including caption, thead/tbody, and colspan/rowspan)</h3>
+        <p>Tables are common in exam questions. Use semantic structure (<code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>) and include <code>colspan</code> or <code>rowspan</code> where asked.</p>
+
+        <div class="code-sample">
+          <pre><code>&lt;table&gt;
+  &lt;caption&gt;Class list&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Role&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;Aisha&lt;/td&gt;&lt;td&gt;Student&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td colspan="2"&gt;Totals&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+
+        <h4>Common table markup errors</h4>
+        <ul>
+          <li>Missing closing tags for <code>&lt;tr&gt;</code> or <code>&lt;td&gt;</code>.</li>
+          <li>Using <code>border</code> attribute instead of CSS (use CSS in modern pages).</li>
+          <li>Not using <code>caption</code> or header rows where required.</li>
+        </ul>
+
+        <h3>Images and multimedia</h3>
+        <p>Use <code>&lt;img src="..." alt="..."&gt;</code> and provide meaningful <code>alt</code> text. For audio and video, use <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> with controls.</p>
+
+        <div class="code-sample">
+          <pre><code>&lt;img src="images/school.jpg" alt="Front of school building" width="600"&gt;
+
+&lt;audio controls&gt;
+  &lt;source src="audio/speech.mp3" type="audio/mpeg"&gt;
+  Your browser does not support the audio element.
+&lt;/audio&gt;
+
+&lt;video controls width="640"&gt;
+  &lt;source src="videos/demo.mp4" type="video/mp4"&gt;
+  Your browser does not support the video element.
+&lt;/video&gt;</code></pre>
+        </div>
+
+      </section>
+
+      <!-- Links and anchors -->
+      <section id="links" class="section">
+        <h2>Hyperlinks and anchors (bookmarks)</h2>
+        <p>Types of links:</p>
+        <ul>
+          <li>Internal links — link to other pages within the same site using relative paths: <code>&lt;a href="about.html"&gt;About&lt;/a&gt;</code>.</li>
+          <li>External links — absolute URLs: <code>&lt;a href="https://www.cambridgeinternational.org"&gt;Cambridge&lt;/a&gt;</code>.</li>
+          <li>Email links — <code>&lt;a href="mailto:teacher@example.com"&gt;Email&lt;/a&gt;</code>.</li>
+          <li>Anchors/bookmarks — use <code>id</code> attributes and link with <code>#id</code> to navigate inside a page.</li>
+        </ul>
+
+        <div class="code-sample">
+          <pre><code>&lt;!-- anchor target --&gt;
+&lt;h2 id="publishing"&gt;Publishing&lt;/h2&gt;
+&lt;p&gt;Details on how to publish the site.&lt;/p&gt;
+
+&lt;!-- link to anchor --&gt;
+&lt;a href="#publishing"&gt;Go to Publishing section&lt;/a&gt;
+
+&lt;!-- relative link --&gt;
+&lt;a href="resources/index.html"&gt;Resources&lt;/a&gt;
+
+&lt;!-- external open in new tab (use target) --&gt;
+&lt;a href="https://example.org" target="_blank" rel="noopener"&gt;External site&lt;/a&gt;</code></pre>
+        </div>
+
+        <div class="exam-tip">Remember: When opening external links in a new tab, include <code>rel="noopener"</code> for security — examiners may award marks for security awareness.</div>
+
+      </section>
+
+      <!-- Live snippet plus practice -->
+      <section id="practice" class="section">
+        <h2>Practice examples, short questions & exam-style tasks</h2>
+
+        <h3>Live HTML snippet editor</h3>
+        <p>Paste a small HTML body snippet into the box below (must be a full &lt;body&gt; fragment or full document) and press <em>Run</em> to preview. This shows the behaviour layer in action (iframe preview).</p>
+        <textarea id="snippet-code" style="width:100%;height:140px">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;meta charset="utf-8"&gt;&lt;title&gt;Snippet&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h2&gt;Hello from preview&lt;/h2&gt;&lt;p&gt;This is a live preview.&lt;/p&gt;&lt;/body&gt;
+&lt;/html&gt;</textarea>
+        <div class="code-run">
+          <button class="btn" id="run-snippet">Run snippet (update preview)</button>
+        </div>
+        <iframe id="preview-iframe" style="width:100%;height:210px;border:1px solid #dbe9ff;margin-top:8px"></iframe>
+
+        <h3>Short practice questions (answer on paper)</h3>
+        <ol class="practice">
+          <li>State the three web development layers and give one example of each. (3 marks)</li>
+          <li>Write the HTML for an ordered list of three file types used in web development. (2 marks)</li>
+          <li>Explain why &lt;meta charset="utf-8"&gt; should appear at the top of the head. (1 mark)</li>
+          <li>Give the HTML for a table with a header row and two data rows; one cell must use colspan="2". (4 marks)</li>
+          <li>Describe two differences between using an external stylesheet and inline styles. (2 marks)</li>
+        </ol>
+
+        <h3>Longer exam task (15 marks)</h3>
+        <p><strong>Task:</strong> Create a complete HTML page (include doctype, head and body) for a simple school club web page. The page must include: a title, a responsive meta tag, a linked external stylesheet, a heading, a paragraph, an image with alt text, a table showing 3 events (date, event, location) and an internal bookmark link to the events table. Write the HTML and explain one choice you made for accessibility and one for maintainability.</p>
+
+      </section>
+
+      <!-- 21.3 Stylesheets (Presentation layer) -->
+      <section id="stylesheets" class="section">
+        <h2>21.3 Use stylesheets (Presentation layer)</h2>
+        <p>Stylesheets control the visual presentation. Key concepts examiners test:</p>
+        <ul>
+          <li>Types of CSS: External (<code>&lt;link&gt;</code>), Internal (<code>&lt;style&gt;</code>), Inline (<code>style="..."</code>).</li>
+          <li>Selector types: element, class (<code>.class</code>), id (<code>#id</code>), descendant, child, attribute selectors.</li>
+          <li>Box model: <em>content</em>, <em>padding</em>, <em>border</em>, <em>margin</em>.</li>
+          <li>Layout: normal flow, floats (legacy), flexbox (recommended), and simple responsive rules using media queries.</li>
+          <li>Specificity & cascade: inline &gt; id &gt; class &gt; element; later rules override earlier ones when specificity is equal.</li>
+        </ul>
+
+        <div class="code-sample">
+          <pre><code>/* external styles.css */
+body{font-family:Arial, sans-serif;line-height:1.5}
+.container{max-width:1000px;margin:0 auto;padding:10px}
+h1{font-size:28px}
+.nav .active{font-weight:bold}
+
+/* responsive example */
+@media (max-width:600px){
+  .grid{grid-template-columns:1fr}
+}
+</code></pre>
+        </div>
+
+        <h4>Exam-style short question</h4>
+        <p>Explain the difference between class selectors and id selectors. (2 marks)</p>
+
+        <h4>Common CSS mistakes</h4>
+        <ul>
+          <li>Overusing inline styles (reduces maintainability).</li>
+          <li>Wrong file path to external CSS in &lt;link&gt; tag.</li>
+          <li>Forgetting vendor prefixes is usually not required in exams, but know why they exist.</li>
+        </ul>
+
+      </section>
+
+      <!-- 21.4 Test and publish a website -->
+      <section id="publish" class="section">
+        <h2>21.4 Test and publish a website</h2>
+        <h3>Testing checklist</h3>
+        <ul>
+          <li>Functionality: all links work, forms submit (or show expected behaviour), multimedia plays.</li>
+          <li>Cross-browser check: pages render in common browsers (Edge, Chrome, Firefox).</li>
+          <li>Responsive behaviour: use devtools to check small screens.</li>
+          <li>Accessibility checks: alt text present, headings in logical order, link text meaningful.</li>
+          <li>Performance: optimize images, use correct file formats and sizes.</li>
+        </ul>
+
+        <h3>Publishing methods</h3>
+        <p>Common exam expectation: show understanding of FTP and relative/absolute paths.</p>
+        <ol>
+          <li>Prepare file structure (index.html at root, assets in folders such as /css, /images, /js).</li>
+          <li>Use an FTP client (e.g., FileZilla) or deploy via simple hosting services (GitHub Pages, Netlify) — explain the steps in a short answer.</li>
+          <li>Check permissions and that default files (index.html) load from the server root.</li>
+        </ol>
+
+        <div class="example">
+          <strong>Exam short answer (example):</strong>
+          <p>To publish via FTP: open the FTP client, connect using host/user/password, navigate to the public_html (or www) folder on the server, upload the website folder contents keeping relative paths intact. Test the site by opening the domain in a browser.</p>
+        </div>
+
+      </section>
+
+      <!-- Full tag/property quick reference -->
+      <section id="reference" class="section">
+        <h2>Full tag &amp; property quick reference (concise)</h2>
+        <table class="ref">
+          <thead>
+            <tr><th>Topic</th><th>Tags / Properties</th><th>Purpose / Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Document</td><td>&lt;!doctype html&gt;, &lt;html lang=""&gt;</td><td>Declare HTML5 and language.</td></tr>
+            <tr><td>Head</td><td>&lt;meta charset&gt;, &lt;meta name=viewport&gt;, &lt;title&gt;, &lt;link rel=stylesheet&gt;</td><td>Metadata, document title, attach CSS.</td></tr>
+            <tr><td>Text</td><td>&lt;h1&gt;-&lt;h6&gt;, &lt;p&gt;, &lt;strong&gt;, &lt;em&gt;</td><td>Semantic text elements for structure and emphasis.</td></tr>
+            <tr><td>Lists</td><td>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</td><td>Ordered and unordered lists.</td></tr>
+            <tr><td>Links</td><td>&lt;a href=&quot;&quot;&gt; (target, rel)</td><td>Internal, external, email; use rel for security when target=_blank.</td></tr>
+            <tr><td>Images</td><td>&lt;img src=&quot;&quot; alt=&quot;&quot; width=&quot;&quot;&gt;</td><td>Provide alt for accessibility; use correct path and size.</td></tr>
+            <tr><td>Tables</td><td>&lt;table&gt;, &lt;caption&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;tr&gt;, &lt;th&gt;, &lt;td&gt;, colspan, rowspan</td><td>Use for tabular data; include caption for context.</td></tr>
+            <tr><td>Forms</td><td>&lt;form&gt;, &lt;input&gt;, &lt;label&gt;, &lt;select&gt;, &lt;textarea&gt;</td><td>Understand basic attributes: action, method, name.</td></tr>
+            <tr><td>Media</td><td>&lt;audio&gt;, &lt;video&gt;, &lt;source&gt;</td><td>Include controls and fallbacks.</td></tr>
+            <tr><td>CSS</td><td>Selectors, properties: margin, padding, display, width, height, font-family</td><td>Use external CSS in exams unless inline/embedded asked.</td></tr>
+            <tr><td>JS</td><td>&lt;script src=&quot;&quot;&gt; or inline scripts</td><td>Use to add behaviour; keep unobtrusive JS separated in files.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Downloadable sample files note and exam workbook -->
+      <section id="extras" class="section">
+        <h2>Downloadable sample files &amp; Exam workbook (with answers)</h2>
+        <p>I have prepared the following downloadable resources which are included with this page in the canvas:</p>
+        <ul>
+          <li>Sample website files (index.html, styles.css, app.js, images/) — ready to unzip and open locally.</li>
+          <li>Exam workbook: 20 short tasks, 10 longer tasks, and full answer key (model answers with mark schemes).</li>
+          <li>Quick revision poster — printable checklist for exam day.</li>
+        </ul>
+        
+      </section>
+
+      <footer>
+        <p>This is the end of Web Authoring. Learn more by creating at least 2 web pages with all possible elements</p>
+      </footer>
+    </main>
+  </div>
+
+</body>
+</html>
