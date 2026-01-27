@@ -76,4 +76,13 @@ pre {
   border-left: 5px solid #003366;
   overflow-x: auto;
 }
+nav a {
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+nav a:hover {
+  background-color: #003366;
+  color: #ffffff;
+}
 
