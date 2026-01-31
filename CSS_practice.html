@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web Authoring Practice – CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+======================================================
+ Web Authoring Practice – CSS
+ Cambridge IGCSE ICT 0983
+ Designed & Curated by Ravi Raju
+======================================================
+-->
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f1f5f9;
+}
+
+header, footer {
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 { margin: 0; font-size: 32px; }
+header h2 { margin: 6px 0 0; font-size: 18px; font-weight: normal; }
+
+.student-box { margin-top: 10px; }
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  background: #e5e7eb;
+  padding: 12px;
+}
+
+nav button {
+  padding: 10px 18px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.section { display: none; padding: 25px; }
+.section.active { display: block; }
+
+.progress-container {
+  background: #cbd5e1;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.progress-bar {
+  height: 16px;
+  width: 0%;
+  background: #22c55e;
+  color: white;
+  font-size: 12px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.exercise {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.exercise.locked {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  font-family: Consolas, monospace;
+}
+
+iframe {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #cbd5f5;
+}
+
+button.run {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.challenge {
+  background: #fff7ed;
+  border-left: 6px solid #fb923c;
+  padding: 15px;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body onload="loadStudent()">
+
+<header>
+  <h1>Web Authoring Practice – CSS</h1>
+  <h2>Cambridge IGCSE ICT 0983 | Designed by Ravi Raju</h2>
+  <div class="student-box">
+    Student Name:
+    <input type="text" id="studentName" onkeyup="saveStudent()">
+  </div>
+</header>
+
+<nav>
+  <button onclick="openSection('inline')">Inline CSS</button>
+  <button onclick="openSection('internal')">Internal CSS</button>
+  <button onclick="openSection('external')">External CSS</button>
+</nav>
+
+<!-- ================= INLINE CSS ================= -->
+<div id="inline" class="section active">
+<div class="progress-container"><div id="progress-inline" class="progress-bar">0%</div></div>
+
+<script>
+const inlineTasks = [
+ "Change text colour to red",
+ "Increase font size to 20px",
+ "Centre-align the text",
+ "Change background colour",
+ "Make text bold",
+ "Make text italic",
+ "Add a border",
+ "Change font family",
+ "Add padding",
+ "Align text right",
+ "Increase font size to 24px",
+ "Underline the text",
+ "Change background to lightblue",
+ "Use multiple style properties",
+ "Style text neatly"
+];
+
+for (let i=1;i<=15;i++){
+document.write(`
+<div class="exercise ${i>1?'locked':''}" id="in${i}">
+<h3>Inline CSS – Exercise ${i}</h3>
+<p>${inlineTasks[i-1]}</p>
+<div class="editor">
+<textarea id="inCode${i}">
+<p style="font-size:14px;">Inline Exercise ${i}</p>
+</textarea>
+<iframe id="inPrev${i}"></iframe>
+</div>
+<button class="run" onclick="runInline(${i})">Run</button>
+</div>
+`);
+}
+</script>
+
+<div class="challenge">🔥 Make the text as ugly as possible using inline CSS.</div>
+</div>
+
+<!-- ================= INTERNAL CSS ================= -->
+<div id="internal" class="section">
+<div class="progress-container"><div id="progress-internal" class="progress-bar">0%</div></div>
+
+<script>
+const internalTasks = [
+ "Change paragraph colour",
+ "Increase font size",
+ "Change page background",
+ "Centre text",
+ "Change font family",
+ "Add padding",
+ "Add margin",
+ "Make text bold",
+ "Make text italic",
+ "Change heading colour",
+ "Add border",
+ "Increase line spacing",
+ "Improve readability",
+ "Apply consistent styles",
+ "Clean CSS rules"
+];
+
+for (let i=1;i<=15;i++){
+document.write(`
+<div class="exercise ${i>1?'locked':''}" id="int${i}">
+<h3>Internal CSS – Exercise ${i}</h3>
+<p>${internalTasks[i-1]}</p>
+<div class="editor">
+<textarea id="intCode${i}">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p { font-size:14px; }
+</style>
+</head>
+<body>
+<p>Internal Exercise ${i}</p>
+</body>
+</html>
+</textarea>
+<iframe id="intPrev${i}"></iframe>
+</div>
+<button class="run" onclick="runInternal(${i})">Run</button>
+</div>
+`);
+}
+</script>
+
+<div class="challenge">🛠 Fix this mess and make it readable.</div>
+</div>
+
+<!-- ================= EXTERNAL CSS ================= -->
+<div id="external" class="section">
+<div class="progress-container"><div id="progress-external" class="progress-bar">0%</div></div>
+
+<script>
+const externalTasks = [
+ "Change text colour",
+ "Increase font size",
+ "Change background colour",
+ "Centre-align text",
+ "Change font family",
+ "Add padding",
+ "Add margin",
+ "Add border",
+ "Improve readability",
+ "Create colour theme",
+ "Style heading",
+ "Style paragraph",
+ "Clean CSS",
+ "Make page professional",
+ "Final polish"
+];
+
+for (let i=1;i<=15;i++){
+document.write(`
+<div class="exercise ${i>1?'locked':''}" id="ex${i}">
+<h3>External CSS – Exercise ${i}</h3>
+<p>${externalTasks[i-1]}</p>
+<div class="editor">
+<textarea id="exCode${i}">
+p { font-size:14px; }
+</textarea>
+<iframe id="exPrev${i}"></iframe>
+</div>
+<button class="run" onclick="runExternal(${i})">Run</button>
+</div>
+`);
+}
+</script>
+
+<div class="challenge">🎯 Make the page look professional using only CSS.</div>
+</div>
+
+<footer>
+<p>Web Authoring Practice – CSS</p>
+<p>Designed & Developed by <strong>Ravi Raju</strong></p>
+</footer>
+
+<script>
+function openSection(id){
+ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function updateProgress(type,n){
+ const bar=document.getElementById('progress-'+type);
+ const p=Math.round((n/15)*100);
+ bar.style.width=p+'%';
+ bar.textContent=p+'%';
+}
+
+function runInline(n){
+ inPrev(n,'in');
+ updateProgress('inline',n);
+}
+function runInternal(n){
+ intPrev(n,'int');
+ updateProgress('internal',n);
+}
+function runExternal(n){
+ const css=document.getElementById('exCode'+n).value;
+ document.getElementById('exPrev'+n).srcdoc=`<style>${css}</style><p>External Exercise ${n}</p>`;
+ unlock('ex',n);
+ updateProgress('external',n);
+}
+
+function inPrev(n,p){ render(p,n); }
+function intPrev(n,p){ render(p,n); }
+
+function render(p,n){
+ document.getElementById(p+'Prev'+n).srcdoc=document.getElementById(p+'Code'+n).value;
+ unlock(p,n);
+}
+function unlock(p,n){
+ const next=document.getElementById(p+(n+1));
+ if(next) next.classList.remove('locked');
+}
+
+function saveStudent(){
+ localStorage.setItem('studentName',studentName.value);
+}
+function loadStudent(){
+ const n=localStorage.getItem('studentName');
+ if(n) studentName.value=n;
+}
+</script>
+
+</body>
+</html>
