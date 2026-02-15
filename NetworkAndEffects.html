@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>IGCSE ICT 0983 • Chapter 4: Networks and the Effects of Using Them (Explain + Explore + Printable Test Generator)</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent2:#10b981;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --border:#e5e7eb;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:linear-gradient(180deg,#f7f8ff, var(--bg));
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .wrap{max-width:1500px; margin:0 auto; padding:14px 16px;}
+    .title{
+      display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .title h1{margin:0; font-size:18px; letter-spacing:.2px;}
+    .title .meta{color:var(--muted); font-size:13px}
+    .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .pill{
+      border:1px solid var(--border);
+      background:var(--card);
+      border-radius:999px;
+      padding:8px 10px;
+      display:flex; gap:8px; align-items:center;
+      box-shadow:0 1px 0 rgba(0,0,0,.03);
+      font-size:13px;
+    }
+    .pill input[type="search"]{
+      border:none; outline:none; font-size:13px; width:280px; background:transparent;
+    }
+    .pill button{
+      border:none; background:transparent; cursor:pointer; color:var(--muted);
+      padding:2px 6px; border-radius:8px;
+    }
+    .pill button:hover{background:#f3f4f6; color:var(--ink)}
+    .btn{
+      border:1px solid var(--border);
+      background:var(--card);
+      padding:8px 10px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:13px;
+      box-shadow:0 1px 0 rgba(0,0,0,.03);
+    }
+    .btn:hover{border-color:#cfd6e4}
+    .btn.primary{background:var(--accent); color:white; border-color:transparent}
+    .btn.primary:hover{filter:brightness(.98)}
+    .layout{
+      max-width:1500px; margin:0 auto;
+      padding:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .panel{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      min-height: calc(100vh - 130px);
+      display:flex; flex-direction:column;
+    }
+    .panel-header{
+      padding:14px 16px;
+      border-bottom:1px solid var(--border);
+      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .panel-header h2{margin:0; font-size:16px}
+    .panel-header .hint{color:var(--muted); font-size:12px}
+    .content{
+      padding:16px;
+      overflow:auto;
+      line-height:1.6;
+    }
+    .content h3{margin-top:22px; margin-bottom:8px}
+    .content h4{margin-top:16px; margin-bottom:6px}
+    .content p{margin:10px 0}
+    .content ul{margin:8px 0 12px 22px}
+    .content li{margin:6px 0}
+    .card{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      background:#fff;
+      margin:12px 0;
+    }
+    .callout{
+      border-left:6px solid var(--accent);
+      background:linear-gradient(180deg,#f0f6ff,#ffffff);
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid #dbeafe;
+      margin:12px 0;
+    }
+    .callout.warn{
+      border-left-color:var(--warn);
+      border-color:#fde68a;
+      background:linear-gradient(180deg,#fffbeb,#ffffff);
+    }
+    .callout.good{
+      border-left-color:var(--accent2);
+      border-color:#bbf7d0;
+      background:linear-gradient(180deg,#ecfdf5,#ffffff);
+    }
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .three{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;}
+    .mini{font-size:12px; color:var(--muted)}
+    .tag{
+      display:inline-block; padding:2px 8px; border-radius:999px;
+      background:#eef2ff; border:1px solid #e0e7ff; color:#3730a3;
+      font-size:12px; margin-right:6px; margin-top:4px;
+    }
+    table{width:100%; border-collapse:collapse; margin:10px 0 14px; font-size:14px;}
+    th, td{border:1px solid var(--border); padding:10px; vertical-align:top;}
+    th{background:#f9fafb; text-align:left}
+    details{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 12px;
+      margin:10px 0;
+      background:#fff;
+    }
+    summary{cursor:pointer; font-weight:800}
+    textarea{
+      width:100%;
+      min-height:90px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px;
+      font-family:var(--sans);
+      font-size:14px;
+      outline:none;
+      background:#fff;
+    }
+    textarea:focus{border-color:#c7d2fe; box-shadow:0 0 0 4px rgba(99,102,241,.12)}
+    .svgbox{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px;
+      background:#fff;
+      margin:10px 0 14px;
+      overflow:auto;
+    }
+    .bank-controls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      border:1px solid var(--border); border-radius:12px; padding:10px; background:#fff;
+      margin:12px 0;
+    }
+    select, input[type="number"], input[type="checkbox"]{
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:8px 10px;
+      font-size:13px;
+      outline:none;
+      background:#fff;
+    }
+    input[type="number"]:focus, select:focus{border-color:#c7d2fe; box-shadow:0 0 0 4px rgba(99,102,241,.12)}
+    .bank-item{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+      margin:10px 0;
+    }
+    .bank-item .n{font-weight:900}
+    .answer{margin-top:8px; padding:10px; border-radius:10px; border:1px dashed #d1d5db; background:#fafafa}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .foot{margin-top:18px; color:var(--muted); font-size:12px;}
+    .print-note{color:var(--muted); font-size:12px}
+
+    /* Printable generator output area */
+    .print-area{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+      margin:12px 0;
+    }
+    .print-head{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px; margin-bottom:10px;
+    }
+    .print-head h3{margin:0}
+    .spacer-line{
+      border-bottom:1px dotted #d1d5db;
+      height:18px;
+      margin:6px 0;
+    }
+
+    /* Print styles: print only the generated paper if requested */
+    @media print{
+      header, .layout, .no-print { display:none !important; }
+      #printOnlyWrapper { display:block !important; }
+      body{ background:#fff; }
+      #printOnlyWrapper{
+        padding:0;
+        margin:0;
+        font-family: var(--sans);
+        color:#000;
+      }
+      .print-page{
+        padding:18px 18px;
+      }
+      .print-page h1{font-size:18px; margin:0 0 6px}
+      .print-page .meta{font-size:12px; color:#000; margin-bottom:10px}
+      .print-q{margin:10px 0; page-break-inside:avoid;}
+      .print-q .qn{font-weight:800;}
+      .ans-space{border-bottom:1px solid #000; height:22px; margin:6px 0;}
+      .ans-space.big{height:70px;}
+      .ms{border-top:2px solid #000; padding-top:10px; margin-top:14px;}
+      .ms .ms-item{margin:8px 0; page-break-inside:avoid;}
+      .ms small{color:#000;}
+    }
+    #printOnlyWrapper{display:none}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="title">
+      <div>
+        <h1>IGCSE ICT (0983) • Chapter 4: Networks and the Effects of Using Them</h1>
+        <div class="meta">Two-pane page • Explain (notes + diagrams) + Explore (practice + Printable Test Generator)</div>
+      </div>
+      <div class="controls">
+        <div class="pill" title="Search within the page">
+          🔎 <input id="searchBox" type="search" placeholder="Search: LAN, WAN, IP, router, phishing, social effects…" />
+          <button id="clearSearch" aria-label="Clear search">✕</button>
+        </div>
+        <button class="btn" id="toggleHighlight">Highlight matches</button>
+        <button class="btn primary" onclick="window.print()">Print current view</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <!-- EXPLAIN -->
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <h2>Explain Pane</h2>
+        <div class="hint">Definitions, diagrams, and exam-ready comparison points.</div>
+      </div>
+      <div class="print-note">Tip: press <b>Enter</b> in search box to jump.</div>
+    </div>
+    <div class="content" id="explainContent">
+
+      <div class="callout good">
+        <b>Exam success pattern (networks):</b>
+        <ul>
+          <li>When asked to “explain”, always use <b>because / so / therefore</b> linking.</li>
+          <li>When asked about risks, pair with a matching control (e.g., <b>phishing → user training + spam filters</b>).</li>
+          <li>When asked about effects, cover <b>positive + negative</b> (social, economic, environmental, legal/ethical).</li>
+        </ul>
+      </div>
+
+      <h3 id="net-basics">A. Network basics</h3>
+      <p>
+        A <b>computer network</b> is a set of devices connected so they can share resources (files, printers, internet access) and communicate.
+      </p>
+
+      <div class="card">
+        <b>Key terms</b>
+        <ul>
+          <li><b>Node</b>: any device on the network (PC, phone, printer).</li>
+          <li><b>Protocol</b>: agreed rules for communication (e.g., TCP/IP, HTTP).</li>
+          <li><b>Bandwidth</b>: maximum data capacity of a link (often Mbps/Gbps).</li>
+          <li><b>Latency</b>: delay before data starts to arrive.</li>
+        </ul>
+      </div>
+
+      <h4 id="lan-wan">A1. LAN vs WAN</h4>
+      <div class="two">
+        <div class="card">
+          <b>LAN (Local Area Network)</b>
+          <ul>
+            <li>Small geographical area (school/building).</li>
+            <li>Usually faster, owned/managed by one organisation.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <b>WAN (Wide Area Network)</b>
+          <ul>
+            <li>Large area (cities/countries).</li>
+            <li>Uses leased links/telecom infrastructure; usually higher latency.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="svgbox" aria-label="LAN vs WAN diagram">
+        <svg width="980" height="300" viewBox="0 0 980 300" role="img" aria-label="LAN and WAN illustration">
+          <rect x="10" y="10" width="960" height="280" rx="16" fill="#fff" stroke="#e5e7eb"/>
+          <text x="30" y="45" font-size="18" font-family="system-ui" fill="#111827" font-weight="800">LAN vs WAN (simple illustration)</text>
+
+          <rect x="40" y="80" width="410" height="190" rx="16" fill="#ecfdf5" stroke="#bbf7d0"/>
+          <text x="60" y="110" font-size="13" font-family="system-ui" fill="#065f46" font-weight="800">LAN (School Building)</text>
+          <rect x="70" y="135" width="90" height="50" rx="10" fill="#d1fae5" stroke="#34d399"/>
+          <rect x="180" y="135" width="90" height="50" rx="10" fill="#d1fae5" stroke="#34d399"/>
+          <rect x="290" y="135" width="90" height="50" rx="10" fill="#d1fae5" stroke="#34d399"/>
+          <text x="88" y="165" font-size="11" font-family="system-ui" fill="#064e3b">PC</text>
+          <text x="198" y="165" font-size="11" font-family="system-ui" fill="#064e3b">Printer</text>
+          <text x="313" y="165" font-size="11" font-family="system-ui" fill="#064e3b">Laptop</text>
+          <rect x="165" y="205" width="160" height="45" rx="12" fill="#a7f3d0" stroke="#10b981"/>
+          <text x="195" y="233" font-size="12" font-family="system-ui" fill="#064e3b" font-weight="800">Switch</text>
+
+          <rect x="530" y="80" width="410" height="190" rx="16" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="550" y="110" font-size="13" font-family="system-ui" fill="#1d4ed8" font-weight="800">WAN (Internet / Multiple sites)</text>
+          <rect x="560" y="135" width="110" height="50" rx="10" fill="#dbeafe" stroke="#93c5fd"/>
+          <rect x="690" y="135" width="110" height="50" rx="10" fill="#dbeafe" stroke="#93c5fd"/>
+          <rect x="820" y="135" width="110" height="50" rx="10" fill="#dbeafe" stroke="#93c5fd"/>
+          <text x="575" y="165" font-size="11" font-family="system-ui" fill="#1d4ed8">Site A</text>
+          <text x="705" y="165" font-size="11" font-family="system-ui" fill="#1d4ed8">Site B</text>
+          <text x="835" y="165" font-size="11" font-family="system-ui" fill="#1d4ed8">Site C</text>
+
+          <line x1="325" y1="228" x2="530" y2="228" stroke="#9ca3af" stroke-width="2"/>
+          <polygon points="530,228 520,222 520,234" fill="#9ca3af"/>
+          <text x="365" y="215" font-size="11" font-family="system-ui" fill="#6b7280">Router link to WAN</text>
+        </svg>
+      </div>
+
+      <h4 id="wired-wireless">A2. Wired vs Wireless</h4>
+      <div class="two">
+        <div class="card">
+          <b>Wired (Ethernet)</b>
+          <ul>
+            <li>Stable, usually faster, less interference.</li>
+            <li>More secure physically (harder to intercept than Wi-Fi).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <b>Wireless (Wi-Fi)</b>
+          <ul>
+            <li>Flexible and convenient, supports mobility.</li>
+            <li>Interference and security risks if not protected (WPA2/WPA3).</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 id="topologies">B. Network topologies</h3>
+      <div class="svgbox" aria-label="Star bus ring topologies">
+        <svg width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="Star, Bus, Ring topologies diagram">
+          <rect x="10" y="10" width="960" height="340" rx="16" fill="#fff" stroke="#e5e7eb"/>
+          <text x="30" y="45" font-size="18" font-family="system-ui" fill="#111827" font-weight="800">Topologies: Star, Bus, Ring (IGCSE level)</text>
+
+          <!-- Star -->
+          <text x="70" y="85" font-size="13" font-family="system-ui" fill="#111827" font-weight="800">Star</text>
+          <circle cx="170" cy="175" r="22" fill="#a7f3d0" stroke="#10b981"/>
+          <text x="150" y="180" font-size="11" font-family="system-ui" fill="#064e3b">Switch</text>
+          <rect x="70" y="130" width="65" height="35" rx="8" fill="#d1fae5" stroke="#34d399"/>
+          <rect x="230" y="130" width="65" height="35" rx="8" fill="#d1fae5" stroke="#34d399"/>
+          <rect x="70" y="210" width="65" height="35" rx="8" fill="#d1fae5" stroke="#34d399"/>
+          <rect x="230" y="210" width="65" height="35" rx="8" fill="#d1fae5" stroke="#34d399"/>
+          <line x1="135" y1="147" x2="150" y2="165" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="230" y1="147" x2="192" y2="165" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="135" y1="227" x2="150" y2="195" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="230" y1="227" x2="192" y2="195" stroke="#9ca3af" stroke-width="2"/>
+
+          <!-- Bus -->
+          <text x="420" y="85" font-size="13" font-family="system-ui" fill="#111827" font-weight="800">Bus</text>
+          <line x1="400" y1="180" x2="620" y2="180" stroke="#6b7280" stroke-width="5"/>
+          <rect x="415" y="120" width="65" height="35" rx="8" fill="#eef2ff" stroke="#c7d2fe"/>
+          <rect x="505" y="120" width="65" height="35" rx="8" fill="#eef2ff" stroke="#c7d2fe"/>
+          <rect x="595" y="120" width="65" height="35" rx="8" fill="#eef2ff" stroke="#c7d2fe"/>
+          <line x1="447" y1="155" x2="447" y2="180" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="537" y1="155" x2="537" y2="180" stroke="#9ca3af" stroke-width="2"/>
+          <line x1="627" y1="155" x2="627" y2="180" stroke="#9ca3af" stroke-width="2"/>
+          <circle cx="400" cy="180" r="7" fill="#111827"/>
+          <circle cx="620" cy="180" r="7" fill="#111827"/>
+          <text x="392" y="205" font-size="11" font-family="system-ui" fill="#6b7280">Terminator</text>
+
+          <!-- Ring -->
+          <text x="760" y="85" font-size="13" font-family="system-ui" fill="#111827" font-weight="800">Ring</text>
+          <circle cx="820" cy="185" r="80" fill="none" stroke="#93c5fd" stroke-width="5"/>
+          <rect x="790" y="100" width="60" height="32" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+          <rect x="880" y="170" width="60" height="32" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+          <rect x="790" y="250" width="60" height="32" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+          <rect x="700" y="170" width="60" height="32" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+
+          <text x="30" y="330" font-size="12" font-family="system-ui" fill="#6b7280">
+            Typical exam points: Star is easy to manage but switch failure affects all • Bus is cheap but a cable break can stop the network • Ring can be affected by a break unless dual ring is used.
+          </text>
+        </svg>
+      </div>
+
+      <h3 id="hardware">C. Network hardware (what each device does)</h3>
+      <div class="card">
+        <table>
+          <tr><th>Device</th><th>Purpose (exam-ready)</th></tr>
+          <tr><td><b>NIC</b> (Network Interface Card)</td><td>Connects a device to a network; has a MAC address.</td></tr>
+          <tr><td><b>Switch</b></td><td>Connects devices in a LAN and forwards frames to the correct port using MAC addresses.</td></tr>
+          <tr><td><b>Router</b></td><td>Connects different networks and routes packets using IP addresses (often connects LAN to internet).</td></tr>
+          <tr><td><b>WAP</b> (Wireless Access Point)</td><td>Provides Wi-Fi access to a wired network; devices connect wirelessly.</td></tr>
+          <tr><td><b>Modem</b></td><td>Converts signals for ISP link (e.g., fibre/DSL/cable) so data can travel over those lines.</td></tr>
+        </table>
+      </div>
+
+      <h3 id="addressing">D. Addressing & protocols (high-frequency exam content)</h3>
+      <div class="two">
+        <div class="card">
+          <b>MAC address</b>
+          <ul>
+            <li>Hardware address of NIC.</li>
+            <li>Used within LAN (switch forwarding).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <b>IP address</b>
+          <ul>
+            <li>Logical address for routing between networks.</li>
+            <li>Used by routers to deliver packets to destination network/device.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="svgbox" aria-label="Packet journey diagram">
+        <svg width="980" height="320" viewBox="0 0 980 320" role="img" aria-label="Packet journey: device -> switch -> router -> internet -> server">
+          <rect x="10" y="10" width="960" height="300" rx="16" fill="#fff" stroke="#e5e7eb"/>
+          <text x="30" y="45" font-size="18" font-family="system-ui" fill="#111827" font-weight="800">How data travels: LAN → Router → Internet → Server</text>
+
+          <rect x="40" y="95" width="150" height="70" rx="12" fill="#d1fae5" stroke="#34d399"/>
+          <text x="75" y="125" font-size="12" font-family="system-ui" fill="#064e3b" font-weight="800">Client</text>
+          <text x="55" y="145" font-size="11" font-family="system-ui" fill="#064e3b">IP + MAC</text>
+
+          <rect x="230" y="95" width="150" height="70" rx="12" fill="#a7f3d0" stroke="#10b981"/>
+          <text x="275" y="125" font-size="12" font-family="system-ui" fill="#064e3b" font-weight="800">Switch</text>
+          <text x="248" y="145" font-size="11" font-family="system-ui" fill="#064e3b">Uses MAC</text>
+
+          <rect x="420" y="95" width="150" height="70" rx="12" fill="#dbeafe" stroke="#93c5fd"/>
+          <text x="465" y="125" font-size="12" font-family="system-ui" fill="#1d4ed8" font-weight="800">Router</text>
+          <text x="450" y="145" font-size="11" font-family="system-ui" fill="#1d4ed8">Uses IP</text>
+
+          <rect x="610" y="85" width="150" height="90" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+          <text x="645" y="125" font-size="12" font-family="system-ui" fill="#1d4ed8" font-weight="800">Internet</text>
+          <text x="628" y="145" font-size="11" font-family="system-ui" fill="#6b7280">Many routers</text>
+
+          <rect x="800" y="95" width="150" height="70" rx="12" fill="#fff7ed" stroke="#fed7aa"/>
+          <text x="840" y="125" font-size="12" font-family="system-ui" fill="#9a3412" font-weight="800">Server</text>
+          <text x="820" y="145" font-size="11" font-family="system-ui" fill="#9a3412">Responds</text>
+
+          <g stroke="#9ca3af" stroke-width="2" fill="none">
+            <line x1="190" y1="130" x2="230" y2="130"/>
+            <line x1="380" y1="130" x2="420" y2="130"/>
+            <line x1="570" y1="130" x2="610" y2="130"/>
+            <line x1="760" y1="130" x2="800" y2="130"/>
+          </g>
+          <g fill="#9ca3af">
+            <polygon points="230,130 220,124 220,136"/>
+            <polygon points="420,130 410,124 410,136"/>
+            <polygon points="610,130 600,124 600,136"/>
+            <polygon points="800,130 790,124 790,136"/>
+          </g>
+
+          <rect x="40" y="200" width="910" height="95" rx="14" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="60" y="228" font-size="13" font-family="system-ui" fill="#111827" font-weight="800">Exam wording you can reuse:</text>
+          <text x="60" y="252" font-size="12" font-family="system-ui" fill="#374151">Switch forwards frames inside a LAN using MAC addresses. Router routes packets between networks using IP addresses.</text>
+          <text x="60" y="274" font-size="12" font-family="system-ui" fill="#374151">Protocols (e.g., TCP/IP) allow different devices to communicate reliably and consistently.</text>
+        </svg>
+      </div>
+
+      <h3 id="security">E. Network security risks and protections</h3>
+      <div class="two">
+        <div class="card">
+          <b>Common risks</b>
+          <ul>
+            <li>Malware, spyware</li>
+            <li>Phishing and social engineering</li>
+            <li>Unauthorised access / weak passwords</li>
+            <li>Data interception on unsecured Wi-Fi</li>
+            <li>Denial of service (service unavailable)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <b>Controls</b>
+          <ul>
+            <li>Strong passwords + MFA</li>
+            <li>Firewalls</li>
+            <li>Encryption (HTTPS/WPA2/WPA3)</li>
+            <li>Anti-malware + updates</li>
+            <li>User training + permissions</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 id="effects">F. Effects of using networks (social / economic / environmental)</h3>
+      <div class="three">
+        <div class="card">
+          <b>Social</b>
+          <ul>
+            <li>+ Communication & communities</li>
+            <li>+ Remote learning</li>
+            <li>– Cyberbullying</li>
+            <li>– Addiction / wellbeing issues</li>
+            <li>– Privacy concerns</li>
+          </ul>
+        </div>
+        <div class="card">
+          <b>Economic</b>
+          <ul>
+            <li>+ E-commerce, wider markets</li>
+            <li>+ Remote work</li>
+            <li>– Job displacement</li>
+            <li>– Fraud / scams</li>
+            <li>– Costs of security & downtime</li>
+          </ul>
+        </div>
+        <div class="card">
+          <b>Environmental</b>
+          <ul>
+            <li>+ Less travel (remote work)</li>
+            <li>– Data centres energy use</li>
+            <li>– E-waste from devices</li>
+            <li>+ Paper reduction (digital docs)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="foot">End of Explain Pane.</div>
+    </div>
+  </section>
+
+  <!-- EXPLORE -->
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <h2>Explore Pane</h2>
+        <div class="hint">Practice bank + structured questions + Printable Test Generator (questions + optional mark scheme).</div>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="openGenerator">Open Test Generator</button>
+        <span class="mini">Build a 50-mark test in 1 click.</span>
+      </div>
+    </div>
+
+    <div class="content" id="exploreContent">
+
+      <h3 id="practice-bank">1) Quick one-mark bank (sample 30)</h3>
+      <p class="mini">Use these for rapid drills. Full bank is used by the generator.</p>
+      <div id="sampleBank"></div>
+
+      <h3 id="structured-q">2) Structured exam questions (with mark scheme)</h3>
+
+      <div class="card">
+        <b>Q1 (6 marks) — Hardware and purpose</b>
+        <ol>
+          <li>(a) Name the device used to connect two different networks. (1)</li>
+          <li>(b) Explain the difference between a switch and a router. (3)</li>
+          <li>(c) Give two reasons why a school might use Wi-Fi. (2)</li>
+        </ol>
+        <details>
+          <summary>Mark scheme</summary>
+          <div class="card">
+            (a) Router. (1)<br>
+            (b) Switch connects devices in a LAN, forwards frames using MAC; router connects networks and routes using IP. Any 3 points. (3)<br>
+            (c) Mobility; no cabling to every device; supports phones/tablets; flexible classrooms. Any 2. (2)
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <b>Q2 (7 marks) — Security</b>
+        <p>A student connects to a public Wi-Fi network to submit homework. Their account is later accessed by someone else.</p>
+        <ol>
+          <li>(a) Name one way the account might have been compromised. (1)</li>
+          <li>(b) Describe two controls to reduce this risk. (4)</li>
+          <li>(c) Explain one reason a firewall is useful in a network. (2)</li>
+        </ol>
+        <details>
+          <summary>Mark scheme</summary>
+          <div class="card">
+            (a) Phishing; weak password; intercepted traffic on unsecured Wi-Fi; reused password. Any 1. (1)<br>
+            (b) Any 2 controls with explanation (2 marks each): HTTPS/VPN, MFA, strong unique password, user training, avoid unknown Wi-Fi, encryption/WPA, logout. (4)<br>
+            (c) Filters traffic by rules; blocks unauthorised access; prevents certain connections/ports. Explain 1–2 points. (2)
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <b>Q3 (7 marks) — Effects of networks</b>
+        <ol>
+          <li>(a) Give two positive social effects of networks. (2)</li>
+          <li>(b) Give two negative social effects of networks. (2)</li>
+          <li>(c) Explain one economic benefit and one economic risk of e-commerce. (3)</li>
+        </ol>
+        <details>
+          <summary>Mark scheme</summary>
+          <div class="card">
+            (a) Communication; online learning; communities; sharing. Any 2. (2)<br>
+            (b) Cyberbullying; addiction; privacy loss; misinformation. Any 2. (2)<br>
+            (c) Benefit: wider market / 24-7 sales / lower overheads; Risk: fraud/scams/data breaches/competition. Explain. (3)
+          </div>
+        </details>
+      </div>
+
+      <!-- Generator UI -->
+      <div class="card no-print" id="generatorCard" style="display:none;">
+        <h3 id="generator">3) Printable Test Generator</h3>
+        <p class="mini">Generate a custom paper and print it. You can print <b>questions only</b> or <b>questions + mark scheme</b>.</p>
+
+        <div class="bank-controls">
+          <label class="mini">Title</label>
+          <select id="paperTitle">
+            <option value="IGCSE ICT (0983) • Chapter 4: Networks and the Effects of Using Them">Chapter 4 Practice Test</option>
+            <option value="IGCSE ICT (0983) • Networks Revision Test">Networks Revision Test</option>
+            <option value="IGCSE ICT (0983) • Networks Mock Quiz">Networks Mock Quiz</option>
+          </select>
+
+          <label class="mini">1-mark questions</label>
+          <input id="oneMarkCount" type="number" min="10" max="100" value="50"/>
+
+          <label class="mini">Structured Qs</label>
+          <input id="structuredCount" type="number" min="0" max="6" value="2"/>
+
+          <label class="mini">Include mark scheme</label>
+          <input id="includeMS" type="checkbox" checked />
+
+          <label class="mini">Seed (optional)</label>
+          <input id="seed" type="number" min="1" max="999999" placeholder="e.g., 12345"/>
+
+          <button class="btn primary" id="generatePaper">Generate</button>
+          <button class="btn" id="printPaper">Print generated paper</button>
+        </div>
+
+        <div class="print-area" id="previewArea">
+          <div class="mini">Preview will appear here after you click <b>Generate</b>.</div>
+        </div>
+
+        <div class="callout warn">
+          <b>How printing works:</b> Click <b>Print generated paper</b>. The print view will include only the generated test (and mark scheme if selected).
+        </div>
+      </div>
+
+      <div class="foot">End of Explore Pane.</div>
+    </div>
+  </section>
+</main>
+
+<!-- PRINT-ONLY WRAPPER -->
+<div id="printOnlyWrapper"></div>
+
+<script>
+  // =========================
+  // Search + highlight
+  // =========================
+  const searchBox = document.getElementById('searchBox');
+  const clearBtn = document.getElementById('clearSearch');
+  const toggleHighlightBtn = document.getElementById('toggleHighlight');
+  let highlightOn = false;
+
+  function clearHighlights() {
+    const root = document.querySelector('main');
+    const marks = root.querySelectorAll('mark.searchHit');
+    marks.forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
+  }
+
+  function highlightTerm(term) {
+    if (!term) return;
+    const panes = [document.getElementById('explainContent'), document.getElementById('exploreContent')];
+
+    panes.forEach(pane => {
+      const walker = document.createTreeWalker(pane, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) => {
+          if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
+          if (node.parentElement && ['SCRIPT','STYLE'].includes(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+          if (node.nodeValue.toLowerCase().includes(term.toLowerCase())) return NodeFilter.FILTER_ACCEPT;
+          return NodeFilter.FILTER_REJECT;
+        }
+      });
+
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(textNode => {
+        const val = textNode.nodeValue;
+        const lower = val.toLowerCase();
+        const t = term.toLowerCase();
+        const idx = lower.indexOf(t);
+        if (idx === -1) return;
+
+        const before = document.createTextNode(val.slice(0, idx));
+        const match = document.createElement('mark');
+        match.className = 'searchHit';
+        match.textContent = val.slice(idx, idx + term.length);
+        const after = document.createTextNode(val.slice(idx + term.length));
+
+        const frag = document.createDocumentFragment();
+        frag.appendChild(before);
+        frag.appendChild(match);
+        frag.appendChild(after);
+        textNode.replaceWith(frag);
+      });
+    });
+  }
+
+  function jumpToFirstMatch(term) {
+    const content = document.querySelector('main');
+    const el = [...content.querySelectorAll('*')].find(e =>
+      e.childNodes && [...e.childNodes].some(n => n.nodeType === 3 && n.nodeValue.toLowerCase().includes(term.toLowerCase()))
+    );
+    if (el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  clearBtn.addEventListener('click', () => {
+    searchBox.value = '';
+    clearHighlights();
+    searchBox.focus();
+  });
+
+  searchBox.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const term = searchBox.value.trim();
+      if (!term) return;
+      if (highlightOn) {
+        clearHighlights();
+        highlightTerm(term);
+      }
+      jumpToFirstMatch(term);
+    }
+  });
+
+  toggleHighlightBtn.addEventListener('click', () => {
+    highlightOn = !highlightOn;
+    toggleHighlightBtn.textContent = highlightOn ? 'Highlight: ON' : 'Highlight matches';
+    clearHighlights();
+    const term = searchBox.value.trim();
+    if (highlightOn && term) highlightTerm(term);
+  });
+
+  // =========================
+  // Question bank (1-mark)
+  // Strictly aligned to Chapter: Networks + effects + security
+  // =========================
+  const ONE_MARK_BANK = [
+    // Basics
+    {q:"Define a computer network.", a:"A set of connected devices that can communicate and share resources."},
+    {q:"State one benefit of networking computers.", a:"Resource sharing (files/printers/internet)."},
+    {q:"What does LAN stand for?", a:"Local Area Network."},
+    {q:"What does WAN stand for?", a:"Wide Area Network."},
+    {q:"Give one example location for a LAN.", a:"A school building / office."},
+    {q:"Give one example of a WAN.", a:"The Internet."},
+    {q:"State one advantage of a LAN over a WAN.", a:"Usually faster / lower latency / easier to manage locally."},
+    {q:"State one disadvantage of a WAN compared to a LAN.", a:"Higher latency / depends on telecom links / security risks."},
+
+    // Wired/Wireless
+    {q:"State one advantage of wired connections.", a:"More stable / faster / less interference / more secure."},
+    {q:"State one advantage of Wi-Fi.", a:"Mobility / easy to add devices / less cabling."},
+    {q:"State one disadvantage of Wi-Fi.", a:"Interference / range limits / easier to intercept if unsecured."},
+
+    // Hardware
+    {q:"What is the purpose of a NIC?", a:"Connects a device to the network."},
+    {q:"What is the purpose of a switch?", a:"Connects devices in a LAN and forwards using MAC addresses."},
+    {q:"What is the purpose of a router?", a:"Connects networks and routes using IP addresses."},
+    {q:"What is the purpose of a wireless access point?", a:"Provides Wi-Fi access to a wired network."},
+    {q:"What is the purpose of a modem?", a:"Converts signals for the ISP link (e.g., cable/DSL/fibre)."},
+    {q:"Name a device that reduces collision domains in a LAN.", a:"Switch."},
+
+    // Addressing
+    {q:"Which address is used by a switch to forward frames?", a:"MAC address."},
+    {q:"Which address is used by a router to forward packets?", a:"IP address."},
+    {q:"State what an IP address is used for.", a:"Identifies a device/location for routing on networks."},
+    {q:"State what a MAC address is.", a:"Hardware address of a network interface."},
+
+    // Topologies
+    {q:"Name one network topology.", a:"Star / Bus / Ring."},
+    {q:"In a star topology, what central device is commonly used?", a:"Switch (or hub)."},
+    {q:"State one advantage of star topology.", a:"Easy to manage; one cable failure affects one device only."},
+    {q:"State one disadvantage of star topology.", a:"Central device failure affects the whole network."},
+    {q:"State one advantage of bus topology.", a:"Cheap / uses less cable."},
+    {q:"State one disadvantage of bus topology.", a:"Backbone failure stops network; collisions; hard to troubleshoot."},
+    {q:"State one disadvantage of ring topology.", a:"Break in ring can stop network (single ring)."},
+    {q:"Which topology is easiest to expand by adding a new device?", a:"Star."},
+
+    // Client-server vs P2P
+    {q:"State one feature of client-server networks.", a:"Central server provides services/resources to clients."},
+    {q:"State one advantage of client-server.", a:"Centralised control, security, backups."},
+    {q:"State one disadvantage of client-server.", a:"Server failure affects users; cost."},
+    {q:"State one feature of peer-to-peer networks.", a:"No central server; devices share directly."},
+    {q:"State one advantage of peer-to-peer.", a:"Cheap/easy for small networks."},
+    {q:"State one disadvantage of peer-to-peer.", a:"Less secure; difficult to manage/backup centrally."},
+
+    // Protocols / web basics
+    {q:"What is a protocol?", a:"A set of rules for communication on a network."},
+    {q:"Name a protocol used for web pages.", a:"HTTP / HTTPS."},
+    {q:"Name a protocol used to send email.", a:"SMTP (sending)."},
+    {q:"Name a protocol used to receive email.", a:"IMAP or POP3."},
+    {q:"What does URL stand for?", a:"Uniform Resource Locator."},
+
+    // Security threats
+    {q:"What is phishing?", a:"Tricking users into giving personal information (e.g., passwords)."},
+    {q:"Name one sign of a phishing email.", a:"Suspicious link, urgent message, unknown sender, spelling mistakes."},
+    {q:"What is malware?", a:"Malicious software designed to damage/steal/disrupt."},
+    {q:"What is a firewall used for?", a:"Filtering network traffic based on rules."},
+    {q:"What is encryption used for?", a:"Makes data unreadable without the key."},
+    {q:"Name one method to secure Wi-Fi.", a:"WPA2/WPA3 + strong password."},
+    {q:"Name one reason to use two-factor authentication.", a:"Extra security if password is stolen."},
+    {q:"What is unauthorised access?", a:"Accessing a system/network without permission."},
+    {q:"Name one method to reduce unauthorised access.", a:"Strong passwords, permissions, MFA."},
+
+    // Effects (social/economic/environmental)
+    {q:"State one positive social effect of networks.", a:"Communication / online learning / communities."},
+    {q:"State one negative social effect of networks.", a:"Cyberbullying / addiction / privacy loss / misinformation."},
+    {q:"State one economic benefit of networks.", a:"E-commerce / remote work / global markets."},
+    {q:"State one economic risk of networks.", a:"Fraud/scams / data breaches / downtime costs."},
+    {q:"State one environmental benefit linked to networks.", a:"Less travel due to remote work/meetings; reduced paper use."},
+    {q:"State one environmental drawback linked to networks.", a:"Energy use of data centres; e-waste."},
+  ];
+
+  // A few structured Q templates (generator can pick)
+  const STRUCTURED_BANK = [
+    {
+      title:"Hardware and purpose (6 marks)",
+      marks:6,
+      parts:[
+        {q:"(a) Name the device that connects a LAN to the internet. (1)", a:"Router (1)."},
+        {q:"(b) Explain the difference between a switch and a router. (3)", a:"Switch forwards within LAN using MAC; router routes between networks using IP. Any 3 points (3)."},
+        {q:"(c) State two advantages of using a LAN in a school. (2)", a:"File/printer sharing, centralised resources, easier communication, shared internet. Any two (2)."}
+      ]
+    },
+    {
+      title:"Security scenario (7 marks)",
+      marks:7,
+      parts:[
+        {q:"(a) Define phishing. (1)", a:"Tricking users into revealing info (1)."},
+        {q:"(b) Describe two ways to reduce phishing risk. (4)", a:"User training + checking links; spam filters; MFA; strong passwords; do not click unknown links. Two explained (2+2)."},
+        {q:"(c) Explain one reason to use encryption on public Wi-Fi. (2)", a:"Prevents interception; data unreadable without key. Explain (2)."}
+      ]
+    },
+    {
+      title:"Effects of networks (7 marks)",
+      marks:7,
+      parts:[
+        {q:"(a) Give two positive social effects. (2)", a:"Communication, online learning, communities. Any two (2)."},
+        {q:"(b) Give two negative social effects. (2)", a:"Cyberbullying, addiction, privacy, misinformation. Any two (2)."},
+        {q:"(c) Explain one economic benefit and one economic risk of e-commerce. (3)", a:"Benefit: wider market/24-7/low overheads (1–2). Risk: fraud/data breaches/competition (1–2). Total (3)."}
+      ]
+    },
+    {
+      title:"LAN vs WAN (5 marks)",
+      marks:5,
+      parts:[
+        {q:"(a) Define LAN. (1)", a:"Small area network, e.g., building (1)."},
+        {q:"(b) Define WAN. (1)", a:"Large area network, e.g., multiple cities/countries (1)."},
+        {q:"(c) Give two differences between LAN and WAN. (3)", a:"Speed/latency, ownership/control, cost, size. Any two explained (3)."}
+      ]
+    }
+  ];
+
+  // Render sample 30
+  const sampleBankDiv = document.getElementById('sampleBank');
+  ONE_MARK_BANK.slice(0,30).forEach((it, idx) => {
+    const div = document.createElement('div');
+    div.className = 'bank-item';
+    div.innerHTML = `<div class="n">${idx+1}.</div><div>${it.q}</div><div class="mini" style="margin-top:6px;"><b>Answer:</b> ${it.a}</div>`;
+    sampleBankDiv.appendChild(div);
+  });
+
+  // =========================
+  // Generator UI toggles
+  // =========================
+  const generatorCard = document.getElementById('generatorCard');
+  document.getElementById('openGenerator').addEventListener('click', () => {
+    generatorCard.style.display = generatorCard.style.display === 'none' ? 'block' : 'none';
+    if (generatorCard.style.display !== 'none') generatorCard.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // =========================
+  // Random with optional seed
+  // =========================
+  function mulberry32(a){
+    return function(){
+      var t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+  }
+
+  function pickUnique(arr, n, rand){
+    const copy = arr.slice();
+    // Fisher-Yates shuffle partially
+    for(let i = copy.length - 1; i > 0; i--){
+      const j = Math.floor(rand() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy.slice(0, Math.min(n, copy.length));
+  }
+
+  // =========================
+  // Generate paper (preview + print-only)
+  // =========================
+  const previewArea = document.getElementById('previewArea');
+  const printOnlyWrapper = document.getElementById('printOnlyWrapper');
+
+  function buildAnswerSpaces(lines=2){
+    let s = "";
+    for(let i=0;i<lines;i++) s += `<div class="ans-space"></div>`;
+    return s;
+  }
+
+  function buildPaperHTML(opts){
+    const {title, oneMarkCount, structuredCount, includeMS, seed} = opts;
+    const rand = mulberry32(seed || Math.floor(Math.random()*1e9));
+
+    const oneQs = pickUnique(ONE_MARK_BANK, oneMarkCount, rand);
+    const structQs = pickUnique(STRUCTURED_BANK, structuredCount, rand);
+
+    // Student paper
+    let qNum = 1;
+    let totalMarks = oneQs.length + structQs.reduce((s, x)=>s + x.marks, 0);
+
+    let student = `
+      <div class="print-page">
+        <h1>${title}</h1>
+        <div class="meta">Topic: Networks and the effects of using them • Total marks: <b>${totalMarks}</b> • Answer all questions.</div>
+        <div class="meta">Name: ____________________________  Class: __________  Date: __________</div>
+
+        <h2 style="margin:14px 0 8px; font-size:15px;">Section A: One-mark questions (${oneQs.length} marks)</h2>
+    `;
+
+    oneQs.forEach(it => {
+      student += `
+        <div class="print-q">
+          <div class="qn">${qNum}. ${it.q} <span style="float:right;">[1]</span></div>
+          ${buildAnswerSpaces(1)}
+        </div>
+      `;
+      qNum++;
+    });
+
+    if (structQs.length){
+      student += `<h2 style="margin:14px 0 8px; font-size:15px;">Section B: Structured questions (${structQs.reduce((s,x)=>s+x.marks,0)} marks)</h2>`;
+      structQs.forEach(sq => {
+        student += `<div class="print-q"><div class="qn">${qNum}. ${sq.title} <span style="float:right;">[${sq.marks}]</span></div>`;
+        sq.parts.forEach(p => {
+          student += `<div style="margin:8px 0 0 0;">${p.q}</div>${buildAnswerSpaces(p.q.includes("(4)")?3: (p.q.includes("(3)")?2:1))}`;
+        });
+        student += `</div>`;
+        qNum++;
+      });
+    }
+
+    student += `</div>`;
+
+    // Mark scheme
+    let ms = "";
+    if (includeMS){
+      let msNum = 1;
+      ms = `<div class="print-page ms">
+        <h1>Mark Scheme — ${title}</h1>
+        <div class="meta">Use marking points. Accept equivalent wording.</div>
+
+        <h2 style="margin:14px 0 8px; font-size:15px;">Section A: One-mark answers</h2>
+      `;
+      oneQs.forEach(it => {
+        ms += `<div class="ms-item"><span class="qn">${msNum}.</span> <small>${it.a}</small></div>`;
+        msNum++;
+      });
+
+      if (structQs.length){
+        ms += `<h2 style="margin:14px 0 8px; font-size:15px;">Section B: Structured mark scheme</h2>`;
+        structQs.forEach((sq, idx) => {
+          ms += `<div class="ms-item"><div class="qn">${msNum + idx}. ${sq.title} [${sq.marks}]</div>`;
+          sq.parts.forEach(p => { ms += `<div style="margin:6px 0;"><small>${p.a}</small></div>`; });
+          ms += `</div>`;
+        });
+      }
+
+      ms += `</div>`;
+    }
+
+    // Preview HTML (web view)
+    let preview = `
+      <div class="print-head">
+        <div>
+          <h3 style="margin:0;">Preview</h3>
+          <div class="mini">Generated: ${new Date().toLocaleString()}</div>
+          <div class="mini">Total marks: <b>${totalMarks}</b> • One-mark: <b>${oneQs.length}</b> • Structured: <b>${structQs.length}</b></div>
+        </div>
+        <div class="mini">Tip: tick/untick “Include mark scheme” then regenerate.</div>
+      </div>
+      <div class="mini"><b>Section A</b> — first 8 shown:</div>
+      ${oneQs.slice(0,8).map((it,i)=>`<div class="bank-item"><div class="n">${i+1}.</div>${it.q}</div>`).join("")}
+      <div class="mini">${oneQs.length>8 ? `...and ${oneQs.length-8} more one-mark questions.` : ""}</div>
+      <div class="spacer-line"></div>
+      <div class="mini"><b>Structured</b> — shown:</div>
+      ${structQs.map(sq=>`<div class="bank-item"><div class="n">${sq.title}</div><div class="mini">Marks: ${sq.marks}</div></div>`).join("") || `<div class="mini">No structured questions selected.</div>`}
+    `;
+
+    return { student, ms, preview, totalMarks };
+  }
+
+  document.getElementById('generatePaper').addEventListener('click', () => {
+    const title = document.getElementById('paperTitle').value;
+    const oneMarkCount = Math.max(10, Math.min(100, parseInt(document.getElementById('oneMarkCount').value || "50", 10)));
+    const structuredCount = Math.max(0, Math.min(6, parseInt(document.getElementById('structuredCount').value || "2", 10)));
+    const includeMS = document.getElementById('includeMS').checked;
+    const seedVal = document.getElementById('seed').value.trim();
+    const seed = seedVal ? parseInt(seedVal, 10) : null;
+
+    const {student, ms, preview} = buildPaperHTML({title, oneMarkCount, structuredCount, includeMS, seed});
+    previewArea.innerHTML = preview;
+    printOnlyWrapper.innerHTML = `<div class="print-page">${student}</div>` + (includeMS ? `<div class="print-page">${ms}</div>` : "");
+    // Ensure print wrapper is ready
+  });
+
+  document.getElementById('printPaper').addEventListener('click', () => {
+    // If user hasn't generated yet, generate with defaults first
+    if (!printOnlyWrapper.innerHTML.trim()){
+      document.getElementById('generatePaper').click();
+    }
+    window.print();
+  });
+
+</script>
+</body>
+</html>

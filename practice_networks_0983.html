@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>IGCSE ICT 0983 • Topic 4 Networks • Practice</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#111111; --muted:#4b5563; --card:#f6f7f9; --border:#e5e7eb;
+  --good:#0b7a2a; --bad:#b42318; --shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+[data-theme="dark"]{
+  --bg:#0b0c10; --fg:#f5f7ff; --muted:#c2c7d6; --card:#121521; --border:#242a3a;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--bg),color-mix(in srgb,var(--bg) 85%, transparent));backdrop-filter:blur(10px)}
+.top{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+h1{font-size:16px;margin:0}
+.sub{font-size:12px;color:var(--muted);margin:2px 0 0}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button,.btn{border:1px solid var(--border);background:var(--card);color:var(--fg);padding:9px 12px;border-radius:12px;cursor:pointer}
+button:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+main{max-width:1100px;margin:0 auto;padding:16px;display:grid;gap:14px}
+.card{border:1px solid var(--border);background:var(--card);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}}
+.timer{display:flex;gap:10px;align-items:center}
+.pill{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--bg);font-size:12px}
+.small{font-size:12px;color:var(--muted)}
+.qa{display:grid;gap:10px}
+.q{border:1px solid var(--border);border-radius:14px;background:var(--bg);padding:12px}
+.q b{display:block;margin-bottom:8px}
+label{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:12px;border:1px solid transparent}
+label:hover{border-color:var(--border);background:color-mix(in srgb,var(--card) 70%, transparent)}
+.result{border:1px solid var(--border);border-radius:14px;background:var(--bg);padding:10px 12px;font-size:13px}
+.correct{color:var(--good);font-weight:800}
+.incorrect{color:var(--bad);font-weight:800}
+.matchWrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dropzone{border:2px dashed var(--border);border-radius:16px;padding:10px;background:color-mix(in srgb,var(--bg) 60%, var(--card));min-height:220px}
+.token{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--bg);padding:8px 10px;border-radius:999px;margin:6px 6px 0 0;cursor:grab;user-select:none}
+.token:active{cursor:grabbing}
+.zoneItem{border:1px solid var(--border);border-radius:14px;background:var(--bg);padding:10px;margin:8px 0}
+.zoneItem small{color:var(--muted)}
+textarea{width:100%;min-height:120px;border:1px solid var(--border);background:var(--bg);color:var(--fg);border-radius:14px;padding:10px;resize:vertical}
+details{border:1px solid var(--border);border-radius:14px;background:var(--bg);padding:10px}
+summary{cursor:pointer;font-weight:700}
+footer{max-width:1100px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div>
+      <h1>Topic 4 Networks • Practice</h1>
+      <div class="sub">Timed drills • auto-mark MCQs • matching • structured answers with mark scheme reveals</div>
+    </div>
+    <div class="controls">
+      <div class="timer">
+        <span class="pill">Timer</span>
+        <span class="pill" id="time">00:00</span>
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+        <button id="reset">Reset</button>
+      </div>
+      <button id="theme">Theme</button>
+      <a class="btn" href="learning_networks_0983.html">← Back to Learning</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2 style="margin:0 0 6px">How to use this practice page</h2>
+    <ul class="small">
+      <li>Start the timer if you want exam conditions.</li>
+      <li>Do the MCQs first for speed and recall, then matching for vocabulary, then the structured responses for marks.</li>
+      <li>Use mark schemes only after you attempt an answer.</li>
+    </ul>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2 style="margin:0 0 8px">A) Auto-mark MCQ (10 questions)</h2>
+      <div class="qa" id="mcq"></div>
+      <button id="markMcq">Mark MCQ</button>
+      <div class="result" id="mcqRes"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 8px">B) Drag & Drop Matching</h2>
+      <div class="small">Drag each token into the correct definition box. Then click “Check Matching”.</div>
+      <div class="matchWrap" style="margin-top:10px">
+        <div>
+          <div class="small"><b>Tokens</b></div>
+          <div id="tokens"></div>
+        </div>
+        <div class="dropzone" id="zones"></div>
+      </div>
+      <button id="checkMatch" style="margin-top:10px">Check Matching</button>
+      <div class="result" id="matchRes"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin:0 0 8px">C) Structured response practice (exam style)</h2>
+    <div class="small">Write answers using “because…” and link to the scenario. Use the mark scheme after you attempt.</div>
+
+    <div class="q">
+      <b>Q1 (6 marks): A school is expanding to a new building nearby. Explain whether a LAN, WLAN, or WAN is most suitable for connecting computers and printers, and justify your choice.</b>
+      <textarea id="ans1" placeholder="Write your answer here..."></textarea>
+      <details>
+        <summary>Show mark scheme (after attempting)</summary>
+        <ul>
+          <li>Choose LAN if same site; WAN if across distant sites; WLAN if mobility needed (1–2)</li>
+          <li>Justify with area size, speed, ownership, cost, reliability (2–3)</li>
+          <li>Mention at least one drawback + mitigation (e.g., security → WPA2/WPA3, access control) (1–2)</li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="q">
+      <b>Q2 (6 marks): Explain why a switch is preferred to a hub on a busy office network.</b>
+      <textarea id="ans2" placeholder="Write your answer here..."></textarea>
+      <details>
+        <summary>Show mark scheme (after attempting)</summary>
+        <ul>
+          <li>Switch forwards to correct device/port using MAC tables (2)</li>
+          <li>Reduces congestion/collisions compared to hub broadcasting (2)</li>
+          <li>Improves security because traffic isn’t sent to all devices (2)</li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="q">
+      <b>Q3 (8 marks): A company stores staff documents in the cloud. Give four advantages and four disadvantages.</b>
+      <textarea id="ans3" placeholder="Write your answer here..."></textarea>
+      <details>
+        <summary>Show mark scheme (after attempting)</summary>
+        <ul>
+          <li>Advantages: access anywhere, collaboration, scalability, backups, reduced local storage (any 4 with reasons)</li>
+          <li>Disadvantages: internet dependency, security/privacy, subscription cost, outages/vendor lock-in (any 4 with reasons)</li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="q">
+      <b>Q4 (4 marks): Explain what DNS does and why it is needed.</b>
+      <textarea id="ans4" placeholder="Write your answer here..."></textarea>
+      <details>
+        <summary>Show mark scheme (after attempting)</summary>
+        <ul>
+          <li>DNS converts domain names to IP addresses (2)</li>
+          <li>Needed because humans remember names but routing uses IP numbers (2)</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin:0 0 8px">D) Random question generator (for quick drills)</h2>
+    <div class="small">Click “Generate” to get a new exam-style prompt. Try to answer in 2–3 minutes.</div>
+    <div class="q" id="randQ" style="margin-top:10px"></div>
+    <button id="gen">Generate</button>
+  </section>
+</main>
+
+<footer>
+  Offline-friendly practice page • Topic 4 Networks (IGCSE ICT 0983)
+</footer>
+
+<script>
+const THEME_KEY = "ict0983_theme_v1";
+function setTheme(theme){
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(THEME_KEY, theme);
+}
+(function initTheme(){
+  const saved = localStorage.getItem(THEME_KEY);
+  if(saved) setTheme(saved);
+})();
+document.getElementById("theme").addEventListener("click", ()=>{
+  const cur = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  setTheme(cur === "dark" ? "light" : "dark");
+});
+
+// Timer
+let t=0, timer=null;
+function fmt(s){
+  const m = Math.floor(s/60).toString().padStart(2,"0");
+  const r = (s%60).toString().padStart(2,"0");
+  return `${m}:${r}`;
+}
+function tick(){ t++; document.getElementById("time").textContent = fmt(t); }
+document.getElementById("start").addEventListener("click", ()=>{ if(!timer) timer=setInterval(tick,1000); });
+document.getElementById("pause").addEventListener("click", ()=>{ if(timer){ clearInterval(timer); timer=null; }});
+document.getElementById("reset").addEventListener("click", ()=>{ if(timer){ clearInterval(timer); timer=null; } t=0; document.getElementById("time").textContent="00:00"; });
+
+// MCQ bank
+const mcqBank = [
+ {q:"Which network covers a small area such as one building?", opts:["WAN","LAN","Internet"], a:1},
+ {q:"A WAN usually has higher delay than a LAN mainly because…", opts:["it uses MAC addresses","it covers longer distances and uses more routing","it cannot use fibre"], a:1},
+ {q:"Which device connects different networks and routes packets?", opts:["Switch","Router","Hub"], a:1},
+ {q:"A switch is more secure than a hub because…", opts:["it encrypts all data","it sends frames only to the intended port","it blocks the internet"], a:1},
+ {q:"A NIC is required because it…", opts:["stores files","provides network connectivity and has a MAC address","converts analogue signals"], a:1},
+ {q:"DNS is used to…", opts:["convert domain names to IP addresses","assign MAC addresses","compress files"], a:0},
+ {q:"Which topology has a single backbone cable?", opts:["Star","Bus","Mesh"], a:1},
+ {q:"A key disadvantage of star topology is…", opts:["collisions always happen","central device failure affects the network","it cannot share printers"], a:1},
+ {q:"Mesh topology is valued mainly for…", opts:["low cost","high reliability and multiple paths","using the least cabling"], a:1},
+ {q:"Cloud computing disadvantage:", opts:["always faster than LAN","depends on Internet connection","cannot be scaled"], a:1},
+];
+const mcqEl = document.getElementById("mcq");
+mcqBank.forEach((item,i)=>{
+  const div = document.createElement("div");
+  div.className = "q";
+  div.dataset.a = item.a;
+  div.innerHTML = `<b>${i+1}) ${item.q}</b>` + item.opts.map((o,ix)=>`
+    <label><input type="radio" name="m${i}" value="${ix}"/> ${o}</label>
+  `).join("");
+  mcqEl.appendChild(div);
+});
+document.getElementById("markMcq").addEventListener("click", ()=>{
+  const qs = Array.from(document.querySelectorAll("#mcq .q"));
+  let c=0;
+  qs.forEach((q, i)=>{
+    const a = +q.dataset.a;
+    const chosen = q.querySelector("input:checked");
+    const ok = chosen && (+chosen.value === a);
+    if(ok) c++;
+    q.style.borderColor = ok ? "rgba(11,122,42,.55)" : "rgba(180,35,24,.55)";
+  });
+  const res = document.getElementById("mcqRes");
+  res.innerHTML = c===qs.length ? `<span class="correct">Perfect!</span> ${c}/${qs.length}` :
+    `<span class="${c>=7 ? "correct":"incorrect"}">${c}/${qs.length}</span> • Fix the bordered ones.`;
+});
+
+// Drag & drop matching
+const pairs = [
+ ["LAN","Small area network (e.g., school)"],
+ ["WAN","Large area network; Internet is biggest example"],
+ ["WLAN","Wireless LAN using Wi‑Fi"],
+ ["Router","Routes packets between networks using IP addresses"],
+ ["Switch","Forwards frames to destination port using MAC table"],
+ ["Hub","Broadcasts data to all ports"],
+ ["NIC","Network interface; provides connectivity; has MAC address"],
+ ["DNS","Converts domain names to IP addresses"],
+ ["Cloud computing","Using internet-hosted services for storage/apps/processing"],
+ ["Star topology","All devices connect to a central switch/hub"],
+];
+const tokenBox = document.getElementById("tokens");
+const zones = document.getElementById("zones");
+
+function makeToken(text){
+  const t = document.createElement("div");
+  t.className="token";
+  t.textContent=text;
+  t.draggable=true;
+  t.dataset.term=text;
+  t.addEventListener("dragstart", e=>{
+    e.dataTransfer.setData("text/plain", text);
+  });
+  return t;
+}
+
+pairs.map(p=>p[0]).sort(()=>Math.random()-0.5).forEach(term=>{
+  tokenBox.appendChild(makeToken(term));
+});
+
+pairs.map(p=>p[1]).sort(()=>Math.random()-0.5).forEach(def=>{
+  const box = document.createElement("div");
+  box.className="zoneItem";
+  box.dataset.def=def;
+  box.innerHTML = `<b>Definition</b><div class="small" style="margin-top:6px">${def}</div>
+    <div class="small" style="margin-top:8px"><i>Drop term here</i></div>
+    <div class="pill" data-slot style="margin-top:8px; display:inline-block">—</div>`;
+  box.addEventListener("dragover", e=>e.preventDefault());
+  box.addEventListener("drop", e=>{
+    e.preventDefault();
+    const term = e.dataTransfer.getData("text/plain");
+    const slot = box.querySelector("[data-slot]");
+    slot.textContent = term;
+    slot.dataset.term = term;
+  });
+  zones.appendChild(box);
+});
+
+document.getElementById("checkMatch").addEventListener("click", ()=>{
+  const items = Array.from(document.querySelectorAll(".zoneItem"));
+  let correct=0;
+  items.forEach(item=>{
+    const def = item.dataset.def;
+    const slot = item.querySelector("[data-slot]");
+    const term = slot.dataset.term || "";
+    const right = pairs.find(p=>p[1]===def)?.[0];
+    const ok = term === right;
+    if(ok) correct++;
+    item.style.borderColor = ok ? "rgba(11,122,42,.55)" : "rgba(180,35,24,.55)";
+  });
+  const res = document.getElementById("matchRes");
+  res.innerHTML = correct===items.length ? `<span class="correct">Perfect matching!</span> ${correct}/${items.length}` :
+    `<span class="${correct>=7 ? "correct":"incorrect"}">${correct}/${items.length}</span> • Fix the bordered ones.`;
+});
+
+// Random question generator
+const prompts = [
+ "Compare LAN and WAN with three differences, then give one real example for each.",
+ "Explain two advantages and two disadvantages of WLAN in a school setting.",
+ "Describe star topology and explain what happens if the central switch fails.",
+ "Explain the difference between an IP address and a MAC address using an analogy.",
+ "A hotel wants Wi‑Fi coverage in all rooms. Recommend a network type and justify with three reasons and one risk.",
+ "Explain why mesh topology is reliable but expensive.",
+ "Describe what a modem does and why a router is still needed in a home network.",
+ "A library shares one printer and a file server. Explain how a LAN supports this and one security risk.",
+ "Explain DNS and what users may experience if DNS servers are down.",
+ "Evaluate cloud computing for storing homework: include at least three benefits and two risks."
+];
+function newPrompt(){
+  const p = prompts[Math.floor(Math.random()*prompts.length)];
+  document.getElementById("randQ").innerHTML = `<b>Prompt:</b> ${p}<div class="small" style="margin-top:6px">Try: 6–10 sentences with “because…”, then a short conclusion.</div>`;
+}
+document.getElementById("gen").addEventListener("click", newPrompt);
+newPrompt();
+</script>
+</body>
+</html>

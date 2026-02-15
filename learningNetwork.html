@@ -1,0 +1,2130 @@
+<!-- ===========================
+FILE: learning.html
+IGCSE ICT 0983 — Topic 4
+Networks & Effects of Using Them
+Teaching–Learning Platform (Interactive)
+=========================== -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>IGCSE ICT 0983 — Topic 4: Networks (Teaching–Learning Platform)</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#101a2e;
+      --card:#0f1b33;
+      --ink:#eaf0ff;
+      --muted:#b9c6ffcc;
+      --line:#2a3b66;
+      --accent:#7aa2ff;
+      --accent2:#7fffd4;
+      --warn:#ffdd77;
+      --bad:#ff7a7a;
+      --ok:#7aff9a;
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --radius: 16px;
+      --radius2: 22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(122,162,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 30%, rgba(127,255,212,.10), transparent 60%),
+        radial-gradient(700px 500px at 50% 85%, rgba(255,221,119,.08), transparent 55%),
+        linear-gradient(180deg, #070b14, var(--bg));
+      overflow:hidden;
+    }
+
+    /* Layout */
+    .app{
+      height:100%;
+      display:grid;
+      grid-template-columns: 330px 1fr 360px;
+      grid-template-rows: 70px 1fr;
+      gap:12px;
+      padding:12px;
+    }
+    header{
+      grid-column:1 / -1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      background: rgba(16,26,46,.72);
+      border:1px solid rgba(42,59,102,.7);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .title{
+      display:flex; gap:12px; align-items:center;
+      min-width: 280px;
+    }
+    .badge{
+      width:42px;height:42px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(122,162,255,.8), rgba(127,255,212,.55));
+      display:grid;place-items:center;
+      box-shadow: 0 10px 25px rgba(122,162,255,.18);
+      border:1px solid rgba(255,255,255,.18);
+      flex:0 0 auto;
+    }
+    .badge svg{ filter: drop-shadow(0 10px 18px rgba(0,0,0,.35)); }
+    header h1{
+      margin:0;
+      font-size: 16px;
+      line-height:1.2;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    header .sub{
+      margin-top:3px;
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .header-right{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:flex; align-items:center; gap:10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(42,59,102,.8);
+      background: rgba(15,27,51,.65);
+      color: var(--muted);
+      font-size: 12px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+    }
+    .pill b{ color: var(--ink); font-weight: 800; }
+    .btn{
+      cursor:pointer;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border:1px solid rgba(42,59,102,.85);
+      background: rgba(15,27,51,.75);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(122,162,255,.8); background: rgba(16,30,60,.85); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.primary{
+      border-color: rgba(122,162,255,.85);
+      background: linear-gradient(135deg, rgba(122,162,255,.25), rgba(127,255,212,.12));
+    }
+
+    /* Side nav */
+    nav{
+      grid-column:1;
+      grid-row:2;
+      background: rgba(16,26,46,.60);
+      border:1px solid rgba(42,59,102,.7);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      backdrop-filter: blur(10px);
+      min-width: 280px;
+    }
+    .nav-top{
+      padding:14px 14px 10px;
+      border-bottom:1px solid rgba(42,59,102,.65);
+    }
+    .search{
+      display:flex; gap:8px; align-items:center;
+      background: rgba(15,27,51,.65);
+      border:1px solid rgba(42,59,102,.75);
+      border-radius: 14px;
+      padding:10px 10px;
+    }
+    .search input{
+      width:100%;
+      background:transparent;
+      border:0;
+      outline:0;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    .search svg{ opacity:.9; }
+    .nav-list{
+      padding:10px;
+      overflow:auto;
+      display:flex; flex-direction:column;
+      gap:8px;
+    }
+    .nav-item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(42,59,102,.55);
+      background: rgba(15,27,51,.40);
+      cursor:pointer;
+      transition: background .18s ease, border-color .18s ease, transform .08s ease;
+    }
+    .nav-item:hover{ background: rgba(15,27,51,.70); border-color: rgba(122,162,255,.6); transform: translateY(-1px); }
+    .nav-item.active{ background: rgba(122,162,255,.12); border-color: rgba(122,162,255,.85); }
+    .nav-dot{
+      width:10px;height:10px;border-radius:999px;
+      margin-top:4px;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(185,198,255,.25);
+      flex:0 0 auto;
+    }
+    .nav-dot.done{ background: rgba(122,255,154,.8); border-color: rgba(122,255,154,.9); }
+    .nav-text{ min-width:0; }
+    .nav-text .k{
+      font-size: 12px; font-weight: 900;
+      color: var(--ink);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .nav-text .d{
+      font-size: 11px;
+      color: var(--muted);
+      margin-top:2px;
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow:hidden;
+    }
+
+    /* Main content */
+    main{
+      grid-column:2;
+      grid-row:2;
+      background: rgba(16,26,46,.55);
+      border:1px solid rgba(42,59,102,.7);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:auto;
+      padding: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Right panel */
+    aside{
+      grid-column:3;
+      grid-row:2;
+      background: rgba(16,26,46,.60);
+      border:1px solid rgba(42,59,102,.7);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:auto;
+      padding: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Content atoms */
+    .section{
+      display:none;
+      animation: fadeIn .22s ease both;
+    }
+    .section.active{ display:block; }
+
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(6px); }
+      to{ opacity:1; transform: translateY(0px); }
+    }
+
+    .hero{
+      padding: 16px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(42,59,102,.75);
+      background:
+        radial-gradient(600px 240px at 10% 15%, rgba(122,162,255,.20), transparent 60%),
+        radial-gradient(600px 240px at 90% 35%, rgba(127,255,212,.10), transparent 60%),
+        rgba(15,27,51,.50);
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
+    }
+    .hero h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .hero p{
+      margin:10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.6;
+      max-width: 960px;
+    }
+    .grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .card{
+      border:1px solid rgba(42,59,102,.7);
+      background: rgba(15,27,51,.52);
+      border-radius: var(--radius2);
+      box-shadow: 0 14px 35px rgba(0,0,0,.32);
+      padding: 14px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .card p, .card li{
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.65;
+    }
+    .card ul{ margin:8px 0 0 18px; }
+    .span-12{ grid-column: span 12; }
+    .span-8{ grid-column: span 8; }
+    .span-7{ grid-column: span 7; }
+    .span-6{ grid-column: span 6; }
+    .span-5{ grid-column: span 5; }
+    .span-4{ grid-column: span 4; }
+
+    .tagrow{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top:10px;
+    }
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(42,59,102,.75);
+      background: rgba(10,18,32,.6);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing:.15px;
+    }
+
+    details{
+      border:1px solid rgba(42,59,102,.7);
+      background: rgba(15,27,51,.50);
+      border-radius: 16px;
+      padding: 10px 12px;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight: 900;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    details p{ margin:10px 0 0; }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .note{
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(42,59,102,.75);
+      background: rgba(122,162,255,.10);
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.6;
+    }
+    .note b{ color: var(--ink); }
+    .warn{
+      background: rgba(255,221,119,.10);
+      border-color: rgba(255,221,119,.45);
+    }
+    .ok{
+      background: rgba(122,255,154,.10);
+      border-color: rgba(122,255,154,.35);
+    }
+
+    .imgbox{
+      border:1px solid rgba(42,59,102,.75);
+      background: rgba(10,18,32,.55);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      position:relative;
+      min-height: 220px;
+    }
+    .imgbox .cap{
+      position:absolute; left:12px; bottom:12px;
+      background: rgba(16,26,46,.78);
+      border:1px solid rgba(42,59,102,.75);
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      color: var(--muted);
+      max-width: calc(100% - 24px);
+      backdrop-filter: blur(8px);
+    }
+    .imgbox .cap b{ color: var(--ink); }
+    .imgbox svg{ width:100%; height:100%; display:block; }
+
+    /* Interactive widgets */
+    .tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .tab{
+      padding: 8px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(42,59,102,.75);
+      background: rgba(15,27,51,.55);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tab.active{ background: rgba(122,162,255,.16); border-color: rgba(122,162,255,.8); color: var(--ink); }
+    .tabpanes .pane{ display:none; margin-top:10px; }
+    .tabpanes .pane.active{ display:block; }
+
+    .quiz{
+      margin-top:10px;
+      border:1px solid rgba(42,59,102,.7);
+      border-radius: var(--radius2);
+      background: rgba(15,27,51,.48);
+      padding:12px;
+    }
+    .q{
+      padding:10px;
+      border-radius: 16px;
+      border:1px solid rgba(42,59,102,.6);
+      background: rgba(10,18,32,.45);
+      margin-top:10px;
+    }
+    .q:first-child{ margin-top:0; }
+    .q .stem{ font-weight:900; font-size: 13px; }
+    .opts{ margin-top:8px; display:grid; gap:8px; }
+    label.opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px;
+      border-radius: 14px;
+      border:1px solid rgba(42,59,102,.6);
+      background: rgba(15,27,51,.35);
+      cursor:pointer;
+    }
+    label.opt:hover{ border-color: rgba(122,162,255,.6); background: rgba(15,27,51,.55); }
+    input[type="radio"]{ margin-top:2px; }
+    .feedback{
+      margin-top:10px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.6;
+      border-left: 3px solid rgba(122,162,255,.7);
+      padding-left:10px;
+    }
+    .fb-good{ border-left-color: rgba(122,255,154,.8); }
+    .fb-bad{ border-left-color: rgba(255,122,122,.8); }
+
+    .sim{
+      border:1px solid rgba(42,59,102,.75);
+      background: rgba(10,18,32,.55);
+      border-radius: var(--radius2);
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .simrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .simrow .left{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .select{
+      background: rgba(15,27,51,.65);
+      border:1px solid rgba(42,59,102,.75);
+      color: var(--ink);
+      padding:8px 10px;
+      border-radius: 14px;
+      outline:none;
+      font-weight:800;
+      font-size:12px;
+    }
+    .meter{
+      height:10px; width:220px;
+      border-radius:999px;
+      background: rgba(42,59,102,.35);
+      border:1px solid rgba(42,59,102,.75);
+      overflow:hidden;
+    }
+    .meter > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(122,162,255,.85), rgba(127,255,212,.65));
+      transition: width .25s ease;
+    }
+    .sim svg{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(42,59,102,.45);
+      background: rgba(15,27,51,.35);
+    }
+
+    /* Right panel bits */
+    .side-title{
+      margin:0 0 10px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .mini{
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.6;
+      margin: 0 0 10px;
+    }
+    .progress{
+      border:1px solid rgba(42,59,102,.75);
+      border-radius: var(--radius2);
+      background: rgba(15,27,51,.52);
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .bar{
+      height:10px;
+      border-radius:999px;
+      border:1px solid rgba(42,59,102,.75);
+      background: rgba(42,59,102,.35);
+      overflow:hidden;
+      margin-top:8px;
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(122,255,154,.8), rgba(122,162,255,.85));
+      transition: width .25s ease;
+    }
+
+    .checklist{
+      display:grid; gap:8px;
+      margin-top:10px;
+    }
+    .check{
+      display:flex; gap:10px; align-items:center;
+      padding:10px;
+      border-radius: 14px;
+      border:1px solid rgba(42,59,102,.65);
+      background: rgba(10,18,32,.42);
+    }
+    .check input{ width:16px; height:16px; }
+    .check span{ color: var(--muted); font-size: 12px; line-height:1.4; }
+    .check span b{ color: var(--ink); }
+
+    .glossary{
+      border:1px solid rgba(42,59,102,.75);
+      border-radius: var(--radius2);
+      background: rgba(15,27,51,.52);
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .glist{ display:grid; gap:8px; margin-top:10px; }
+    .gitem{
+      padding:10px;
+      border-radius: 14px;
+      border:1px solid rgba(42,59,102,.65);
+      background: rgba(10,18,32,.42);
+    }
+    .gitem b{ display:block; font-size: 12px; }
+    .gitem small{ color: var(--muted); font-size: 12px; line-height:1.55; display:block; margin-top:4px; }
+
+    .footer{
+      margin-top:14px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border:1px dashed rgba(42,59,102,.8);
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.55;
+      background: rgba(10,18,32,.35);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px){
+      body{ overflow:auto; }
+      .app{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+      }
+      nav{ grid-column:1; grid-row:auto; height: 320px; }
+      main{ grid-column:1; grid-row:auto; height: auto; }
+      aside{ grid-column:1; grid-row:auto; height: auto; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="title">
+      <div class="badge" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M4 7h16M7 4v6M17 4v6M6 20h12a2 2 0 0 0 2-2v-6H4v6a2 2 0 0 0 2 2Z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 16h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>IGCSE ICT (0983) — Topic 4: Networks & the Effects of Using Them</h1>
+        <div class="sub">Interactive teaching + learning platform: diagrams, simulations, exam tips, checkpoints, and progress tracking. Use the Practice page for full auto-marking.</div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="pill"><span>Progress</span> <b id="pct">0%</b></div>
+      <div class="pill"><span>Completed</span> <b id="doneCount">0</b>/<b id="totalCount">0</b></div>
+      <button class="btn primary" id="markSectionBtn">Mark this section as done</button>
+      <button class="btn" id="resetBtn">Reset progress</button>
+      <a class="btn" href="practice.html" title="Open the practice platform">Open Practice Page →</a>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-top">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="navSearch" placeholder="Search topics… (LAN, DNS, topology, hub, IP)" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="nav-list" id="navList"></div>
+  </nav>
+
+  <main id="main">
+    <!-- SECTION: Overview -->
+    <section class="section active" data-id="overview">
+      <div class="hero">
+        <h2>Welcome — what you’ll master in Topic 4</h2>
+        <p>
+          Networks are the backbone of modern ICT. In IGCSE ICT 0983, Topic 4 is not about memorising isolated
+          definitions—it's about understanding how devices connect, how data finds its way, why certain designs are
+          chosen, and what networks do to people and organisations (good and bad).
+          <br><br>
+          This learning platform is written like a friendly textbook, but it behaves like a learning app:
+          you can click through sections, reveal “why” explanations, run small simulations, answer quick checks,
+          and track what you’ve finished.
+        </p>
+        <div class="tagrow">
+          <div class="tag">LAN / WAN / WLAN</div>
+          <div class="tag">Router / Switch / Hub / NIC / Modem</div>
+          <div class="tag">Star / Bus / Ring / Mesh</div>
+          <div class="tag">IP / MAC / DNS / Cloud</div>
+          <div class="tag">Benefits & Drawbacks</div>
+          <div class="tag">Exam-style language</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-7">
+          <h3>How exam questions usually “feel”</h3>
+          <p>
+            Cambridge-style questions often ask you to <b>explain</b>, <b>compare</b>, and <b>justify</b>.
+            That means you must do more than name a device or topology. You need to connect the idea to a reason:
+            <br><br>
+            <b>Compare:</b> “A LAN covers a small area and is usually privately owned; a WAN covers a large area and uses leased
+            lines or public infrastructure.”<br>
+            <b>Justify:</b> “A switch is preferred over a hub because it forwards frames only to the destination port, reducing
+            collisions and improving security.”<br>
+            <b>Explain impacts:</b> “Networks enable collaboration and centralised backups, but create security risks such as malware
+            spreading quickly.”
+            <br><br>
+            In this platform you’ll repeatedly practise those sentence patterns so your exam answers sound “mark-scheme accurate”.
+          </p>
+          <div class="note ok">
+            <b>Exam habit that wins marks:</b> Use <b>because</b> / <b>therefore</b> / <b>so</b> to connect cause → effect.
+            Example: “Star topology is easy to manage <b>because</b> each node has its own cable to the switch, so a broken cable
+            affects only one device.”
+          </div>
+        </div>
+
+        <div class="card span-5">
+          <h3>Quick learning path (recommended)</h3>
+          <ul>
+            <li><b>1)</b> Types of networks: LAN, WAN, WLAN (where? why?)</li>
+            <li><b>2)</b> Hardware: what each device does in one sentence</li>
+            <li><b>3)</b> Topologies: diagram + failure point + cost</li>
+            <li><b>4)</b> Internet concepts: IP, MAC, DNS, cloud</li>
+            <li><b>5)</b> Benefits & drawbacks: real effects, security, reliability</li>
+          </ul>
+          <div class="note warn">
+            <b>Important:</b> Students often confuse <b>router vs switch</b>, and <b>IP vs MAC</b>.
+            You’ll get clean “difference tables” and mini-checks here.
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Beautiful network picture (concept map)</h3>
+          <div class="imgbox" role="img" aria-label="Network concept map diagram">
+            <svg viewBox="0 0 1200 360" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(122,162,255,.95)"/>
+                  <stop offset="1" stop-color="rgba(127,255,212,.70)"/>
+                </linearGradient>
+                <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="rgba(255,221,119,.85)"/>
+                  <stop offset="1" stop-color="rgba(122,162,255,.55)"/>
+                </linearGradient>
+                <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="rgba(0,0,0,.5)"/>
+                </filter>
+              </defs>
+
+              <rect x="0" y="0" width="1200" height="360" fill="rgba(15,27,51,.35)"/>
+              <circle cx="150" cy="95" r="54" fill="url(#g1)" filter="url(#sh)"/>
+              <circle cx="1050" cy="80" r="44" fill="url(#g2)" filter="url(#sh)"/>
+              <circle cx="1000" cy="260" r="52" fill="url(#g1)" filter="url(#sh)"/>
+              <circle cx="260" cy="270" r="46" fill="url(#g2)" filter="url(#sh)"/>
+
+              <g font-family="ui-sans-serif, system-ui" fill="white" font-weight="800" opacity=".95">
+                <text x="150" y="100" text-anchor="middle" font-size="16">Networks</text>
+                <text x="150" y="122" text-anchor="middle" font-size="11" opacity=".9">connect devices</text>
+
+                <text x="1050" y="84" text-anchor="middle" font-size="12">Internet</text>
+                <text x="1050" y="104" text-anchor="middle" font-size="10" opacity=".9">IP • DNS • Cloud</text>
+
+                <text x="1000" y="264" text-anchor="middle" font-size="12">Topologies</text>
+                <text x="1000" y="284" text-anchor="middle" font-size="10" opacity=".9">Star • Bus • Ring • Mesh</text>
+
+                <text x="260" y="274" text-anchor="middle" font-size="12">Hardware</text>
+                <text x="260" y="294" text-anchor="middle" font-size="10" opacity=".9">Router • Switch • NIC • Modem</text>
+              </g>
+
+              <g stroke="rgba(185,198,255,.55)" stroke-width="3">
+                <path d="M210 95 C 360 90, 520 90, 680 110" fill="none"/>
+                <path d="M210 115 C 340 160, 520 210, 960 250" fill="none"/>
+                <path d="M300 250 C 430 220, 560 200, 920 90" fill="none"/>
+              </g>
+
+              <g font-family="ui-sans-serif, system-ui" fill="rgba(234,240,255,.9)">
+                <text x="700" y="118" font-size="12">Types: LAN / WAN / WLAN</text>
+                <text x="700" y="140" font-size="11" opacity=".9">Where it is used + what it connects</text>
+
+                <text x="740" y="242" font-size="12">Effects</text>
+                <text x="740" y="262" font-size="11" opacity=".9">sharing • collaboration • risk • reliability</text>
+              </g>
+            </svg>
+            <div class="cap"><b>Big picture:</b> Types of networks + devices + topologies + internet concepts → lead to benefits and risks.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Types of Networks -->
+    <section class="section" data-id="types">
+      <div class="hero">
+        <h2>4.1 Types of Networks — LAN, WAN, WLAN (Wi-Fi)</h2>
+        <p>
+          A network is a group of devices connected so they can share data and resources.
+          In exams, the most common trap is giving vague definitions. Avoid “LAN is small, WAN is big.”
+          Instead, include: <b>area covered</b>, <b>ownership</b>, <b>typical speed</b>, and <b>examples</b>.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card span-8">
+          <h3>LAN — Local Area Network</h3>
+          <p>
+            A <b>LAN</b> connects computers and devices within a <b>small geographical area</b> such as a classroom, a school building,
+            an office floor, or a home. A LAN is usually <b>owned and managed by one organisation or person</b>. Because it covers a small
+            area, it can use high-speed cabling (Ethernet) and modern Wi-Fi, so LANs are typically <b>fast</b>.
+          </p>
+          <div class="two-col">
+            <div class="note ok">
+              <b>LAN characteristics:</b><br>
+              • Small area (room/building/campus)<br>
+              • Usually privately owned<br>
+              • High speed / low delay<br>
+              • Often uses Ethernet + switches; may use Wi-Fi access points
+            </div>
+            <div class="note warn">
+              <b>LAN exam mistake:</b><br>
+              Don’t say “LAN uses Wi-Fi” as if Wi-Fi = LAN. Wi-Fi is just a wireless method. A LAN can be wired or wireless.
+            </div>
+          </div>
+
+          <details>
+            <summary>Real-world picture: school LAN</summary>
+            <p>
+              In a school, computers in classrooms connect to switches. Those switches connect to a main switch and a router.
+              Printers and shared folders are on the LAN. Students log in and access files stored on a server.
+              The LAN may also connect to Wi-Fi access points so laptops and tablets can join.
+            </p>
+          </details>
+
+          <details>
+            <summary>Advantages (explain “why”)</summary>
+            <p>
+              <b>Fast data sharing</b> because devices are close and can use high-speed links.
+              <b>Resource sharing</b> (printers, storage) because the network allows multiple users to access the same device.
+              <b>Centralised management</b because accounts, permissions, and backups can be controlled from one place.
+            </p>
+          </details>
+
+          <details>
+            <summary>Disadvantages (explain impacts)</summary>
+            <p>
+              <b>Setup cost</b> (cabling, switches, access points). <b>Maintenance</b> (updates, troubleshooting).
+              <b>Security risk</b> because if malware enters the LAN it can spread quickly to shared folders and other PCs.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-4">
+          <h3>LAN diagram (mini)</h3>
+          <div class="imgbox">
+            <svg viewBox="0 0 520 320">
+              <defs>
+                <linearGradient id="lanG" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(122,162,255,.85)"/>
+                  <stop offset="1" stop-color="rgba(127,255,212,.55)"/>
+                </linearGradient>
+              </defs>
+              <rect width="520" height="320" fill="rgba(15,27,51,.25)"/>
+              <rect x="26" y="24" width="468" height="272" rx="18" fill="rgba(10,18,32,.5)" stroke="rgba(42,59,102,.7)"/>
+              <text x="260" y="55" fill="white" font-size="14" font-weight="800" text-anchor="middle">LAN (building)</text>
+
+              <!-- Switch -->
+              <rect x="220" y="120" width="80" height="44" rx="10" fill="url(#lanG)" stroke="rgba(255,255,255,.18)"/>
+              <text x="260" y="147" fill="#081025" font-size="12" font-weight="900" text-anchor="middle">SWITCH</text>
+
+              <!-- PCs -->
+              <g fill="rgba(234,240,255,.92)" stroke="rgba(185,198,255,.35)">
+                <rect x="90" y="95" width="70" height="45" rx="8" fill="rgba(15,27,51,.65)"/>
+                <rect x="90" y="105" width="70" height="10" rx="4" fill="rgba(122,162,255,.25)"/>
+                <text x="125" y="157" font-size="10" text-anchor="middle" fill="rgba(234,240,255,.9)">PC A</text>
+
+                <rect x="360" y="95" width="70" height="45" rx="8" fill="rgba(15,27,51,.65)"/>
+                <rect x="360" y="105" width="70" height="10" rx="4" fill="rgba(122,162,255,.25)"/>
+                <text x="395" y="157" font-size="10" text-anchor="middle" fill="rgba(234,240,255,.9)">PC B</text>
+
+                <rect x="90" y="195" width="70" height="45" rx="8" fill="rgba(15,27,51,.65)"/>
+                <rect x="90" y="205" width="70" height="10" rx="4" fill="rgba(122,162,255,.25)"/>
+                <text x="125" y="257" font-size="10" text-anchor="middle" fill="rgba(234,240,255,.9)">Printer</text>
+
+                <rect x="360" y="195" width="70" height="45" rx="8" fill="rgba(15,27,51,.65)"/>
+                <rect x="360" y="205" width="70" height="10" rx="4" fill="rgba(122,162,255,.25)"/>
+                <text x="395" y="257" font-size="10" text-anchor="middle" fill="rgba(234,240,255,.9)">Server</text>
+              </g>
+
+              <!-- Cables -->
+              <g stroke="rgba(185,198,255,.6)" stroke-width="3">
+                <path d="M160 118 L220 142" />
+                <path d="M360 118 L300 142" />
+                <path d="M160 218 L220 152" />
+                <path d="M360 218 L300 152" />
+              </g>
+            </svg>
+            <div class="cap"><b>LAN:</b> devices inside a building connect to a switch to share resources.</div>
+          </div>
+        </div>
+
+        <div class="card span-8">
+          <h3>WAN — Wide Area Network</h3>
+          <p>
+            A <b>WAN</b> connects devices or entire LANs across a <b>large geographical area</b> such as multiple cities, countries, or continents.
+            WAN links are often provided through telecommunication companies (leased lines, fibre backbones, cellular networks, satellite links).
+            WANs tend to be <b>slower</b> than LANs because distances are large and more networking equipment is involved.
+          </p>
+          <div class="two-col">
+            <div class="note ok">
+              <b>WAN characteristics:</b><br>
+              • Very large area (country/continent)<br>
+              • Uses public/leased infrastructure<br>
+              • Higher cost than LAN<br>
+              • Often connects multiple LANs together
+            </div>
+            <div class="note warn">
+              <b>Exam phrase you should use:</b><br>
+              “A WAN typically connects LANs over long distances using telecom infrastructure.”
+            </div>
+          </div>
+
+          <details>
+            <summary>Example: a company with branches</summary>
+            <p>
+              A company might have a headquarters LAN in Cairo and a branch office LAN in Alexandria.
+              A WAN link connects the two, so staff can access shared databases, email systems, and internal services.
+              Without a WAN, each branch becomes isolated.
+            </p>
+          </details>
+
+          <details>
+            <summary>Why is the Internet called a WAN?</summary>
+            <p>
+              The Internet is the largest WAN because it connects millions of networks across the world.
+              It uses many technologies (fibre, submarine cables, satellites, routers) to move data between networks.
+            </p>
+          </details>
+
+          <details>
+            <summary>Advantages and disadvantages (with “because”)</summary>
+            <p>
+              <b>Advantage:</b> Global communication and remote access <b>because</b> users can connect to systems from different locations.<br>
+              <b>Disadvantage:</b> Security threats <b>because</b> data travels through more public infrastructure and has more exposure to attacks.<br>
+              <b>Disadvantage:</b> Higher cost and lower speed <b>because</b> long-distance links require telecom services and more routing equipment.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-4">
+          <h3>WLAN — Wireless LAN (Wi-Fi)</h3>
+          <p>
+            A <b>WLAN</b> is a LAN where devices connect using <b>wireless radio signals</b> (Wi-Fi), usually through an <b>access point</b>
+            or wireless router. WLANs are popular because they allow movement: laptops, phones, tablets.
+          </p>
+
+          <details>
+            <summary>Strengths</summary>
+            <p>
+              Mobility, easy installation, fewer cables, flexible layouts. Useful where running cables is difficult.
+            </p>
+          </details>
+          <details>
+            <summary>Weaknesses</summary>
+            <p>
+              Security risk if encryption/passwords are weak; interference from walls or other networks; limited range.
+            </p>
+          </details>
+
+          <div class="note warn">
+            <b>Exam trap:</b> WLAN ≠ WAN. WLAN is still local; it’s the wireless method that changes.
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Interactive comparison (LAN vs WAN vs WLAN)</h3>
+          <div class="tabs" id="t1">
+            <div class="tab active" data-pane="lan">LAN</div>
+            <div class="tab" data-pane="wan">WAN</div>
+            <div class="tab" data-pane="wlan">WLAN</div>
+            <div class="tab" data-pane="exam">Exam-ready comparison</div>
+          </div>
+          <div class="tabpanes">
+            <div class="pane active" data-pane="lan">
+              <div class="note ok">
+                <b>LAN in one perfect sentence:</b> A LAN connects devices within a small area (e.g., school/office), is usually privately owned, and offers high-speed sharing of files and peripherals.
+              </div>
+              <p>
+                Think “inside one site”. LANs are about controlled, fast local sharing. A LAN can use wired Ethernet or Wi-Fi.
+              </p>
+            </div>
+            <div class="pane" data-pane="wan">
+              <div class="note ok">
+                <b>WAN in one perfect sentence:</b> A WAN connects networks over large distances using telecom infrastructure, enabling communication between far locations but usually with higher cost and greater security exposure.
+              </div>
+              <p>
+                Think “between sites”. WANs connect LANs. Speeds may be lower and delays higher compared to LAN.
+              </p>
+            </div>
+            <div class="pane" data-pane="wlan">
+              <div class="note ok">
+                <b>WLAN in one perfect sentence:</b> A WLAN is a local network that uses Wi-Fi radio signals via an access point to connect devices without cables, providing mobility but needing strong security and good coverage.
+              </div>
+              <p>
+                Think “LAN without wires”. WLAN is about convenience and movement, but it needs careful security (e.g., WPA2/WPA3).
+              </p>
+            </div>
+            <div class="pane" data-pane="exam">
+              <div class="two-col">
+                <div class="card">
+                  <h3>LAN vs WAN (2–4 marks)</h3>
+                  <p>
+                    A LAN covers a small area such as a building and is usually privately owned, whereas a WAN covers a large area and connects
+                    networks using telecom infrastructure. LANs tend to have higher speeds and lower delays because devices are close together,
+                    while WANs are often slower and more expensive because they use long-distance links.
+                  </p>
+                </div>
+                <div class="card">
+                  <h3>LAN vs WLAN (2–4 marks)</h3>
+                  <p>
+                    Both are local networks, but a WLAN uses wireless radio signals (Wi-Fi) through an access point, while a LAN can be wired.
+                    WLAN offers mobility and easier installation but can suffer interference and needs strong security due to eavesdropping risks.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Checkpoint quiz: Types of networks</h3>
+          <div class="quiz" data-quiz="q-types">
+            <div class="q" data-answer="b">
+              <div class="stem">1) A network connecting computers within one school building is most likely a…</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="q1" value="a"> WAN</label>
+                <label class="opt"><input type="radio" name="q1" value="b"> LAN</label>
+                <label class="opt"><input type="radio" name="q1" value="c"> The Internet</label>
+                <label class="opt"><input type="radio" name="q1" value="d"> Satellite network only</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <div class="q" data-answer="c">
+              <div class="stem">2) Which statement is most accurate?</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="q2" value="a"> WLAN is a type of WAN.</label>
+                <label class="opt"><input type="radio" name="q2" value="b"> WANs are always privately owned.</label>
+                <label class="opt"><input type="radio" name="q2" value="c"> A WLAN is a LAN that uses Wi-Fi radio signals.</label>
+                <label class="opt"><input type="radio" name="q2" value="d"> LANs cannot share printers.</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <div class="q" data-answer="a">
+              <div class="stem">3) The Internet is best described as a…</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="q3" value="a"> WAN</label>
+                <label class="opt"><input type="radio" name="q3" value="b"> LAN</label>
+                <label class="opt"><input type="radio" name="q3" value="c"> Single WLAN</label>
+                <label class="opt"><input type="radio" name="q3" value="d"> Star topology only</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <button class="btn primary" onclick="gradeQuiz('q-types')">Check answers</button>
+            <span class="mini" id="q-types-score" style="margin-left:10px;"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Hardware -->
+    <section class="section" data-id="hardware">
+      <div class="hero">
+        <h2>4.2 Network Hardware — Router, Switch, Hub, NIC, Modem</h2>
+        <p>
+          In exams, network hardware questions reward clear “job descriptions”.
+          If you can describe what each device does in one correct sentence and compare similar devices (router vs switch, hub vs switch),
+          you gain marks quickly.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Router — “connects networks”</h3>
+          <p>
+            A <b>router</b> connects <b>different networks</b> together and decides where data should go next.
+            Most home routers connect your home LAN to your Internet Service Provider (ISP).
+            Routers forward <b>packets</b> using <b>IP addresses</b>.
+          </p>
+          <div class="note ok"><b>Key phrase:</b> A router connects LANs/WANs and forwards packets using IP addresses.</div>
+
+          <details>
+            <summary>Router in a home network</summary>
+            <p>
+              Your devices (phones, laptops) are on a private LAN (often 192.168.x.x).
+              The router sends traffic to the ISP and brings Internet responses back.
+              Many routers also include Wi-Fi access point features.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-6">
+          <h3>Switch — “connects devices inside a LAN”</h3>
+          <p>
+            A <b>switch</b> connects devices within a LAN and sends data only to the correct device.
+            It learns which device is on which port by reading <b>MAC addresses</b>.
+          </p>
+          <div class="note ok"><b>Key phrase:</b> A switch forwards frames to the correct port using MAC addresses.</div>
+
+          <details>
+            <summary>Why switches reduce collisions</summary>
+            <p>
+              With a hub, all devices share the same communication channel and collisions happen easily.
+              With a switch, each link is dedicated; the switch directs data to only one port, so fewer collisions occur.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-6">
+          <h3>Hub — “broadcasts to all”</h3>
+          <p>
+            A <b>hub</b> is an older device that connects devices in a LAN but <b>broadcasts</b> data to every port.
+            Even if the data is meant for one device, all devices receive it.
+          </p>
+          <div class="note warn"><b>Exam line:</b> A hub is less secure because all devices can see the traffic.</div>
+          <details>
+            <summary>Hub vs switch (most asked comparison)</summary>
+            <p>
+              A hub broadcasts to all ports, increasing collisions and reducing security.
+              A switch forwards to the correct port, improving efficiency and security.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-6">
+          <h3>NIC — Network Interface Card</h3>
+          <p>
+            A <b>NIC</b> is the hardware that allows a device to connect to a network (wired or wireless).
+            Each NIC has a unique <b>MAC address</b> used in local network communication.
+          </p>
+          <div class="note ok"><b>Key phrase:</b> NIC provides network connectivity and has a unique MAC address.</div>
+          <details>
+            <summary>Why MAC addresses matter</summary>
+            <p>
+              Switches use MAC addresses to learn where devices are connected.
+              MAC addresses are usually fixed for the NIC, unlike IP addresses which can change.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-12">
+          <h3>Modem — the bridge to the ISP</h3>
+          <p>
+            A <b>modem</b> connects your network to the ISP’s system.
+            The word comes from <b>MO</b>dulate and <b>DEM</b>odulate:
+            it converts signals so that data can travel over the ISP’s medium (copper line, cable, fibre, etc.).
+          </p>
+          <div class="two-col">
+            <div class="note ok"><b>Key phrase:</b> A modem converts signals and links to the ISP.</div>
+            <div class="note warn"><b>Common confusion:</b> In many homes, the “router box” includes both modem and router functions.</div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Interactive: “Which device do I need?” decision helper</h3>
+          <div class="sim" id="deviceHelper">
+            <div class="simrow">
+              <div class="left">
+                <span><b>Situation:</b></span>
+                <select class="select" id="situation">
+                  <option value="internet">I want my LAN to access the Internet.</option>
+                  <option value="many-devices">I want to connect many PCs in one room efficiently.</option>
+                  <option value="broadcast">I don’t care who gets the data; just connect devices cheaply.</option>
+                  <option value="connect">My computer needs a way to join a network.</option>
+                  <option value="isp">I need a device that links to the ISP’s line.</option>
+                </select>
+              </div>
+              <button class="btn primary" onclick="recommendDevice()">Recommend device</button>
+            </div>
+            <div class="note" id="recommendation">
+              Choose a situation and click “Recommend device”.
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Checkpoint quiz: Hardware</h3>
+          <div class="quiz" data-quiz="q-hw">
+            <div class="q" data-answer="d">
+              <div class="stem">1) Which device forwards data to the correct port using MAC addresses?</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="h1" value="a"> Router</label>
+                <label class="opt"><input type="radio" name="h1" value="b"> Modem</label>
+                <label class="opt"><input type="radio" name="h1" value="c"> Hub</label>
+                <label class="opt"><input type="radio" name="h1" value="d"> Switch</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <div class="q" data-answer="b">
+              <div class="stem">2) A hub is less secure mainly because it…</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="h2" value="a"> Uses encryption</label>
+                <label class="opt"><input type="radio" name="h2" value="b"> Sends all data to all devices</label>
+                <label class="opt"><input type="radio" name="h2" value="c"> Has a MAC address</label>
+                <label class="opt"><input type="radio" name="h2" value="d"> Connects to the ISP</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <div class="q" data-answer="a">
+              <div class="stem">3) Which is the best device for connecting two different networks?</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="h3" value="a"> Router</label>
+                <label class="opt"><input type="radio" name="h3" value="b"> Hub</label>
+                <label class="opt"><input type="radio" name="h3" value="c"> Printer</label>
+                <label class="opt"><input type="radio" name="h3" value="d"> Monitor</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <button class="btn primary" onclick="gradeQuiz('q-hw')">Check answers</button>
+            <span class="mini" id="q-hw-score" style="margin-left:10px;"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Topologies -->
+    <section class="section" data-id="topologies">
+      <div class="hero">
+        <h2>4.3 Network Topologies — Star, Bus, Ring, Mesh</h2>
+        <p>
+          A topology is how devices are arranged and connected. Exam questions love topologies because they test both knowledge and reasoning:
+          cost, reliability, and fault-finding.
+          <br><br>
+          Your best strategy: learn each topology using the same four headings:
+          <b>(1) Structure</b>, <b>(2) Advantage</b>, <b>(3) Disadvantage</b>, <b>(4) Best use case</b>.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Star topology</h3>
+          <p>
+            In a <b>star</b> topology, every device connects to a central device (usually a switch).
+            Data passes through the central device to reach the destination.
+          </p>
+          <div class="two-col">
+            <div class="note ok">
+              <b>Advantages:</b><br>
+              • Easy to add/remove devices<br>
+              • Easy to fault-find (one cable affects one device)<br>
+              • Good performance with a switch
+            </div>
+            <div class="note warn">
+              <b>Disadvantages:</b><br>
+              • Central device failure stops the network<br>
+              • More cable needed than bus
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-6">
+          <h3>Bus topology</h3>
+          <p>
+            In a <b>bus</b> topology, all devices share a single backbone cable.
+            Signals travel along the backbone and devices pick up messages addressed to them.
+          </p>
+          <div class="two-col">
+            <div class="note ok">
+              <b>Advantages:</b><br>
+              • Cheap, less cable<br>
+              • Simple to install for small networks
+            </div>
+            <div class="note warn">
+              <b>Disadvantages:</b><br>
+              • Backbone failure stops whole network<br>
+              • Collisions likely under heavy use<br>
+              • Harder to troubleshoot
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-6">
+          <h3>Ring topology</h3>
+          <p>
+            In a <b>ring</b> topology, devices connect in a circle.
+            Data travels around the ring (often one direction) until it reaches the destination.
+          </p>
+          <div class="two-col">
+            <div class="note ok">
+              <b>Advantages:</b><br>
+              • No collisions in controlled token systems<br>
+              • Predictable access
+            </div>
+            <div class="note warn">
+              <b>Disadvantages:</b><br>
+              • A break can affect the whole network<br>
+              • Adding/removing nodes can be disruptive
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-6">
+          <h3>Mesh topology</h3>
+          <p>
+            In a <b>mesh</b> topology, devices have multiple connections to other devices.
+            A <b>full mesh</b> connects every device to every other; a <b>partial mesh</b> connects some.
+          </p>
+          <div class="two-col">
+            <div class="note ok">
+              <b>Advantages:</b><br>
+              • Very reliable<br>
+              • No single point of failure<br>
+              • Multiple routes for data
+            </div>
+            <div class="note warn">
+              <b>Disadvantages:</b><br>
+              • Expensive (many cables/ports)<br>
+              • Complex to install and manage
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Topology simulator (visual + reliability meter)</h3>
+          <p class="mini">Choose a topology to see a diagram and how reliability changes when one link fails.</p>
+          <div class="sim" id="topoSim">
+            <div class="simrow">
+              <div class="left">
+                <b>Topology:</b>
+                <select class="select" id="topoSelect" onchange="renderTopo()">
+                  <option value="star">Star</option>
+                  <option value="bus">Bus</option>
+                  <option value="ring">Ring</option>
+                  <option value="mesh">Mesh</option>
+                </select>
+                <span>Failure scenario:</span>
+                <select class="select" id="failureSelect" onchange="renderTopo()">
+                  <option value="none">No failure</option>
+                  <option value="one-cable">One cable breaks</option>
+                  <option value="central">Central device fails (star only)</option>
+                  <option value="backbone">Backbone breaks (bus only)</option>
+                </select>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span class="mini" style="margin:0;">Reliability</span>
+                <div class="meter"><div id="relBar"></div></div>
+                <span class="mini" id="relText" style="margin:0; min-width:70px; text-align:right;"></span>
+              </div>
+            </div>
+            <svg id="topoSvg" viewBox="0 0 900 340" aria-label="Topology diagram"></svg>
+            <div class="note" id="topoExplain" style="margin-top:10px;"></div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Exam-ready comparisons (high scoring)</h3>
+          <div class="two-col">
+            <div class="card">
+              <h3>Why star is common in schools/offices (6–8 marks)</h3>
+              <p>
+                Star topology is common because it is easy to manage and expand: each device has its own cable to a central switch, so adding
+                a new computer simply means connecting it to a spare port. Fault-finding is easier because if one cable fails, only that device
+                loses connection. Performance is good because a switch forwards data only to the intended device, reducing collisions. However,
+                the network depends on the central switch: if it fails, the whole network can stop.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Bus vs mesh (reliability vs cost)</h3>
+              <p>
+                A bus topology is cheap because it uses less cabling, but it is less reliable because the backbone cable is a single point of
+                failure: if it breaks, all devices lose connection. A mesh topology is very reliable because devices have multiple connections
+                and alternative routes; however it is expensive and complex because it needs many cables and ports.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Internet Concepts -->
+    <section class="section" data-id="internet">
+      <div class="hero">
+        <h2>4.4 Internet Concepts — IP, MAC, DNS, Cloud Computing</h2>
+        <p>
+          This section often appears in Paper 1 as short definitions and also as “explain how it works” questions.
+          The top scoring answers show you understand the roles: <b>IP for routing across networks</b>, <b>MAC for local delivery</b>,
+          <b>DNS for name→IP conversion</b>, and <b>cloud as online services</b>.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <h3>IP Address (Internet Protocol address)</h3>
+          <p>
+            An <b>IP address</b> identifies a device on a network so data can be delivered to it.
+            Routers use IP addresses to move data across networks (routing).
+          </p>
+          <details>
+            <summary>IPv4 vs IPv6</summary>
+            <p>
+              <b>IPv4</b> is a 32-bit address (e.g., 192.168.1.25). The number of IPv4 addresses is limited.
+              <b>IPv6</b> is longer (128-bit) and provides many more addresses, supporting the growth of devices.
+            </p>
+          </details>
+          <details>
+            <summary>Public vs private IP</summary>
+            <p>
+              A <b>private IP</b> is used inside a home/school LAN and is not directly reachable from the Internet.
+              A <b>public IP</b> is used on the Internet and is assigned by an ISP.
+            </p>
+          </details>
+          <div class="note ok">
+            <b>Exam sentence:</b> IP addresses help route packets between networks; they can change (e.g., via DHCP).
+          </div>
+        </div>
+
+        <div class="card span-6">
+          <h3>MAC Address (Media Access Control)</h3>
+          <p>
+            A <b>MAC address</b> is a unique hardware address assigned to a NIC.
+            It is mainly used for communication within a local network (LAN).
+            Switches use MAC addresses to forward frames to the correct port.
+          </p>
+          <div class="note warn">
+            <b>Difference to remember:</b><br>
+            IP = “where to route across networks” (can change)<br>
+            MAC = “who the device is locally” (linked to NIC)
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>DNS (Domain Name System) — how names become numbers</h3>
+          <p>
+            People prefer names like <b>www.cambridgeinternational.org</b>. Computers need numbers (IP addresses).
+            <b>DNS</b> is the system that translates a domain name into its IP address.
+          </p>
+
+          <div class="sim">
+            <div class="simrow">
+              <div class="left">
+                <b>Try a DNS lookup simulation:</b>
+                <input id="dnsInput" class="select" style="min-width:320px;" value="example.com"/>
+              </div>
+              <button class="btn primary" onclick="dnsSim()">Resolve name</button>
+            </div>
+            <div class="note" id="dnsOut">Enter a domain and click resolve to see the steps.</div>
+          </div>
+
+          <details>
+            <summary>DNS steps (exam-friendly)</summary>
+            <p>
+              1) User types a domain name into the browser.<br>
+              2) The computer asks a DNS server for the IP address of that name.<br>
+              3) The DNS server replies with the IP address (or passes request to other DNS servers).<br>
+              4) The browser connects to the web server using the IP address.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-12">
+          <h3>Cloud Computing — using services over the Internet</h3>
+          <p>
+            <b>Cloud computing</b> means using computing services (storage, software, processing) over the Internet.
+            Instead of storing everything on your own device, you store data and run apps on remote servers (“the cloud”).
+          </p>
+          <div class="two-col">
+            <div class="card">
+              <h3>Types of cloud (as asked in ICT)</h3>
+              <p>
+                <b>Public cloud:</b> services provided over the Internet for many users (e.g., common cloud storage providers).<br>
+                <b>Private cloud:</b> cloud infrastructure used by one organisation only (more control).<br>
+                <b>Hybrid cloud:</b> mixture of public and private (some sensitive data stays private, other services public).
+              </p>
+            </div>
+            <div class="card">
+              <h3>Advantages vs disadvantages (with reasons)</h3>
+              <p>
+                <b>Advantages:</b> Access anywhere, automatic backups, scalable storage, collaboration.<br>
+                <b>Disadvantages:</b> Depends on Internet connection, possible privacy/security risks, service outages, subscription costs.
+              </p>
+            </div>
+          </div>
+
+          <div class="imgbox" style="margin-top:12px;">
+            <svg viewBox="0 0 1100 340">
+              <defs>
+                <linearGradient id="cloudG" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(122,162,255,.85)"/>
+                  <stop offset="1" stop-color="rgba(127,255,212,.55)"/>
+                </linearGradient>
+              </defs>
+              <rect width="1100" height="340" fill="rgba(15,27,51,.25)"/>
+              <!-- cloud -->
+              <path d="M650 210c35 0 64-27 64-60 0-28-21-51-49-58-12-38-49-65-92-65-49 0-90 34-98 80-36 4-64 33-64 68 0 37 31 68 70 68h169Z"
+                    fill="url(#cloudG)" opacity=".92"/>
+              <text x="565" y="168" fill="#071022" font-weight="900" font-size="14">CLOUD SERVICES</text>
+              <text x="525" y="192" fill="#071022" font-weight="800" font-size="12">storage • apps • processing</text>
+
+              <!-- devices -->
+              <g stroke="rgba(185,198,255,.55)" fill="rgba(10,18,32,.55)">
+                <rect x="120" y="210" width="150" height="90" rx="14"/>
+                <rect x="850" y="210" width="150" height="90" rx="14"/>
+                <rect x="480" y="250" width="140" height="70" rx="14"/>
+              </g>
+              <g fill="rgba(234,240,255,.9)" font-weight="900" font-size="12">
+                <text x="195" y="260" text-anchor="middle">Laptop</text>
+                <text x="925" y="260" text-anchor="middle">School PC</text>
+                <text x="550" y="290" text-anchor="middle">Phone</text>
+              </g>
+
+              <!-- arrows -->
+              <g stroke="rgba(185,198,255,.6)" stroke-width="3" fill="none">
+                <path d="M270 235 C 360 175, 420 150, 460 150" />
+                <path d="M850 235 C 800 180, 730 150, 700 150" />
+                <path d="M550 250 C 560 220, 560 205, 575 205" />
+              </g>
+            </svg>
+            <div class="cap"><b>Cloud computing:</b> many devices access the same online services from anywhere.</div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Checkpoint quiz: Internet concepts</h3>
+          <div class="quiz" data-quiz="q-net">
+            <div class="q" data-answer="c">
+              <div class="stem">1) Which address is used mainly for routing data across networks?</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="n1" value="a"> MAC address</label>
+                <label class="opt"><input type="radio" name="n1" value="b"> Serial number</label>
+                <label class="opt"><input type="radio" name="n1" value="c"> IP address</label>
+                <label class="opt"><input type="radio" name="n1" value="d"> Username</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+            <div class="q" data-answer="a">
+              <div class="stem">2) DNS is used to…</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="n2" value="a"> Convert a domain name into an IP address</label>
+                <label class="opt"><input type="radio" name="n2" value="b"> Encrypt Wi-Fi signals</label>
+                <label class="opt"><input type="radio" name="n2" value="c"> Create new MAC addresses</label>
+                <label class="opt"><input type="radio" name="n2" value="d"> Increase RAM</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+            <div class="q" data-answer="b">
+              <div class="stem">3) A key disadvantage of cloud computing is…</div>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="n3" value="a"> It always removes backups</label>
+                <label class="opt"><input type="radio" name="n3" value="b"> Dependence on Internet connection</label>
+                <label class="opt"><input type="radio" name="n3" value="c"> It cannot be used on phones</label>
+                <label class="opt"><input type="radio" name="n3" value="d"> It only works on LANs</label>
+              </div>
+              <div class="feedback" hidden></div>
+            </div>
+
+            <button class="btn primary" onclick="gradeQuiz('q-net')">Check answers</button>
+            <span class="mini" id="q-net-score" style="margin-left:10px;"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Benefits & Drawbacks -->
+    <section class="section" data-id="effects">
+      <div class="hero">
+        <h2>4.5 Benefits and Drawbacks of Networks</h2>
+        <p>
+          In ICT, “effects” means real outcomes. You should be able to describe benefits and drawbacks in practical contexts:
+          schools, offices, banks, hospitals. High marks come from linking to examples and explaining consequences.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Benefits (what networks enable)</h3>
+          <ul>
+            <li><b>Resource sharing:</b> printers, scanners, storage, software licences.</li>
+            <li><b>File sharing:</b> multiple users access the same documents; version control is easier.</li>
+            <li><b>Communication:</b> email, messaging, video calls, collaboration platforms.</li>
+            <li><b>Centralised backups:</b> backups can be scheduled and managed on a server.</li>
+            <li><b>Remote working:</b> users connect to systems without being physically present.</li>
+            <li><b>Collaboration:</b> shared documents and shared databases support teamwork.</li>
+          </ul>
+          <div class="note ok">
+            <b>Exam tip:</b> Whenever you say “resource sharing”, give one example: “shared printer” or “shared folder/server”.
+          </div>
+        </div>
+
+        <div class="card span-6">
+          <h3>Drawbacks (what can go wrong)</h3>
+          <ul>
+            <li><b>Security threats:</b> hacking, phishing, malware, unauthorised access.</li>
+            <li><b>Data privacy risks:</b> intercepted Wi-Fi traffic, weak passwords.</li>
+            <li><b>Setup cost:</b> cables, switches, routers, access points, technicians.</li>
+            <li><b>Maintenance:</b> updates, monitoring, troubleshooting, replacing hardware.</li>
+            <li><b>Network failure:</b> work may stop if core device fails.</li>
+            <li><b>Malware spread:</b> shared drives and email can spread infections fast.</li>
+          </ul>
+          <div class="note warn">
+            <b>High scoring phrase:</b> “A network increases the attack surface because more devices are connected and share data.”
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Mini case studies (exam style)</h3>
+          <div class="two-col">
+            <div class="card">
+              <h3>School network</h3>
+              <p>
+                Benefits include shared printers, shared folders for homework, centralised user accounts, and teacher monitoring.
+                Drawbacks include students attempting unauthorised access, viruses spreading via USB or downloads, and disruption when the main
+                switch or router fails.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Hospital network</h3>
+              <p>
+                Benefits include fast access to patient records, sharing imaging results, and coordinated scheduling.
+                Drawbacks include serious privacy risks: if security is weak, sensitive patient data could be leaked.
+                Reliability is critical: outages can affect care.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Exam writing toolkit (copy this structure)</h3>
+          <div class="note ok">
+            <b>Template for a 6–8 mark answer:</b><br>
+            • State the point (benefit or drawback)<br>
+            • Explain why it happens (because…)<br>
+            • Give an example context (e.g., school/office/hospital)<br>
+            • Mention a consequence (therefore/so…)<br><br>
+            <b>Example:</b> “Networks allow centralised backups because files can be stored on a server and backed up automatically. In a school,
+            this reduces data loss if a student computer fails, so lessons can continue without missing work.”
+          </div>
+        </div>
+
+        <div class="card span-12">
+          <h3>Checkpoint: short structured practice (self-check)</h3>
+          <details>
+            <summary>Q1 (4 marks): Explain two benefits of networks for an office.</summary>
+            <p>
+              <b>Mark scheme style points:</b><br>
+              1) Resource sharing (e.g., shared printer) + explain efficiency/cost saving.<br>
+              2) File sharing/collaboration + explain shared documents and teamwork.<br>
+              (Any other valid benefits: centralised backup, communication tools, remote access.)
+            </p>
+          </details>
+
+          <details>
+            <summary>Q2 (4 marks): Explain two drawbacks of networks for a school.</summary>
+            <p>
+              <b>Mark scheme style points:</b><br>
+              1) Security threats/unauthorised access + explain accounts/passwords/hacking attempts.<br>
+              2) Malware spread + explain shared drives or email spreading quickly.<br>
+              (Other valid: setup cost, maintenance, failure disruption.)
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Exam Hub -->
+    <section class="section" data-id="examhub">
+      <div class="hero">
+        <h2>Exam Hub — high-frequency questions + perfect wording</h2>
+        <p>
+          Use this page the night before an exam. It focuses on what Cambridge asks most and how to phrase answers.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Top 10 “must know” one-liners</h3>
+          <ul>
+            <li><b>LAN:</b> local, privately owned, high speed for resource sharing.</li>
+            <li><b>WAN:</b> connects LANs over long distances using telecom infrastructure.</li>
+            <li><b>WLAN:</b> LAN using Wi-Fi radio signals via an access point.</li>
+            <li><b>Router:</b> connects networks; forwards packets using IP addresses.</li>
+            <li><b>Switch:</b> connects devices in a LAN; forwards frames using MAC addresses.</li>
+            <li><b>Hub:</b> broadcasts to all ports; less efficient and less secure.</li>
+            <li><b>MAC:</b> unique hardware address of a NIC used in local delivery.</li>
+            <li><b>IP:</b> logical address used for routing across networks.</li>
+            <li><b>DNS:</b> converts domain names to IP addresses.</li>
+            <li><b>Cloud:</b> services (storage/apps) delivered over the Internet.</li>
+          </ul>
+        </div>
+
+        <div class="card span-6">
+          <h3>Most asked comparisons</h3>
+          <details>
+            <summary>Switch vs hub (classic)</summary>
+            <p>
+              A switch forwards data only to the intended device using MAC addresses, reducing collisions and improving security.
+              A hub broadcasts data to all devices, causing collisions and allowing other devices to see traffic.
+            </p>
+          </details>
+          <details>
+            <summary>Router vs switch</summary>
+            <p>
+              A router connects different networks and routes packets using IP addresses.
+              A switch connects devices within the same LAN and forwards frames using MAC addresses.
+            </p>
+          </details>
+          <details>
+            <summary>IP vs MAC</summary>
+            <p>
+              An IP address is used for routing across networks and can change (e.g., assigned by DHCP).
+              A MAC address is linked to the NIC hardware and is used for local network delivery.
+            </p>
+          </details>
+          <details>
+            <summary>Star vs bus (faults)</summary>
+            <p>
+              In star, one cable failure affects one device; but central device failure stops the network.
+              In bus, the backbone is a single point of failure and collisions can occur.
+            </p>
+          </details>
+        </div>
+
+        <div class="card span-12">
+          <h3>Practice prompts you should be able to answer (without notes)</h3>
+          <div class="two-col">
+            <div class="card">
+              <h3>Short answers</h3>
+              <ul>
+                <li>Define LAN and give one example.</li>
+                <li>Define WAN and explain one disadvantage.</li>
+                <li>Explain why a switch is better than a hub.</li>
+                <li>Define DNS and give a simple step sequence.</li>
+                <li>Explain one benefit and one drawback of cloud computing.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Longer answers (6–8 marks)</h3>
+              <ul>
+                <li>Explain why star topology is common in schools/offices.</li>
+                <li>Compare LAN and WAN with at least three differences.</li>
+                <li>Discuss how networks improve collaboration but increase security risks.</li>
+                <li>Explain how IP and MAC work together when sending data.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer">
+            Prepared by Ravi — Teaching/Learning platform for Cambridge IGCSE ICT (0983), Topic 4.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside>
+    <div class="progress">
+      <h3 class="side-title">Your learning dashboard</h3>
+      <p class="mini">
+        Tick key outcomes as you learn. Your progress is saved in this browser (localStorage).
+      </p>
+      <div class="bar"><div id="progBar"></div></div>
+
+      <div class="checklist" id="checks"></div>
+    </div>
+
+    <div class="glossary">
+      <h3 class="side-title">Quick glossary</h3>
+      <p class="mini">Type to filter terms instantly.</p>
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="glossSearch" placeholder="Filter glossary… (DNS, IP, switch)" autocomplete="off"/>
+      </div>
+      <div class="glist" id="glist"></div>
+    </div>
+
+    <div class="footer">
+      Tip: After you finish learning, open <b>practice.html</b> for full exam drills, drag-drop matching, and printable score report.
+    </div>
+  </aside>
+</div>
+
+<script>
+  /* -----------------------------
+     Navigation + Progress data
+  ----------------------------- */
+  const SECTIONS = [
+    { id:"overview",  title:"Overview",   desc:"What Topic 4 covers + how to score in exams" },
+    { id:"types",     title:"4.1 Types of Networks", desc:"LAN vs WAN vs WLAN (Wi-Fi) + comparison toolkit" },
+    { id:"hardware",  title:"4.2 Network Hardware",  desc:"Router, switch, hub, NIC, modem + decision helper" },
+    { id:"topologies",title:"4.3 Topologies", desc:"Star, bus, ring, mesh + simulator + exam comparisons" },
+    { id:"internet",  title:"4.4 Internet Concepts", desc:"IP, MAC, DNS, cloud + DNS simulation + quizzes" },
+    { id:"effects",   title:"4.5 Benefits & Drawbacks", desc:"Resource sharing, collaboration, security risks, reliability" },
+    { id:"examhub",   title:"Exam Hub", desc:"Most asked questions + perfect wording for marks" }
+  ];
+
+  const CHECKS = [
+    { key:"c_lanwan", text:"I can <b>compare LAN and WAN</b> with at least 3 differences." },
+    { key:"c_wlan",   text:"I can explain <b>WLAN</b> clearly and state one security risk." },
+    { key:"c_router", text:"I can explain the difference between <b>router and switch</b>." },
+    { key:"c_hub",    text:"I can justify why a <b>switch is better than a hub</b>." },
+    { key:"c_topo",   text:"I can describe <b>star/bus/ring/mesh</b> with pros/cons." },
+    { key:"c_ipmac",  text:"I can compare <b>IP vs MAC</b> with correct usage." },
+    { key:"c_dns",    text:"I can describe <b>DNS</b> steps from name → IP." },
+    { key:"c_cloud",  text:"I can state <b>cloud</b> types and one advantage/disadvantage." },
+    { key:"c_effects",text:"I can explain <b>benefits and drawbacks</b> with real examples." }
+  ];
+
+  const GLOSS = [
+    { term:"LAN", def:"Local Area Network: connects devices in a small area (building/campus), usually privately owned, high speed." },
+    { term:"WAN", def:"Wide Area Network: connects networks over large distances using telecom infrastructure; often higher cost and more exposure to threats." },
+    { term:"WLAN", def:"Wireless LAN: a LAN using Wi-Fi radio signals via an access point; provides mobility but needs strong security and good coverage." },
+    { term:"Router", def:"Connects different networks and forwards packets using IP addresses; commonly links a LAN to the Internet." },
+    { term:"Switch", def:"Connects devices in a LAN; forwards frames to the correct port using MAC addresses (more efficient than a hub)." },
+    { term:"Hub", def:"Broadcast device: sends incoming data to all ports; causes collisions and is less secure." },
+    { term:"NIC", def:"Network Interface Card: hardware that connects a device to a network; has a unique MAC address." },
+    { term:"Modem", def:"Modulates/demodulates signals and connects to the ISP’s line (DSL/cable/fibre) so Internet access is possible." },
+    { term:"Topology", def:"The arrangement/structure of a network (how devices are connected). Common: star, bus, ring, mesh." },
+    { term:"IP address", def:"Logical address used for routing packets across networks. Can be IPv4 or IPv6; can change (e.g., DHCP)." },
+    { term:"MAC address", def:"Unique hardware address of a NIC used mainly for local network delivery; used by switches." },
+    { term:"DNS", def:"Domain Name System: converts domain names (e.g., example.com) to IP addresses." },
+    { term:"Cloud computing", def:"Using services (storage/apps/processing) over the Internet instead of local devices." }
+  ];
+
+  const store = {
+    get(key, fallback){ try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } },
+    set(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+  };
+
+  let done = store.get("net0983_doneSections", {});
+  let checks = store.get("net0983_checks", {});
+
+  /* -----------------------------
+     Build nav
+  ----------------------------- */
+  const navList = document.getElementById("navList");
+
+  function buildNav(filter=""){
+    navList.innerHTML = "";
+    const q = filter.trim().toLowerCase();
+    SECTIONS.filter(s => {
+      if(!q) return true;
+      return (s.title + " " + s.desc).toLowerCase().includes(q);
+    }).forEach(s => {
+      const item = document.createElement("div");
+      item.className = "nav-item";
+      item.dataset.id = s.id;
+      const dot = document.createElement("div");
+      dot.className = "nav-dot" + (done[s.id] ? " done" : "");
+      const text = document.createElement("div");
+      text.className = "nav-text";
+      text.innerHTML = `<div class="k">${s.title}</div><div class="d">${s.desc}</div>`;
+      item.appendChild(dot);
+      item.appendChild(text);
+      item.addEventListener("click", () => showSection(s.id));
+      navList.appendChild(item);
+    });
+    setActiveNav(currentSectionId);
+    updateHeaderProgress();
+  }
+
+  function setActiveNav(id){
+    [...document.querySelectorAll(".nav-item")].forEach(x => x.classList.toggle("active", x.dataset.id === id));
+  }
+
+  let currentSectionId = "overview";
+
+  function showSection(id){
+    currentSectionId = id;
+    [...document.querySelectorAll(".section")].forEach(sec => sec.classList.toggle("active", sec.dataset.id === id));
+    setActiveNav(id);
+    updateHeaderProgress();
+    document.getElementById("main").scrollTop = 0;
+  }
+
+  document.getElementById("navSearch").addEventListener("input", e => buildNav(e.target.value));
+
+  /* -----------------------------
+     Checklist / dashboard
+  ----------------------------- */
+  const checksBox = document.getElementById("checks");
+  function buildChecks(){
+    checksBox.innerHTML = "";
+    CHECKS.forEach(c => {
+      const row = document.createElement("label");
+      row.className = "check";
+      row.innerHTML = `<input type="checkbox" ${checks[c.key] ? "checked":""} /> <span>${c.text}</span>`;
+      row.querySelector("input").addEventListener("change", (e) => {
+        checks[c.key] = e.target.checked;
+        store.set("net0983_checks", checks);
+      });
+      checksBox.appendChild(row);
+    });
+  }
+
+  function updateHeaderProgress(){
+    const total = SECTIONS.length;
+    const doneCount = SECTIONS.filter(s => !!done[s.id]).length;
+    const pct = Math.round((doneCount/total)*100);
+    document.getElementById("pct").textContent = pct + "%";
+    document.getElementById("doneCount").textContent = doneCount;
+    document.getElementById("totalCount").textContent = total;
+
+    const bar = document.getElementById("progBar");
+    bar.style.width = pct + "%";
+
+    // update dots
+    [...document.querySelectorAll(".nav-item")].forEach(item => {
+      const id = item.dataset.id;
+      const dot = item.querySelector(".nav-dot");
+      dot.classList.toggle("done", !!done[id]);
+    });
+  }
+
+  document.getElementById("markSectionBtn").addEventListener("click", () => {
+    done[currentSectionId] = true;
+    store.set("net0983_doneSections", done);
+    updateHeaderProgress();
+    buildNav(document.getElementById("navSearch").value);
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if(!confirm("Reset your saved progress and checklist?")) return;
+    done = {};
+    checks = {};
+    store.set("net0983_doneSections", done);
+    store.set("net0983_checks", checks);
+    buildChecks();
+    buildNav();
+    updateHeaderProgress();
+  });
+
+  /* -----------------------------
+     Tabs
+  ----------------------------- */
+  function setupTabs(containerId){
+    const wrap = document.getElementById(containerId);
+    if(!wrap) return;
+    const tabs = wrap.querySelectorAll(".tab");
+    const panes = wrap.parentElement.querySelectorAll(".tabpanes .pane");
+    tabs.forEach(t => {
+      t.addEventListener("click", () => {
+        const p = t.dataset.pane;
+        tabs.forEach(x => x.classList.toggle("active", x === t));
+        panes.forEach(x => x.classList.toggle("active", x.dataset.pane === p));
+      });
+    });
+  }
+
+  /* -----------------------------
+     Quiz grading (mini checks)
+  ----------------------------- */
+  function gradeQuiz(quizName){
+    const quiz = document.querySelector(`[data-quiz="${quizName}"]`);
+    if(!quiz) return;
+    const qs = quiz.querySelectorAll(".q");
+    let correct = 0;
+    qs.forEach((q, idx) => {
+      const ans = q.dataset.answer;
+      const chosen = q.querySelector(`input[type="radio"]:checked`);
+      const fb = q.querySelector(".feedback");
+      fb.hidden = false;
+
+      if(!chosen){
+        fb.className = "feedback fb-bad";
+        fb.textContent = "No answer selected. Try again — choose the best option and explain why in your head.";
+        return;
+      }
+      if(chosen.value === ans){
+        correct++;
+        fb.className = "feedback fb-good";
+        fb.textContent = "Correct ✅ — keep that reasoning style for the exam.";
+      } else {
+        fb.className = "feedback fb-bad";
+        fb.textContent = "Not quite ❌ — re-read the key phrase in the notes above and try to explain the difference in one sentence.";
+      }
+    });
+    const out = document.getElementById(`${quizName}-score`);
+    if(out) out.textContent = `Score: ${correct}/${qs.length}`;
+  }
+
+  /* -----------------------------
+     Device recommendation helper
+  ----------------------------- */
+  function recommendDevice(){
+    const s = document.getElementById("situation").value;
+    const out = document.getElementById("recommendation");
+    const map = {
+      internet: "<b>Router</b> (often with Wi-Fi access point) — connects your LAN to the Internet and routes packets using IP addresses.",
+      many-devices: "<b>Switch</b> — connects many devices inside a LAN efficiently; forwards frames to the correct port using MAC addresses.",
+      broadcast: "<b>Hub</b> — broadcasts to all ports (cheap/old style). Not recommended for performance or security.",
+      connect: "<b>NIC</b> — the hardware that lets your computer join a network; has a unique MAC address.",
+      isp: "<b>Modem</b> — links to the ISP line and converts signals so Internet access is possible."
+    };
+    out.className = "note ok";
+    out.innerHTML = map[s] || "Choose a situation.";
+  }
+
+  /* -----------------------------
+     Topology Simulator
+  ----------------------------- */
+  function renderTopo(){
+    const topo = document.getElementById("topoSelect").value;
+    const fail = document.getElementById("failureSelect").value;
+    const svg = document.getElementById("topoSvg");
+    const explain = document.getElementById("topoExplain");
+    const relBar = document.getElementById("relBar");
+    const relText = document.getElementById("relText");
+
+    // helpers
+    const bg = `rgba(15,27,51,.30)`;
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="tG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="rgba(122,162,255,.9)"/>
+          <stop offset="1" stop-color="rgba(127,255,212,.6)"/>
+        </linearGradient>
+      </defs>
+      <rect width="900" height="340" fill="${bg}"/>
+    `;
+
+    function node(x,y,label){
+      return `
+      <g>
+        <circle cx="${x}" cy="${y}" r="22" fill="rgba(10,18,32,.7)" stroke="rgba(185,198,255,.55)"/>
+        <text x="${x}" y="${y+4}" text-anchor="middle" fill="rgba(234,240,255,.95)" font-weight="900" font-size="12">${label}</text>
+      </g>`;
+    }
+    function center(x,y,label){
+      return `
+      <g>
+        <rect x="${x-44}" y="${y-20}" width="88" height="40" rx="12" fill="url(#tG)" stroke="rgba(255,255,255,.18)"/>
+        <text x="${x}" y="${y+4}" text-anchor="middle" fill="#071022" font-weight="900" font-size="12">${label}</text>
+      </g>`;
+    }
+    function line(x1,y1,x2,y2,broken=false){
+      const col = broken ? "rgba(255,122,122,.9)" : "rgba(185,198,255,.6)";
+      const dash = broken ? 'stroke-dasharray="8 8"' : "";
+      return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="4" ${dash}/>`;
+    }
+
+    // compute reliability score
+    let rel = 85;
+    let message = "";
+    if(topo === "star"){
+      rel = 85;
+      if(fail === "one-cable"){ rel = 80; message = "One cable failure affects only one device, so overall network still works.";}
+      else if(fail === "central"){ rel = 15; message = "Central device failure stops communication for all devices — single point of failure.";}
+      else if(fail === "backbone"){ rel = 85; message = "Backbone failure is not a star concept; star doesn’t rely on one backbone.";}
+      else message = "Star is easy to manage because each device has its own link to the central switch.";
+      // Draw
+      const cx=450, cy=170;
+      svg.innerHTML += center(cx,cy,"SWITCH");
+      const pts = [
+        [240,90,"A"], [660,90,"B"], [240,260,"C"], [660,260,"D"]
+      ];
+      pts.forEach(p => {
+        const broken = (fail==="one-cable" && p[2]==="C") || (fail==="central");
+        svg.innerHTML += line(cx,cy,p[0],p[1], broken);
+        svg.innerHTML += node(p[0],p[1],p[2]);
+      });
+
+      if(fail==="central"){
+        svg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="30" fill="rgba(255,122,122,.22)" stroke="rgba(255,122,122,.9)" stroke-width="4"/>`;
+      }
+    }
+
+    if(topo === "bus"){
+      rel = 60;
+      if(fail === "backbone"){ rel = 10; message = "Backbone failure stops the whole network — single shared cable is critical.";}
+      else if(fail === "one-cable"){ rel = 45; message = "A connector drop or segment fault can disrupt many devices or cause signal issues.";}
+      else if(fail === "central"){ rel = 60; message = "Bus has no central switch, but relies on the backbone.";}
+      else message = "Bus is cheap because it uses less cable, but collisions and backbone faults reduce reliability.";
+      // Draw backbone
+      const y=170;
+      const broken = (fail==="backbone");
+      svg.innerHTML += line(140,y,760,y, broken);
+      // terminators
+      svg.innerHTML += `<rect x="120" y="${y-16}" width="20" height="32" rx="6" fill="rgba(255,221,119,.35)" stroke="rgba(255,221,119,.7)"/>`;
+      svg.innerHTML += `<rect x="760" y="${y-16}" width="20" height="32" rx="6" fill="rgba(255,221,119,.35)" stroke="rgba(255,221,119,.7)"/>`;
+      // nodes on taps
+      const ns = [[230,100,"A"],[360,100,"B"],[540,240,"C"],[670,240,"D"]];
+      ns.forEach((p,i) => {
+        const br = (fail==="one-cable" && p[2]==="B");
+        svg.innerHTML += line(p[0],y,p[0],p[1], br);
+        svg.innerHTML += node(p[0],p[1],p[2]);
+      });
+    }
+
+    if(topo === "ring"){
+      rel = 70;
+      if(fail === "one-cable"){ rel = 15; message = "A break in the ring can stop the whole network unless there is redundancy.";}
+      else if(fail === "backbone"){ rel = 70; message = "Ring doesn’t have a backbone; it relies on the ring path.";}
+      else if(fail === "central"){ rel = 70; message = "No central device; the ring itself is the key path.";}
+      else message = "Ring can avoid collisions in token systems, but a single break can disrupt communication.";
+      // Draw ring
+      const pts = [[300,90,"A"],[600,90,"B"],[650,240,"C"],[250,240,"D"]];
+      for(let i=0;i<pts.length;i++){
+        const a=pts[i], b=pts[(i+1)%pts.length];
+        const broken = (fail==="one-cable" && a[2]==="B" && b[2]==="C");
+        svg.innerHTML += line(a[0],a[1],b[0],b[1], broken);
+      }
+      pts.forEach(p => svg.innerHTML += node(p[0],p[1],p[2]));
+    }
+
+    if(topo === "mesh"){
+      rel = 92;
+      if(fail === "one-cable"){ rel = 85; message = "Mesh remains working because alternative routes exist; one link failure rarely stops all communication.";}
+      else if(fail === "backbone"){ rel = 92; message = "Mesh doesn’t rely on one backbone; multiple paths provide resilience.";}
+      else if(fail === "central"){ rel = 92; message = "Mesh has no single central device; failure of one node may still allow rerouting.";}
+      else message = "Mesh is highly reliable due to multiple connections, but expensive and complex.";
+      const pts = [[300,90,"A"],[600,90,"B"],[650,240,"C"],[250,240,"D"]];
+      // full mesh lines
+      for(let i=0;i<pts.length;i++){
+        for(let j=i+1;j<pts.length;j++){
+          const a=pts[i], b=pts[j];
+          const broken = (fail==="one-cable" && ((a[2]==="A" && b[2]==="C") || (a[2]==="C" && b[2]==="A")));
+          svg.innerHTML += line(a[0],a[1],b[0],b[1], broken);
+        }
+      }
+      pts.forEach(p => svg.innerHTML += node(p[0],p[1],p[2]));
+    }
+
+    relBar.style.width = rel + "%";
+    relText.textContent = rel + "%";
+    explain.className = "note " + (rel >= 75 ? "ok" : (rel >= 45 ? "" : "warn"));
+    explain.innerHTML = `<b>Explanation:</b> ${message}`;
+  }
+
+  /* -----------------------------
+     DNS simulation
+  ----------------------------- */
+  function dnsSim(){
+    const name = document.getElementById("dnsInput").value.trim() || "example.com";
+    const out = document.getElementById("dnsOut");
+    const fakeIP = (()=>{
+      // deterministic-ish pseudo IP from string
+      let h=0; for(const ch of name) h=(h*31 + ch.charCodeAt(0))>>>0;
+      const a = 10 + (h % 200);
+      const b = (h>>8) % 255;
+      const c = (h>>16) % 255;
+      const d = 1 + ((h>>24) % 200);
+      return `${a}.${b}.${c}.${d}`;
+    })();
+    out.className = "note ok";
+    out.innerHTML = `
+      <b>DNS resolution steps for:</b> <span style="font-family:var(--mono)">${escapeHtml(name)}</span><br><br>
+      1) You type the domain name in a browser.<br>
+      2) Your device asks a DNS server for the IP address of that name.<br>
+      3) DNS replies with an IP address: <b style="font-family:var(--mono)">${fakeIP}</b><br>
+      4) Your browser connects to the web server using that IP address.
+      <br><br>
+      <b>Exam sentence:</b> DNS converts human-friendly domain names into IP addresses so devices can locate servers.
+    `;
+  }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  /* -----------------------------
+     Glossary
+  ----------------------------- */
+  const glist = document.getElementById("glist");
+  function renderGloss(filter=""){
+    glist.innerHTML = "";
+    const q = filter.trim().toLowerCase();
+    GLOSS.filter(x => !q || (x.term+" "+x.def).toLowerCase().includes(q)).forEach(x => {
+      const div = document.createElement("div");
+      div.className = "gitem";
+      div.innerHTML = `<b>${x.term}</b><small>${x.def}</small>`;
+      glist.appendChild(div);
+    });
+  }
+  document.getElementById("glossSearch").addEventListener("input", e => renderGloss(e.target.value));
+
+  /* -----------------------------
+     Init
+  ----------------------------- */
+  buildNav();
+  buildChecks();
+  renderGloss();
+  setupTabs("t1");
+  renderTopo();
+  recommendDevice();
+</script>
+</body>
+</html>
