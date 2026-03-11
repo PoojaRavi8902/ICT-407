@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>IGCSE ICT 0983 – Network Test</title>
+
+<link rel="stylesheet" href="network_test.css">
+
+<script src="network_answers.js"></script>
+
+<script>
+
+let time = 2400
+let timerRunning = false
+let tabWarnings=0
+function startTest(){
+
+let name=document.getElementById("student").value.trim()
+
+if(name==""){
+alert("Student name is required")
+return
+}
+
+/* Anti refresh lock */
+
+if(sessionStorage.getItem("examStarted")){
+alert("Refreshing during exam is not allowed")
+location.reload()
+return
+}
+
+sessionStorage.setItem("examStarted","true")
+
+document.getElementById("start").style.display="none"
+document.getElementById("exam").style.display="block"
+
+shuffleQuestions()
+generateQuestions()
+
+startTimer()
+
+}
+
+function startTimer(){
+
+timerRunning=true
+
+setInterval(function(){
+
+if(!timerRunning) return
+
+let m=Math.floor(time/60)
+let s=time%60
+
+document.getElementById("clock").innerHTML =
+m + ":" + s.toString().padStart(2,"0")
+
+time--
+
+if(time<=0){
+submitTest()
+}
+
+},1000)
+
+}
+
+/* RANDOMISE */
+
+function shuffleQuestions(){
+
+shuffle(mcq)
+shuffle(fill)
+shuffle(match)
+shuffle(shortq)
+
+}
+
+function shuffle(arr){
+
+for(let i=arr.length-1;i>0;i--){
+
+let j=Math.floor(Math.random()*(i+1))
+
+let temp=arr[i]
+arr[i]=arr[j]
+arr[j]=temp
+
+}
+
+}
+
+/* GENERATE QUESTIONS */
+
+function generateQuestions(){
+
+let html=""
+
+/* MCQ */
+
+mcq.forEach((q,i)=>{
+
+html+=`
+<div class="q">
+<p>${i+1}. ${q.q}</p>
+
+<label><input type="radio" name="q${i}" value="a"> ${q.a}</label><br>
+<label><input type="radio" name="q${i}" value="b"> ${q.b}</label><br>
+<label><input type="radio" name="q${i}" value="c"> ${q.c}</label>
+</div>
+`
+
+})
+
+/* FILL */
+
+fill.forEach((q,i)=>{
+
+html+=`
+<div class="q">
+<p>${i+11}. ${q}</p>
+<input id="q${i+10}">
+</div>
+`
+
+})
+
+/* MATCH */
+
+match.forEach((q,i)=>{
+
+html+=`
+<div class="q">
+<p>${i+21}. ${q}</p>
+<input id="q${i+20}">
+</div>
+`
+
+})
+
+/* SHORT */
+
+shortq.forEach((q,i)=>{
+
+html+=`
+<div class="q">
+<p>${i+31}. ${q}</p>
+<textarea id="q${i+30}"></textarea>
+</div>
+`
+
+})
+
+document.getElementById("questions").innerHTML=html
+
+}
+
+/* SUBMIT */
+
+function submitTest(){
+
+timerRunning=false
+
+let score=0
+
+/* MCQ grading */
+
+mcq.forEach((q,i)=>{
+
+let ans=document.querySelector(`input[name=q${i}]:checked`)
+
+if(ans && ans.value==q.correct) score++
+
+})
+
+/* fill grading */
+
+fillAnswers.forEach((ans,i)=>{
+
+let input=document.getElementById("q"+(i+10)).value.toLowerCase()
+
+if(input.includes(atob(ans))) score++
+
+})
+
+/* match grading */
+
+matchAnswers.forEach((ans,i)=>{
+
+let input=document.getElementById("q"+(i+20)).value.toLowerCase()
+
+if(input.includes(atob(ans))) score++
+
+})
+
+/* short */
+
+shortAnswers.forEach((ans,i)=>{
+
+let input=document.getElementById("q"+(i+30)).value.toLowerCase()
+
+if(input.includes(atob(ans))) score++
+
+})
+
+let name=document.getElementById("student").value
+
+document.getElementById("exam").style.display="none"
+
+document.getElementById("result").innerHTML=
+
+`
+<h2>Student: ${name}</h2>
+<h3>Score: ${score} / 40</h3>
+`
+
+setTimeout(function(){
+
+window.print()
+
+},1000)
+
+}
+/* TAB SWITCH DETECTION */
+
+document.addEventListener("visibilitychange", function(){
+
+if(document.hidden){
+
+tabWarnings++
+
+if(tabWarnings == 1){
+
+alert("Warning 1: You left the exam window.")
+
+}
+
+else if(tabWarnings == 2){
+
+alert("Warning 2: Do not switch tabs during the test.")
+
+}
+
+else if(tabWarnings >= 3){
+
+alert("Exam terminated due to repeated tab switching.")
+
+submitTest()
+
+}
+
+}
+
+})
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>IGCSE ICT 0983</h1>
+<h2>Network Chapter Test</h2>
+
+<div id="start">
+
+<label>Student Name:</label>
+
+<input id="student">
+
+<button onclick="startTest()">Start Test</button>
+
+</div>
+
+<div id="exam" style="display:none">
+
+<p class="timer">
+Time Remaining: <span id="clock">40:00</span>
+</p>
+
+<div id="questions"></div>
+
+<button onclick="submitTest()">SUBMIT TEST</button>
+
+</div>
+
+<div id="result"></div>
+
+</div>
+
+</body>
+</html>
